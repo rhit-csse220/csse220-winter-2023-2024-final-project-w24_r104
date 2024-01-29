@@ -7,14 +7,12 @@ package mainApp;
  * <br>Purpose: Top level class for CSSE220 Project containing main method 
  * <br>Restrictions: None
  */
-public class MainApp {
+public class SimulatorViewer {
 	
 	
 	private void runApp() {
 		System.out.println("Write your cool arcade game here!");		
-		System.out.println("Please work!!!");
-		System.out.println("Pull this");
-		System.out.println("i wanna sleep");
+
 	} // runApp
 
 	/**
@@ -22,7 +20,7 @@ public class MainApp {
 	 * @param args unused
 	 */
 	public static void main(String[] args) {
-		MainApp mainApp = new MainApp();
+		SimulatorViewer mainApp = new SimulatorViewer();
 		mainApp.runApp();		
 	} // main
 
