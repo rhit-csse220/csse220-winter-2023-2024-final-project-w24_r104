@@ -3,7 +3,7 @@ package mainApp;
 
 /**
  * Class: MainApp
- * @author Put your team name here
+ * @author W24_R104
  * <br>Purpose: Top level class for CSSE220 Project containing main method 
  * <br>Restrictions: None
  */

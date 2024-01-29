@@ -1,5 +1,7 @@
 package mainApp;
 
+import java.awt.Graphics2D;
+
 public class Individual {
 
 	private int[] chromosome;
@@ -20,6 +22,8 @@ public class Individual {
 		
 	}
 	
-	
+	public void drawOn(Graphics2D g2d) {
+		
+	}
 	
 }
