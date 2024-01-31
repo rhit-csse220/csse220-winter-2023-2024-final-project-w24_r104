@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Class: MainApp
@@ -22,6 +24,11 @@ public class SimulatorViewer {
 	}
 
 	private void runApp() {
+		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
+		JButton mutateButton = new JButton("Mutate");
+		
+		
 		Scanner s = new Scanner(System.in);
 		System.out.println("Enter chromosome file:  (e.g. scores.txt)");
 
@@ -32,6 +39,7 @@ public class SimulatorViewer {
 			try {
 				simComp.initializePop(10, filename);
 				isDone = true;
+				frame.setTitle(filename);
 			} catch (InvalidChromosomeFormatException e) {
 				System.err.println("Invalid file content: 0s and 1s only");
 			} catch (FileNotFoundException e) {
@@ -42,13 +50,13 @@ public class SimulatorViewer {
 		}
 		s.close();
 		
-		JFrame frame = new JFrame();
-
-		frame.setSize(600, 600);
-		frame.setTitle("Hi");
 
 		frame.add(this.simComp);
+		frame.add(panel);
+		panel.add(mutateButton);
+		mutateButton.addActionListener(new MutationListener());
 
+		frame.setSize(600, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
