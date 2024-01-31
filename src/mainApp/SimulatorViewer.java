@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 /**
  * Class: MainApp
  * 
@@ -39,6 +41,17 @@ public class SimulatorViewer {
 			}
 		}
 		s.close();
+		
+		JFrame frame = new JFrame();
+
+		frame.setSize(600, 600);
+		frame.setTitle("Hi");
+
+		frame.add(this.simComp);
+
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		
 		System.out.println("App terminated");
 
 	} // runApp
