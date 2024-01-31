@@ -12,7 +12,7 @@ public class Population {
 	public Population(int populationSize) {
 		this.individuals = new ArrayList<Individual>();
 	}
-
+	
 	public void initializeFromFile(int populationSize, String filename)
 			throws FileNotFoundException, InvalidChromosomeFormatException {
 		individuals.clear();
