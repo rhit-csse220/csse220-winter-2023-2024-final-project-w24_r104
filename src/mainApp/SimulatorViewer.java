@@ -1,27 +1,56 @@
 package mainApp;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Class: MainApp
- * @author W24_R104
- * <br>Purpose: Top level class for CSSE220 Project containing main method 
- * <br>Restrictions: None
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: Top level class for CSSE220 Project containing main method
+ *         <br>
+ *         Restrictions: None
  */
 public class SimulatorViewer {
-	
-	
+	private SimulatorComponent simComp;
+
+	public SimulatorViewer() {
+		this.simComp = new SimulatorComponent(10);
+	}
+
 	private void runApp() {
-		System.out.println("Write your cool arcade game here!");		
+		Scanner s = new Scanner(System.in);
+		System.out.println("Enter chromosome file:  (e.g. scores.txt)");
+
+		boolean isDone = false;
+		while (!isDone) {
+			String filename = null;
+			filename = s.nextLine();
+			try {
+				simComp.initializePop(10, filename);
+				isDone = true;
+			} catch (InvalidChromosomeFormatException e) {
+				System.err.println("Invalid file content: 0s and 1s only");
+			} catch (FileNotFoundException e) {
+				System.err.println("File not found. Please try again.");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		s.close();
+		System.out.println("App terminated");
 
 	} // runApp
 
 	/**
 	 * ensures: runs the application
+	 * 
 	 * @param args unused
 	 */
 	public static void main(String[] args) {
 		SimulatorViewer mainApp = new SimulatorViewer();
-		mainApp.runApp();		
+		mainApp.runApp();
 	} // main
 
 }

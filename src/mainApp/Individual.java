@@ -4,8 +4,13 @@ import java.awt.Graphics2D;
 
 public class Individual {
 
-	private int[] chromosome;
+	int[] chromosome;
 	
+	public Individual(int[] chromosome) {
+		// TODO Auto-generated constructor stub
+		this.chromosome = chromosome;
+	}
+
 	public void calculateFitness() {
 		
 	}
