@@ -11,6 +11,7 @@ public class Population {
 
 	public Population(int populationSize) {
 		this.individuals = new ArrayList<Individual>();
+		this.mutationRate = 1/100;
 	}
 	
 	public void initializeFromFile(int populationSize, String filename)
@@ -33,8 +34,8 @@ public class Population {
 		scanner.close();
 	}
 
-	public void setMutationRate(double rate) {
-
+	public void setMutationRate(double rateOutOf100) {
+		this.mutationRate = rateOutOf100/100;
 	}
 
 	public void selection() {
