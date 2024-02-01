@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * Class: MainApp
@@ -20,29 +21,31 @@ import javax.swing.JPanel;
  *         Restrictions: None
  */
 public class SimulatorViewer {
-	private SimulatorComponent simComp;
 
 	public SimulatorViewer() {
-		this.simComp = new SimulatorComponent(10);
+		
 	}
 
 	private void runApp() throws IOException {
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
 		JPanel buttonPanel = new JPanel();
+		SimulatorComponent simComp = new SimulatorComponent(10);
+		
+
+		JLabel chromosomeFileLabel = new JLabel();
+		JLabel mRate = new JLabel("M Rate: _/N");
+		JTextField promtMRate = new JTextField(10);
 		
 		JButton mutateButton = new JButton("Mutate");
-		mutateButton.addActionListener(new MutationListener());
+		mutateButton.addActionListener(new MutationListener(promtMRate, simComp));
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(new LoadListener());
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(new SaveListener());
 
-		JLabel chromosomeFileLabel = new JLabel();
-		JLabel mRate = new JLabel("M Rate: _/N");
 		
 		Scanner s = new Scanner(System.in);
-		System.out.println("Enter chromosome file:  (e.g. scores.txt)");
 
 		boolean isDone = false;
 		while (!isDone) {
@@ -65,14 +68,16 @@ public class SimulatorViewer {
 			s.close();
 		}
 
-		frame.add(this.simComp);
+		frame.add(simComp);
 		frame.add(panel, BorderLayout.CENTER);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 		
 		buttonPanel.add(mutateButton, BorderLayout.NORTH);
 		buttonPanel.add(mRate, BorderLayout.NORTH);
+		buttonPanel.add(promtMRate, BorderLayout.NORTH);
 		buttonPanel.add(loadButton, BorderLayout.SOUTH);
 		buttonPanel.add(saveButton, BorderLayout.SOUTH);
+		
 		
 		frame.add(chromosomeFileLabel, BorderLayout.NORTH);
 //		frame.pack();

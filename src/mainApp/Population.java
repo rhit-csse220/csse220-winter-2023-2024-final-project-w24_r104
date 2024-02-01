@@ -36,6 +36,7 @@ public class Population {
 
 	public void setMutationRate(double rateOutOf100) {
 		this.mutationRate = rateOutOf100/100;
+		System.out.println(this.mutationRate);
 	}
 
 	public void selection() {
@@ -44,5 +45,12 @@ public class Population {
 
 	public void crossover() {
 
+	}
+
+	public void mutate() {
+		// TODO Auto-generated method stub
+		for (Individual i: individuals) {
+			i.mutate(this.mutationRate);
+		}
 	}
 }

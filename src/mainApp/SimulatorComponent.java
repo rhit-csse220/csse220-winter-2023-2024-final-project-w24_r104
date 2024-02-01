@@ -8,14 +8,16 @@ import javax.swing.JComponent;
 
 public class SimulatorComponent extends JComponent {
 	private Population population;
+
 	public SimulatorComponent(int popSize) {
-				this.population = new Population(popSize);
+		this.population = new Population(popSize);
 	}
-	
-	public void initializePop(int popSize, String filename) throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
+
+	public void initializePop(int popSize, String filename)
+			throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
 		population.initializeFromFile(popSize, filename);
 	}
-	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
@@ -28,5 +30,10 @@ public class SimulatorComponent extends JComponent {
 
 	public void update() {
 
+	}
+
+	public void setPopMutationRateAndMutate(int rate) {
+		population.setMutationRate(rate);
+		population.mutate();
 	}
 }

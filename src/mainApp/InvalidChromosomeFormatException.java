@@ -1,5 +1,5 @@
 package mainApp;
 
-public class InvalidChromosomeFormatException extends IllegalArgumentException {
+public class InvalidChromosomeFormatException extends Exception {
 
 }
