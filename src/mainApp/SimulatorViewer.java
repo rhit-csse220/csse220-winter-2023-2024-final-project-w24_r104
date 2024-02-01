@@ -29,17 +29,25 @@ public class SimulatorViewer {
 	private void runApp() throws IOException {
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
+		JPanel buttonPanel = new JPanel();
+		
 		JButton mutateButton = new JButton("Mutate");
 		mutateButton.addActionListener(new MutationListener());
-		JLabel chromosomeLabel = new JLabel();
+		JButton loadButton = new JButton("Load");
+		loadButton.addActionListener(new LoadListener());
+		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new SaveListener());
 
+		JLabel chromosomeFileLabel = new JLabel();
+		JLabel mRate = new JLabel("M Rate: _/N");
+		
 		Scanner s = new Scanner(System.in);
 		System.out.println("Enter chromosome file:  (e.g. scores.txt)");
 
 		boolean isDone = false;
 		while (!isDone) {
 			String filename = JOptionPane.showInputDialog("Enter file name:");
-			chromosomeLabel.setText(filename);
+			chromosomeFileLabel.setText(filename);
 			try {
 				simComp.initializePop(10, filename);
 				isDone = true;
@@ -59,9 +67,15 @@ public class SimulatorViewer {
 
 		frame.add(this.simComp);
 		frame.add(panel, BorderLayout.CENTER);
-		frame.add(mutateButton, BorderLayout.SOUTH);
-		frame.add(chromosomeLabel, BorderLayout.NORTH);
-
+		frame.add(buttonPanel, BorderLayout.SOUTH);
+		
+		buttonPanel.add(mutateButton, BorderLayout.NORTH);
+		buttonPanel.add(mRate, BorderLayout.NORTH);
+		buttonPanel.add(loadButton, BorderLayout.SOUTH);
+		buttonPanel.add(saveButton, BorderLayout.SOUTH);
+		
+		frame.add(chromosomeFileLabel, BorderLayout.NORTH);
+//		frame.pack();
 		frame.setSize(600, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
