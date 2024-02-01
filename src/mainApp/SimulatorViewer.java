@@ -69,8 +69,8 @@ public class SimulatorViewer {
 			s.close();
 		}
 
-		frame.add(simComp);
-		frame.add(new ChromosomeComponent(firstIndividual), BorderLayout.CENTER);
+		frame.add(simComp, BorderLayout.CENTER);
+//		frame.add(new ChromosomeComponent(firstIndividual), BorderLayout.CENTER);
 		frame.add(panel, BorderLayout.EAST);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 		

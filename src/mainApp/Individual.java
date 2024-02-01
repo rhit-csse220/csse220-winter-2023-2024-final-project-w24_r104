@@ -1,6 +1,8 @@
 package mainApp;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Individual {
@@ -16,14 +18,14 @@ public class Individual {
 		
 	}
 	
-	public void mutate(double rate) {
-		for (int num : chromosome) {
+	public void mutate(double mutationRate) {
+		for (int i = 0; i < chromosome.length; i++) {
 			Random r = new Random();
-			if (r.nextInt(100) > 100*rate) {
-				if (num == 0)
-					num = 1;
+			if (r.nextInt(100) < 100*mutationRate) {
+				if (chromosome[i] == 0)
+					chromosome[i] = 1;
 				else
-					num = 0;
+					chromosome[i] = 0;
 			}
 		}
 	}
@@ -36,8 +38,22 @@ public class Individual {
 		
 	}
 	
-	public void drawOn(Graphics2D g2d) {
-		
+	public void drawOn(Graphics2D g2) {
+		int x = 0;
+		int y = 0;
+		int sideLength = 40;
+		for (int i = 0; i < 10; i++) { // to be changed to be applicable for different chromosome lengths
+			for (int j = 0; j < 10; j++) {
+				if (this.chromosome[10*i + j] == 0)
+					g2.setColor(Color.BLACK);
+				else
+					g2.setColor(Color.GREEN);
+				g2.fillRect(x, y, sideLength, sideLength);
+				x += sideLength;
+			}
+			x = 0;
+			y += sideLength;
+		}
 	}
 	
 	public int[] getChromosome() {
