@@ -1,11 +1,14 @@
 package mainApp;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 import javax.imageio.stream.FileCacheImageInputStream;
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,7 +27,7 @@ import javax.swing.JTextField;
 public class SimulatorViewer {
 
 	public SimulatorViewer() {
-		
+
 	}
 
 	private void runApp() throws IOException {
@@ -32,26 +35,35 @@ public class SimulatorViewer {
 		JPanel panel = new JPanel();
 		JPanel buttonPanel = new JPanel();
 		SimulatorComponent simComp = new SimulatorComponent(10);
-		
 
 		JLabel chromosomeFileLabel = new JLabel();
 		JLabel mRate = new JLabel("M Rate: _/N");
-		JTextField promtMRate = new JTextField(10);
-		
+		JTextField promptMRate = new JTextField(10);
+
 		JButton mutateButton = new JButton("Mutate");
-		mutateButton.addActionListener(new MutationListener(promtMRate, simComp));
+		mutateButton.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!promptMRate.getText().equals("")) {
+					String userInput = promptMRate.getText();
+					simComp.setPopMutationRateAndMutate(Integer.parseInt(userInput));
+				}
+			}
+		});
+		
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(new LoadListener());
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(new SaveListener());
 
-		
 		Scanner s = new Scanner(System.in);
 
 		Individual firstIndividual = null;
 		boolean isDone = false;
+		String filename;
+
 		while (!isDone) {
-			String filename = JOptionPane.showInputDialog("Enter file name:");
+			filename = JOptionPane.showInputDialog("Enter file name:");
 			chromosomeFileLabel.setText(filename);
 			try {
 				firstIndividual = simComp.initializePop(10, filename);
@@ -73,16 +85,14 @@ public class SimulatorViewer {
 		frame.add(new ChromosomeComponent(firstIndividual), BorderLayout.CENTER);
 		frame.add(panel, BorderLayout.EAST);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
-		
+
 		buttonPanel.add(mutateButton, BorderLayout.NORTH);
 		buttonPanel.add(mRate, BorderLayout.NORTH);
-		buttonPanel.add(promtMRate, BorderLayout.NORTH);
+		buttonPanel.add(promptMRate, BorderLayout.NORTH);
 		buttonPanel.add(loadButton, BorderLayout.SOUTH);
 		buttonPanel.add(saveButton, BorderLayout.SOUTH);
-		
-		
+
 		frame.add(chromosomeFileLabel, BorderLayout.NORTH);
-//		frame.pack();
 		frame.setTitle("Chromosome Viewer");
 		frame.setSize(600, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
