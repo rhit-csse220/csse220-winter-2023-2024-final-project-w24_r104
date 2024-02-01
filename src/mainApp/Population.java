@@ -1,5 +1,6 @@
 package mainApp;
 
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -56,5 +57,11 @@ public class Population {
 	
 	public Individual getFirstIndividual() {
 		return individuals.get(0);
+	}
+
+	public void drawOn(Graphics2D g2) {
+		for (Individual i: individuals) {
+			i.drawOn(g2);
+		}
 	}
 }

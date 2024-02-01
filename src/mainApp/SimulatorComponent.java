@@ -1,6 +1,7 @@
 package mainApp;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -23,6 +24,9 @@ public class SimulatorComponent extends JComponent {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		population.drawOn(g2);
+		
 	}
 
 	private void logDataInfo() {
@@ -36,5 +40,6 @@ public class SimulatorComponent extends JComponent {
 	public void setPopMutationRateAndMutate(int rate) {
 		population.setMutationRate(rate);
 		population.mutate();
+		repaint();
 	}
 }
