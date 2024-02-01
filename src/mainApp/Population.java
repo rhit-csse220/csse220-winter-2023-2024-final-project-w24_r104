@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Population {
-	private double mutationRate;
 	private ArrayList<Individual> individuals;
+	private double mutationRate;
 
 	public Population(int populationSize) {
 		this.individuals = new ArrayList<Individual>();
-		this.mutationRate = 1/100;
 	}
 	
 	public void initializeFromFile(int populationSize, String filename)
@@ -35,8 +34,8 @@ public class Population {
 		scanner.close();
 	}
 
-	public void setMutationRate(double rateOutOf100) {
-		this.mutationRate = rateOutOf100/100;
+	public void setMutationRate(double rateOutOfN) {
+		this.mutationRate = rateOutOfN/individuals.get(0).getChromosome().length;
 		System.out.println(this.mutationRate);
 	}
 
@@ -49,14 +48,9 @@ public class Population {
 	}
 
 	public void mutate() {
-		// TODO Auto-generated method stub
 		for (Individual i: individuals) {
 			i.mutate(this.mutationRate);
 		}
-	}
-	
-	public Individual getFirstIndividual() {
-		return individuals.get(0);
 	}
 
 	public void drawOn(Graphics2D g2) {
