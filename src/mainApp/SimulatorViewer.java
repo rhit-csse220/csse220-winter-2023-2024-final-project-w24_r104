@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.imageio.stream.FileCacheImageInputStream;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -47,14 +48,14 @@ public class SimulatorViewer {
 		
 		Scanner s = new Scanner(System.in);
 
+		Individual firstIndividual = null;
 		boolean isDone = false;
 		while (!isDone) {
 			String filename = JOptionPane.showInputDialog("Enter file name:");
 			chromosomeFileLabel.setText(filename);
 			try {
-				simComp.initializePop(10, filename);
+				firstIndividual = simComp.initializePop(10, filename);
 				isDone = true;
-				frame.setTitle(filename);
 			} catch (InvalidChromosomeFormatException e) {
 				JOptionPane.showMessageDialog(panel, "Invalid file content", "ERROR", JOptionPane.ERROR_MESSAGE);
 				System.err.println("Invalid file content: 0s and 1s only");
@@ -69,7 +70,8 @@ public class SimulatorViewer {
 		}
 
 		frame.add(simComp);
-		frame.add(panel, BorderLayout.CENTER);
+		frame.add(new ChromosomeComponent(firstIndividual), BorderLayout.CENTER);
+		frame.add(panel, BorderLayout.EAST);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 		
 		buttonPanel.add(mutateButton, BorderLayout.NORTH);
@@ -81,6 +83,7 @@ public class SimulatorViewer {
 		
 		frame.add(chromosomeFileLabel, BorderLayout.NORTH);
 //		frame.pack();
+		frame.setTitle("Chromosome Viewer");
 		frame.setSize(600, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);

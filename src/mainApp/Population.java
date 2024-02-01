@@ -53,4 +53,8 @@ public class Population {
 			i.mutate(this.mutationRate);
 		}
 	}
+	
+	public Individual getFirstIndividual() {
+		return individuals.get(0);
+	}
 }
