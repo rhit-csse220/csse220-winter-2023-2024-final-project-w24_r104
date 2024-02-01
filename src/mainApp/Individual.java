@@ -7,13 +7,32 @@ import java.util.Random;
 public class Individual {
 
 	private int[] chromosome;
+	private int fitnessScore;
 	
 	public Individual(int[] chromosome) {
-		// TODO Auto-generated constructor stub
 		this.chromosome = chromosome;
+		calculateSimpleFitness();
+	}
+	
+	public Individual() {
+		Random r = new Random();
+		int[] chromosome = new int[100];
+		for (int i = 0; i < 100; i++) {
+			chromosome[i] = r.nextInt(1);
+		}
+		this.chromosome = chromosome;
+		calculateSimpleFitness();
 	}
 
-	public void calculateFitness() {
+	public void calculateSimpleFitness() {
+		int fitnessScore = 0;
+		for (int allele : this.chromosome) {
+			fitnessScore += allele;
+		}
+		this.fitnessScore = fitnessScore;
+	}
+	
+	public void calculateMatchingFitness() {
 		
 	}
 	
@@ -27,6 +46,7 @@ public class Individual {
 					chromosome[i] = 0;
 			}
 		}
+		calculateSimpleFitness();
 	}
 	
 	public void saveCurrentChromosome() {
@@ -57,6 +77,10 @@ public class Individual {
 	
 	public int[] getChromosome() {
 		return this.chromosome;
+	}
+
+	public int getFitnessScore() {
+		return fitnessScore;
 	}
 	
 }

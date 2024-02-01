@@ -40,7 +40,7 @@ public class Population {
 	}
 
 	public void selection() {
-
+		
 	}
 
 	public void crossover() {
