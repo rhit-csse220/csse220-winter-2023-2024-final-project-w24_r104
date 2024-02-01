@@ -45,4 +45,8 @@ public class Population {
 	public void crossover() {
 
 	}
+	
+	public Individual getFirstIndividual() {
+		return individuals.get(0);
+	}
 }
