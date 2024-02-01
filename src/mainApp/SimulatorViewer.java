@@ -8,8 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-import javax.imageio.stream.FileCacheImageInputStream;
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -17,8 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 /**
  * Class: MainApp
@@ -51,22 +47,21 @@ public class SimulatorViewer {
 				if (!promptMRate.getText().equals("")) {
 					String userInput = promptMRate.getText();
 					simComp.setPopMutationRateAndMutate(Integer.parseInt(userInput));
+					if (!chromosomeFileLabel.getText().endsWith(" (mutated)"))
+						chromosomeFileLabel.setText(chromosomeFileLabel.getText() + " (mutated)");
 				}
 			}
 		});
 
 		Scanner s = new Scanner(System.in);
-
-		Individual firstIndividual = null;
-		boolean isDone = false;
 		String filename;
 
-		while (!isDone) {
+		while (true) {
 			filename = JOptionPane.showInputDialog("Enter file name:");
 			chromosomeFileLabel.setText(filename);
 			try {
-				firstIndividual = simComp.initializePop(10, filename);
-				isDone = true;
+				simComp.initializePop(10, filename);
+				break;
 			} catch (InvalidChromosomeFormatException e) {
 				JOptionPane.showMessageDialog(frame, "Invalid file content", "ERROR", JOptionPane.ERROR_MESSAGE);
 				System.err.println("Invalid file content: 0s and 1s only");
@@ -82,13 +77,15 @@ public class SimulatorViewer {
 
 		JButton loadButton = new JButton("Load");
 		JButton saveButton = new JButton("Save");
+		
+		SaveLoadListener saveLoadListener = new SaveLoadListener(panel, chromosomeFileLabel, filename);
 
-		SaveLoadListener saveLoadListener = new SaveLoadListener(panel, chromosomeFileLabel);
 		loadButton.addActionListener(saveLoadListener);
 		saveButton.addActionListener(saveLoadListener);
 
+		simComp.addMouseListener(new MutationClickListener());
+
 		frame.add(simComp, BorderLayout.CENTER);
-//		frame.add(new ChromosomeComponent(firstIndividual), BorderLayout.CENTER);
 		frame.add(panel, BorderLayout.EAST);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -122,25 +119,27 @@ public class SimulatorViewer {
 	class SaveLoadListener implements ActionListener {
 		private JPanel panel;
 		private JLabel label;
+		private String filename;
 
-		public SaveLoadListener(JPanel panel, JLabel label) {
-			// TODO Auto-generated constructor stub
+		public SaveLoadListener(JPanel panel, JLabel label, String filename) {
 			this.panel = panel;
 			this.label = label;
+			this.filename = filename;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			String s = System.getProperty("user.dir");
 			JFileChooser chooser = new JFileChooser(s);
-//					FileNameExtensionFilter filter = new FileNameExtensionFilter("txt");
-//					chooser.setFileFilter(filter);
-			int result = chooser.showOpenDialog(this.panel);
+//			FileNameExtensionFilter filter = new FileNameExtensionFilter("txt");
+//			chooser.setFileFilter(filter);
+			int result = chooser.showOpenDialog(panel);
 			if (result == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = chooser.getSelectedFile();
-				this.label.setText(selectedFile.getAbsolutePath());
+				String newFileName = selectedFile.getAbsolutePath();
+				this.label.setText(newFileName);
 			}
 		}
-	}
+	};
+
 }
