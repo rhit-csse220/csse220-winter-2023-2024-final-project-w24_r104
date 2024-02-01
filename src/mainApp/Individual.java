@@ -1,6 +1,7 @@
 package mainApp;
 
 import java.awt.Graphics2D;
+import java.util.Random;
 
 public class Individual {
 
@@ -15,8 +16,16 @@ public class Individual {
 		
 	}
 	
-	public void mutate() {
-		
+	public void mutate(double rate) {
+		for (int num : chromosome) {
+			Random r = new Random();
+			if (r.nextInt(100) > 100*rate) {
+				if (num == 0)
+					num = 1;
+				else
+					num = 0;
+			}
+		}
 	}
 	
 	public void saveCurrentChromosome() {
