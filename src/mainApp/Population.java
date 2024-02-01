@@ -36,7 +36,6 @@ public class Population {
 
 	public void setMutationRate(double rateOutOfN) {
 		this.mutationRate = rateOutOfN/individuals.get(0).getChromosome().length;
-		System.out.println(this.mutationRate);
 	}
 
 	public void selection() {
