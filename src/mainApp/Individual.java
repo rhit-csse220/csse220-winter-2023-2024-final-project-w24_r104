@@ -2,6 +2,7 @@ package mainApp;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class Individual {
@@ -66,14 +67,16 @@ public class Individual {
 			for (int j = 0; j < 10; j++) {
 				if (this.chromosome[10 * i + j] == 0) {
 					g2.setColor(Color.BLACK);
-					g2.fillRect(x, y, sideLength, sideLength);
+					Rectangle geneRect = new Rectangle(x, y, sideLength, sideLength);
+					g2.fill(geneRect);
 					g2.setColor(Color.WHITE);
 					g2.drawString("" + i + j, x, y + sideLength);
 					x += sideLength;
 
 				} else {
 					g2.setColor(Color.GREEN);
-					g2.fillRect(x, y, sideLength, sideLength);
+					Rectangle geneRect = new Rectangle(x, y, sideLength, sideLength);
+					g2.fill(geneRect);
 					g2.setColor(Color.BLACK);
 					g2.drawString("" + i + j, x, y + sideLength);
 					x += sideLength;
