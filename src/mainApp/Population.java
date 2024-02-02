@@ -53,8 +53,8 @@ public class Population {
 	}
 
 	public void drawOn(Graphics2D g2) {
-		for (Individual i: individuals) {
-			i.drawOn(g2);
+		for (int i = 0; i < individuals.size(); i++) {
+			individuals.get(i).drawOn(g2);
 		}
 	}
 }
