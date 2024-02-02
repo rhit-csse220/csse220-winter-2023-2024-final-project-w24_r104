@@ -70,9 +70,8 @@ public class Individual {
 					Rectangle geneRect = new Rectangle(x, y, sideLength, sideLength);
 					g2.fill(geneRect);
 					g2.setColor(Color.WHITE);
-					g2.drawString("" + i + j, x, y + sideLength);
+					g2.drawString("" + i + j, x, y + sideLength - 2);
 					x += sideLength;
-
 				} else {
 					g2.setColor(Color.GREEN);
 					Rectangle geneRect = new Rectangle(x, y, sideLength, sideLength);
