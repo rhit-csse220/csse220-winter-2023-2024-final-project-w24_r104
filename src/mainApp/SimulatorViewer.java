@@ -83,7 +83,7 @@ public class SimulatorViewer {
 		loadButton.addActionListener(saveLoadListener);
 		saveButton.addActionListener(saveLoadListener);
 
-		simComp.addMouseListener(new MutationClickListener());
+		simComp.addMouseListener(new MutationClickListener(chromosomeFileLabel, simComp));
 
 		frame.add(simComp, BorderLayout.CENTER);
 		frame.add(panel, BorderLayout.EAST);
