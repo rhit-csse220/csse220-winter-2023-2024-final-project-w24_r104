@@ -41,4 +41,9 @@ public class SimulatorComponent extends JComponent {
 		population.mutate();
 		repaint();
 	}
+
+
+	public void mutateSquare(int x, int y) {
+		this.population.mutateOneCell(x, y);
+	}
 }

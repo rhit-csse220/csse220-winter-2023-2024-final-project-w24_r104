@@ -51,6 +51,12 @@ public class Population {
 			i.mutate(this.mutationRate);
 		}
 	}
+	
+	public void mutateOneCell(int x, int y) {
+		for (Individual i: individuals) {
+			i.mutateOneCell(x, y);
+		}
+	}
 
 	public void drawOn(Graphics2D g2) {
 		for (int i = 0; i < individuals.size(); i++) {

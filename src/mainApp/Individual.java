@@ -7,11 +7,15 @@ import java.util.Random;
 
 public class Individual {
 
+	public static final int NUM_COLUMNS = 10;
+	
 	private int[] chromosome;
 	private int fitnessScore;
+	private int alleleSideLength;
 
 	public Individual(int[] chromosome) {
 		this.chromosome = chromosome;
+		this.alleleSideLength = 50;
 		calculateSimpleFitness();
 	}
 
@@ -49,6 +53,18 @@ public class Individual {
 		}
 		calculateSimpleFitness();
 	}
+	
+	public void mutateOneCell(int x, int y) {
+		int xCoord = x/this.alleleSideLength;
+		int yCoord = y/this.alleleSideLength;
+		int cellCoord = xCoord + yCoord*NUM_COLUMNS;
+		if (this.chromosome.length > cellCoord && xCoord <= NUM_COLUMNS - 1) {
+			if (chromosome[cellCoord] == 0)
+				chromosome[cellCoord] = 1;
+			else
+				chromosome[cellCoord] = 0;
+		}
+	}
 
 	public void saveCurrentChromosome() {
 
@@ -61,30 +77,25 @@ public class Individual {
 	public void drawOn(Graphics2D g2) {
 		int x = 0;
 		int y = 0;
-		int sideLength = 50;
-		for (int i = 0; i < chromosome.length / 10; i++) { // to be changed to be applicable for different chromosome
-															// lengths
-			for (int j = 0; j < 10; j++) {
-				if (this.chromosome[10 * i + j] == 0) {
+		for (int i = 0; i < chromosome.length / NUM_COLUMNS; i++) { // iterates through rows
+			for (int j = 0; j < NUM_COLUMNS; j++) { // iterates through columns
+				if (this.chromosome[NUM_COLUMNS * i + j] == 0) {
 					g2.setColor(Color.BLACK);
-					Rectangle geneRect = new Rectangle(x, y, sideLength, sideLength);
+					Rectangle geneRect = new Rectangle(x, y, this.alleleSideLength, this.alleleSideLength);
 					g2.fill(geneRect);
 					g2.setColor(Color.WHITE);
-					g2.drawString("" + i + j, x, y + sideLength);
-					x += sideLength;
-
+					g2.drawString("" + Integer.toString(NUM_COLUMNS*i + j), x, y + this.alleleSideLength);
 				} else {
 					g2.setColor(Color.GREEN);
-					Rectangle geneRect = new Rectangle(x, y, sideLength, sideLength);
+					Rectangle geneRect = new Rectangle(x, y, this.alleleSideLength, this.alleleSideLength);
 					g2.fill(geneRect);
 					g2.setColor(Color.BLACK);
-					g2.drawString("" + i + j, x, y + sideLength);
-					x += sideLength;
-
+					g2.drawString("" + Integer.toString(NUM_COLUMNS*i + j), x, y + this.alleleSideLength);
 				}
+				x += this.alleleSideLength;
 			}
 			x = 0;
-			y += sideLength;
+			y += this.alleleSideLength;
 		}
 	}
 
