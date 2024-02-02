@@ -5,8 +5,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 
-import graphics.SnowmanComponent;
-
 public class MutationClickListener implements MouseListener {
 
 	private JLabel chromosomeFileLabel;
