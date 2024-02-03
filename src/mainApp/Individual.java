@@ -84,12 +84,7 @@ public class Individual {
 					Rectangle geneRect = new Rectangle(x, y, this.alleleSideLength, this.alleleSideLength);
 					g2.fill(geneRect);
 					g2.setColor(Color.WHITE);
-<<<<<<< HEAD
-					g2.drawString("" + i + j, x, y + sideLength - 2);
-					x += sideLength;
-=======
 					g2.drawString("" + Integer.toString(NUM_COLUMNS*i + j), x, y + this.alleleSideLength);
->>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 				} else {
 					g2.setColor(Color.GREEN);
 					Rectangle geneRect = new Rectangle(x, y, this.alleleSideLength, this.alleleSideLength);
