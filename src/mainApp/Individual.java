@@ -3,6 +3,7 @@ package mainApp;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Individual {
@@ -75,6 +76,7 @@ public class Individual {
 	}
 
 	public void drawOn(Graphics2D g2) {
+		System.out.println(this.chromosomeToString());
 		int x = 0;
 		int y = 0;
 		for (int i = 0; i < chromosome.length / NUM_COLUMNS; i++) { // iterates through rows
@@ -106,5 +108,15 @@ public class Individual {
 	public int getFitnessScore() {
 		return fitnessScore;
 	}
+	
+	public String chromosomeToString() {
+		String chromosomeString = "";
+		for (int i : this.chromosome) {
+			chromosomeString += "" + i;
+		}
+		System.out.println(chromosomeString);
+		return chromosomeString;
+	}
 
+	
 }

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -79,14 +80,10 @@ public class SimulatorViewer {
 		JButton saveButton = new JButton("Save");
 
 		loadButton.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				String s = System.getProperty("user.dir");
 				JFileChooser chooser = new JFileChooser(s);
-//					FileNameExtensionFilter filter = new FileNameExtensionFilter("txt");
-//					chooser.setFileFilter(filter);
 				int result = chooser.showOpenDialog(panel);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = chooser.getSelectedFile();
@@ -105,12 +102,39 @@ public class SimulatorViewer {
 					} catch (IOException exception) {
 						exception.printStackTrace();
 					}
-
 				}
 			}
-
 		});
-//		saveButton.addActionListener(saveLoadListener);
+		saveButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String s = System.getProperty("user.dir");
+				JFileChooser chooser = new JFileChooser(s);
+				int result = chooser.showSaveDialog(panel);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = chooser.getSelectedFile();
+					if (chooser.getDialogType() == JFileChooser.SAVE_DIALOG) {
+						try {
+							if (selectedFile.exists()) {
+							String newFile = selectedFile.getName();
+							FileWriter fw = new FileWriter(newFile);
+							fw.write(simComp.getFirstChromosomeString());
+							fw.close();		
+						} else {
+							File newFile = new File(selectedFile.getName());
+							FileWriter fw = new FileWriter(newFile);
+							fw.write(simComp.getFirstChromosomeString());
+							fw.close();		
+						}
+						} catch (IOException e1) {
+							// TODO: handle exception
+							e1.printStackTrace();
+						}
+					}
+				}
+			}
+		});
 
 		simComp.addMouseListener(new MutationClickListener(chromosomeFileLabel, simComp));
 
