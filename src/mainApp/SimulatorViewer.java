@@ -77,11 +77,40 @@ public class SimulatorViewer {
 
 		JButton loadButton = new JButton("Load");
 		JButton saveButton = new JButton("Save");
-		
-		SaveLoadListener saveLoadListener = new SaveLoadListener(panel, chromosomeFileLabel, filename);
 
-		loadButton.addActionListener(saveLoadListener);
-		saveButton.addActionListener(saveLoadListener);
+		loadButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String s = System.getProperty("user.dir");
+				JFileChooser chooser = new JFileChooser(s);
+//					FileNameExtensionFilter filter = new FileNameExtensionFilter("txt");
+//					chooser.setFileFilter(filter);
+				int result = chooser.showOpenDialog(panel);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = chooser.getSelectedFile();
+					String newFileName = selectedFile.getAbsolutePath();
+					chromosomeFileLabel.setText(newFileName);
+					try {
+						simComp.initializePop(10, newFileName);
+					} catch (InvalidChromosomeFormatException exception) {
+						JOptionPane.showMessageDialog(frame, "Invalid file content", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
+						System.err.println("Invalid file content: 0s and 1s only");
+					} catch (FileNotFoundException exception) {
+						JOptionPane.showMessageDialog(frame, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+						System.err.println("File not found. Please try again.");
+
+					} catch (IOException exception) {
+						exception.printStackTrace();
+					}
+
+				}
+			}
+
+		});
+//		saveButton.addActionListener(saveLoadListener);
 
 		simComp.addMouseListener(new MutationClickListener(chromosomeFileLabel, simComp));
 
@@ -115,31 +144,5 @@ public class SimulatorViewer {
 		SimulatorViewer mainApp = new SimulatorViewer();
 		mainApp.runApp();
 	} // main
-
-	class SaveLoadListener implements ActionListener {
-		private JPanel panel;
-		private JLabel label;
-		private String filename;
-
-		public SaveLoadListener(JPanel panel, JLabel label, String filename) {
-			this.panel = panel;
-			this.label = label;
-			this.filename = filename;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String s = System.getProperty("user.dir");
-			JFileChooser chooser = new JFileChooser(s);
-//			FileNameExtensionFilter filter = new FileNameExtensionFilter("txt");
-//			chooser.setFileFilter(filter);
-			int result = chooser.showOpenDialog(panel);
-			if (result == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = chooser.getSelectedFile();
-				String newFileName = selectedFile.getAbsolutePath();
-				this.label.setText(newFileName);
-			}
-		}
-	};
 
 }

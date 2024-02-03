@@ -17,6 +17,7 @@ public class SimulatorComponent extends JComponent {
 	
 	public void initializePop(int popSize, String filename) throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
 		population.initializeFromFile(popSize, filename);
+		repaint();
 	}
 
 	@Override
