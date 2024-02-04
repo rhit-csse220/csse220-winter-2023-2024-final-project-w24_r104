@@ -77,4 +77,14 @@ public class Population {
 //		}
 		individuals.get(0).drawOn(g2);
 	}
+
+	public String getFirstChromosomeString() {
+		return this.individuals.get(0).chromosomeToString();
+	}
+
+	public Individual getFirstIndividual() {
+		return this.individuals.get(0);
+	}
+	
+	
 }

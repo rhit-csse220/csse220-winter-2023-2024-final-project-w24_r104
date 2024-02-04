@@ -55,5 +55,14 @@ public class SimulatorComponent extends JComponent {
 	public void mutateSquare(int x, int y) {
 		this.population.mutateOneCell(x, y);
 	}
+
+	public String getFirstChromosomeString() {
+		// TODO Auto-generated method stub
+		return this.population.getFirstChromosomeString();
+	}
 	
+	public Individual getFirstIndividual() {
+		return this.population.getFirstIndividual();
+	}
+
 }
