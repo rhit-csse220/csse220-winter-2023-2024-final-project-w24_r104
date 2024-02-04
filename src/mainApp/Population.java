@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Population {
@@ -13,10 +14,26 @@ public class Population {
 	public Population(int populationSize) {
 		this.individuals = new ArrayList<Individual>();
 	}
+<<<<<<< HEAD
 
+=======
+	
+	public void initializeRandomly(int populationSize, int chromosomeLength) {
+		this.individuals.clear();
+		Random r = new Random();
+		for (int i = 0; i < populationSize; i++) {
+			int[] chromosome = new int[chromosomeLength];
+			for (int j = 0; j < chromosomeLength; j++) {
+				chromosome[j] = r.nextInt(2);
+			}
+			this.individuals.add(new Individual(chromosome));
+		}
+	}
+	
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 	public void initializeFromFile(int populationSize, String filename)
 			throws FileNotFoundException, InvalidChromosomeFormatException {
-		individuals.clear();
+		this.individuals.clear();
 		File f = new File(filename);
 		Scanner scanner = new Scanner(f);
 		while (scanner.hasNext()) {
@@ -29,7 +46,7 @@ public class Population {
 				else
 					throw new InvalidChromosomeFormatException();
 			}
-			individuals.add(new Individual(chromosome));
+			this.individuals.add(new Individual(chromosome));
 		}
 		scanner.close();
 	}
@@ -66,9 +83,10 @@ public class Population {
 	}
 
 	public void drawOn(Graphics2D g2) {
-		for (int i = 0; i < individuals.size(); i++) {
-			individuals.get(i).drawOn(g2);
-		}
+//		for (int i = 0; i < individuals.size(); i++) {
+//			individuals.get(i).drawOn(g2);
+//		}
+		individuals.get(0).drawOn(g2);
 	}
 
 	public String getFirstChromosomeString() {

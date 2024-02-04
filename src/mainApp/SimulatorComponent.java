@@ -13,9 +13,17 @@ public class SimulatorComponent extends JComponent {
 	public SimulatorComponent(int popSize) {
 		this.population = new Population(popSize);
 	}
-
 	
-	public void initializePop(int popSize, String filename) throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
+	public void runEvolutionaryLoop() {
+//		while ()
+	}
+
+	public void initializeRandomPop(int populationSize, int chromosomeLength) {
+		population.initializeRandomly(populationSize, chromosomeLength);
+		repaint();
+	}
+	
+	public void initializePopFromFile(int popSize, String filename) throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
 		population.initializeFromFile(popSize, filename);
 		repaint();
 	}
@@ -48,7 +56,6 @@ public class SimulatorComponent extends JComponent {
 		this.population.mutateOneCell(x, y);
 	}
 
-
 	public String getFirstChromosomeString() {
 		// TODO Auto-generated method stub
 		return this.population.getFirstChromosomeString();
@@ -57,4 +64,5 @@ public class SimulatorComponent extends JComponent {
 	public Individual getFirstIndividual() {
 		return this.population.getFirstIndividual();
 	}
+
 }

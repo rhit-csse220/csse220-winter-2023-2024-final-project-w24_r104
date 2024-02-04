@@ -91,14 +91,6 @@ public class Individual {
 		}
 	}
 
-	public void saveCurrentChromosome() {
-
-	}
-
-	public void loadChromosomeFromFile(String filename) {
-
-	}
-
 	public void drawOn(Graphics2D g2) {
 		System.out.println(this.chromosomeToString());
 		int x = 0;
