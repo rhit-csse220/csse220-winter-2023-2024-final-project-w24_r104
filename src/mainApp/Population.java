@@ -13,7 +13,7 @@ public class Population {
 	public Population(int populationSize) {
 		this.individuals = new ArrayList<Individual>();
 	}
-	
+
 	public void initializeFromFile(int populationSize, String filename)
 			throws FileNotFoundException, InvalidChromosomeFormatException {
 		individuals.clear();
@@ -35,11 +35,18 @@ public class Population {
 	}
 
 	public void setMutationRate(double rateOutOfN) {
-		this.mutationRate = rateOutOfN/individuals.get(0).getChromosome().length;
+		this.mutationRate = rateOutOfN / individuals.get(0).getChromosome().length;
 	}
 
 	public void selection() {
-		
+
+	}
+	
+	public void selectionByRouletteWheel() {
+		int totalPopulationFitness = 0;
+		for (Individual curIndividual : individuals) {
+//			totalPopulationFitness += curIndividual.
+		}
 	}
 
 	public void crossover() {
@@ -47,13 +54,13 @@ public class Population {
 	}
 
 	public void mutate() {
-		for (Individual i: individuals) {
+		for (Individual i : individuals) {
 			i.mutate(this.mutationRate);
 		}
 	}
-	
+
 	public void mutateOneCell(int x, int y) {
-		for (Individual i: individuals) {
+		for (Individual i : individuals) {
 			i.mutateOneCell(x, y);
 		}
 	}
@@ -71,6 +78,5 @@ public class Population {
 	public Individual getFirstIndividual() {
 		return this.individuals.get(0);
 	}
-	
-	
+
 }
