@@ -56,24 +56,29 @@ public class SimulatorViewer {
 		Scanner s = new Scanner(System.in);
 		String filename;
 
-		while (true) {
-			filename = JOptionPane.showInputDialog("Enter file name:");
-			chromosomeFileLabel.setText(filename);
-			try {
-				simComp.initializePop(10, filename);
-				break;
-			} catch (InvalidChromosomeFormatException e) {
-				JOptionPane.showMessageDialog(frame, "Invalid file content", "ERROR", JOptionPane.ERROR_MESSAGE);
-				System.err.println("Invalid file content: 0s and 1s only");
-			} catch (FileNotFoundException e) {
-				JOptionPane.showMessageDialog(frame, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
-				System.err.println("File not found. Please try again.");
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			s.close();
-		}
+		// chromosome loaded from file
+//		while (true) {
+//			filename = JOptionPane.showInputDialog("Enter file name:");
+//			chromosomeFileLabel.setText(filename);
+//			try {
+//				simComp.initializePopFromFile(10, filename);
+//				break;
+//			} catch (InvalidChromosomeFormatException e) {
+//				JOptionPane.showMessageDialog(frame, "Invalid file content", "ERROR", JOptionPane.ERROR_MESSAGE);
+//				System.err.println("Invalid file content: 0s and 1s only");
+//			} catch (FileNotFoundException e) {
+//				JOptionPane.showMessageDialog(frame, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
+//				System.err.println("File not found. Please try again.");
+//
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			s.close();
+//		}
+		
+		// random chromosome generation
+		chromosomeFileLabel.setText("Randomly Generated Chromsome");
+		simComp.initializeRandomPop(100, 100);
 
 		JButton loadButton = new JButton("Load");
 		JButton saveButton = new JButton("Save");
@@ -93,7 +98,7 @@ public class SimulatorViewer {
 					String newFileName = selectedFile.getAbsolutePath();
 					chromosomeFileLabel.setText(newFileName);
 					try {
-						simComp.initializePop(10, newFileName);
+						simComp.initializePopFromFile(10, newFileName);
 					} catch (InvalidChromosomeFormatException exception) {
 						JOptionPane.showMessageDialog(frame, "Invalid file content", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
@@ -110,7 +115,6 @@ public class SimulatorViewer {
 			}
 
 		});
-//		saveButton.addActionListener(saveLoadListener);
 
 		simComp.addMouseListener(new MutationClickListener(chromosomeFileLabel, simComp));
 
@@ -129,6 +133,8 @@ public class SimulatorViewer {
 		frame.setSize(600, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		simComp.runEvolutionaryLoop();
 
 		System.out.println("App terminated");
 

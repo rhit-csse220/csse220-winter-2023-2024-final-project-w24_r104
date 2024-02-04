@@ -13,9 +13,17 @@ public class SimulatorComponent extends JComponent {
 	public SimulatorComponent(int popSize) {
 		this.population = new Population(popSize);
 	}
-
 	
-	public void initializePop(int popSize, String filename) throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
+	public void runEvolutionaryLoop() {
+//		while ()
+	}
+
+	public void initializeRandomPop(int populationSize, int chromosomeLength) {
+		population.initializeRandomly(populationSize, chromosomeLength);
+		repaint();
+	}
+	
+	public void initializePopFromFile(int popSize, String filename) throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
 		population.initializeFromFile(popSize, filename);
 		repaint();
 	}
@@ -47,4 +55,5 @@ public class SimulatorComponent extends JComponent {
 	public void mutateSquare(int x, int y) {
 		this.population.mutateOneCell(x, y);
 	}
+	
 }
