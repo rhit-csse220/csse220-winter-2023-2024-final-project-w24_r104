@@ -3,7 +3,6 @@ package mainApp;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Individual {
@@ -37,13 +36,23 @@ public class Individual {
 		return fitnessScore;
 	}
 
-	public int calculateMatchingFitness(int[] chromosome) {
-		if (chromosome.length != this.chromosome.length) {
+	public int calculateMatchingSmileyFitness() {
+		int[] smileyChromosome = new int[100];
+		for (int i = 0; i < smileyChromosome.length; i++)
+			smileyChromosome[i] = 1;
+		smileyChromosome[22] = 0;
+		smileyChromosome[27] = 0;
+		smileyChromosome[71] = 0;
+		smileyChromosome[78] = 0;
+		for (int i = 81; i < 89; i++)
+			smileyChromosome[i] = 0;
+
+		if (smileyChromosome.length != this.chromosome.length) {
 			return 0;
 		} else {
 			int fitnessScore = 0;
-			for (int i = 0; i < chromosome.length; i++) {
-				if (this.chromosome[i] == chromosome[i]) {
+			for (int i = 0; i < smileyChromosome.length; i++) {
+				if (this.chromosome[i] == smileyChromosome[i]) {
 					fitnessScore++;
 				}
 			}
@@ -92,7 +101,6 @@ public class Individual {
 	}
 
 	public void drawOn(Graphics2D g2) {
-		System.out.println(this.chromosomeToString());
 		int x = 0;
 		int y = 0;
 		for (int i = 0; i < chromosome.length / NUM_COLUMNS; i++) { // iterates through rows
@@ -126,8 +134,16 @@ public class Individual {
 		for (int i : this.chromosome) {
 			chromosomeString += "" + i;
 		}
-		System.out.println(chromosomeString);
 		return chromosomeString;
+	}
+
+	public int getFitness(String fitnessMethodName) {
+		if (fitnessMethodName.equals("Simple"))
+			return calculateSimpleFitness();
+		else if (fitnessMethodName.equals("Matching Smiley Face")) 
+			return calculateMatchingSmileyFitness();
+		else 
+			return calculateMaxConsecutive1sFitness();
 	}
 
 }

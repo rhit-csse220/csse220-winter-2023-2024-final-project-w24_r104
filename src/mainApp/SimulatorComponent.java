@@ -45,8 +45,8 @@ public class SimulatorComponent extends JComponent {
 
 	}
 
-	public void setPopMutationRateAndMutate(int rate) {
-		population.setMutationRate(rate);
+	public void setPopMutationRateAndMutate(double d) {
+		population.setMutationRate(d);
 		population.mutate();
 		repaint();
 	}
@@ -57,7 +57,6 @@ public class SimulatorComponent extends JComponent {
 	}
 
 	public String getFirstChromosomeString() {
-		// TODO Auto-generated method stub
 		return this.population.getFirstChromosomeString();
 	}
 	

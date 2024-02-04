@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -14,10 +15,7 @@ public class Population {
 	public Population(int populationSize) {
 		this.individuals = new ArrayList<Individual>();
 	}
-<<<<<<< HEAD
 
-=======
-	
 	public void initializeRandomly(int populationSize, int chromosomeLength) {
 		this.individuals.clear();
 		Random r = new Random();
@@ -30,7 +28,6 @@ public class Population {
 		}
 	}
 	
->>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 	public void initializeFromFile(int populationSize, String filename)
 			throws FileNotFoundException, InvalidChromosomeFormatException {
 		this.individuals.clear();
@@ -59,11 +56,14 @@ public class Population {
 
 	}
 	
-	public void selectionByRouletteWheel() {
+	public void selectionByRouletteWheel(String fitnessMethodName) {
 		int totalPopulationFitness = 0;
 		for (Individual curIndividual : individuals) {
-//			totalPopulationFitness += curIndividual.
+			totalPopulationFitness += curIndividual.getFitness(fitnessMethodName);
 		}
+		Random rand = new Random();
+		// sort individuals based on fitness
+		Collections.sort(individuals, (i1, i2) -> i1.getFitness(fitnessMethodName) - i2.getFitness(fitnessMethodName));
 	}
 
 	public void crossover() {

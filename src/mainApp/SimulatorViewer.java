@@ -47,7 +47,7 @@ public class SimulatorViewer {
 			public void actionPerformed(ActionEvent e) {
 				if (!promptMRate.getText().equals("")) {
 					String userInput = promptMRate.getText();
-					simComp.setPopMutationRateAndMutate(Integer.parseInt(userInput));
+					simComp.setPopMutationRateAndMutate(Double.parseDouble(userInput));
 					if (!chromosomeFileLabel.getText().endsWith(" (mutated)"))
 						chromosomeFileLabel.setText(chromosomeFileLabel.getText() + " (mutated)");
 				}
