@@ -15,7 +15,17 @@ public class SimulatorComponent extends JComponent {
 	}
 	
 	public void runEvolutionaryLoop() {
-//		while ()
+		int numGenerations = 0;
+		while (this.population.getFittestIndividual().calculateSimpleFitness() < 100) {
+			population.truncationSelection();
+//			population.crossover();
+			population.mutate();
+			numGenerations++;
+			System.out.println(numGenerations + "th generation");
+			System.out.println("Best Individual: " + this.population.getFittestIndividual());
+		}
+		System.out.println("Found solution after " + numGenerations + " generations!");
+		System.out.println("Solution has fitness of " + this.population.getFittestIndividual());
 	}
 
 	public void initializeRandomPop(int populationSize, int chromosomeLength) {
@@ -57,7 +67,6 @@ public class SimulatorComponent extends JComponent {
 	}
 
 	public String getFirstChromosomeString() {
-		// TODO Auto-generated method stub
 		return this.population.getFirstChromosomeString();
 	}
 	

@@ -6,17 +6,15 @@ import java.awt.Rectangle;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Individual {
+public class Individual implements Comparable<Individual> {
 
 	public static final int NUM_COLUMNS = 10;
 
 	private int[] chromosome;
-	private int alleleSideLength;
+	private int alleleSideLength = 50;
 
 	public Individual(int[] chromosome) {
 		this.chromosome = chromosome;
-		this.alleleSideLength = 50;
-		calculateSimpleFitness();
 	}
 
 	public Individual() {
@@ -26,7 +24,6 @@ public class Individual {
 			chromosome[i] = r.nextInt(1);
 		}
 		this.chromosome = chromosome;
-		calculateSimpleFitness();
 	}
 
 	public int calculateSimpleFitness() {
@@ -76,7 +73,6 @@ public class Individual {
 					chromosome[i] = 0;
 			}
 		}
-		calculateSimpleFitness();
 	}
 
 	public void mutateOneCell(int x, int y) {
@@ -124,10 +120,25 @@ public class Individual {
 	public String chromosomeToString() {
 		String chromosomeString = "";
 		for (int i : this.chromosome) {
-			chromosomeString += "" + i;
+			chromosomeString += i;
 		}
 		System.out.println(chromosomeString);
 		return chromosomeString;
+	}
+
+	@Override
+	public int compareTo(Individual other) {
+		return other.calculateSimpleFitness() - this.calculateSimpleFitness();
+	}
+
+	@Override
+	public String toString() {
+		return "Individual with Fitness=" + calculateSimpleFitness();
+	}
+
+	@Override
+	protected Individual clone() {
+		return new Individual(this.chromosome);
 	}
 
 }
