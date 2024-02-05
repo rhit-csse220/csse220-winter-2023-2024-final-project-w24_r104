@@ -64,6 +64,7 @@ public class Population {
 		Random rand = new Random();
 		// sort individuals based on fitness
 		Collections.sort(individuals, (i1, i2) -> i1.getFitness(fitnessMethodName) - i2.getFitness(fitnessMethodName));
+		
 	}
 
 	public void crossover() {
