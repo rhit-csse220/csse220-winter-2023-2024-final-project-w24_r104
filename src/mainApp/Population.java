@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -65,7 +64,6 @@ public class Population {
 		while (this.individuals.size() > originalPopSize / 2) {
 			this.individuals.remove(originalPopSize / 2);
 		}
-		replenishPopulation();
 	}
 	
 	public void replenishPopulation() {
@@ -73,6 +71,16 @@ public class Population {
 		for (int i = 0; i < targetPopulationSize / 2; i++) {
 			this.individuals.add(this.individuals.get(i).clone());
 		}
+	}
+	
+	public void selectionByRouletteWheel(String fitnessMethodName) {
+		int totalPopulationFitness = 0;
+		for (Individual curIndividual : individuals) {
+			totalPopulationFitness += curIndividual.getFitness(fitnessMethodName);
+		}
+		Random rand = new Random();
+		// sort individuals based on fitness
+		Collections.sort(this.individuals, (i1, i2) -> i1.getFitness(fitnessMethodName) - i2.getFitness(fitnessMethodName));
 	}
 
 	public void crossover() {

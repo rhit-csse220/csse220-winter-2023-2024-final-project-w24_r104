@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.swing.JComponent;
 
 public class SimulatorComponent extends JComponent {
+	
 	private Population population;
 
 	public SimulatorComponent(int popSize) {
@@ -17,9 +18,11 @@ public class SimulatorComponent extends JComponent {
 	public void runEvolutionaryLoop() {
 		int numGenerations = 0;
 		while (this.population.getFittestIndividual().calculateSimpleFitness() < 100) {
-			population.truncationSelection();
-//			population.crossover();
-			population.mutate();
+			this.population.truncationSelection();
+//			this.population.selectionByRouletteWheel("Simple");
+			this.population.replenishPopulation();
+			this.population.crossover();
+			this.population.mutate();
 			numGenerations++;
 			System.out.println(numGenerations + "th generation");
 			System.out.println("Best Individual: " + this.population.getFittestIndividual());
@@ -55,8 +58,8 @@ public class SimulatorComponent extends JComponent {
 
 	}
 
-	public void setPopMutationRateAndMutate(int rate) {
-		population.setMutationRate(rate);
+	public void setPopMutationRateAndMutate(double d) {
+		population.setMutationRate(d);
 		population.mutate();
 		repaint();
 	}
