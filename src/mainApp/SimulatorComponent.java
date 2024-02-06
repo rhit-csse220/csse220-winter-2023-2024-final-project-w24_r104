@@ -10,25 +10,27 @@ import javax.swing.JComponent;
 public class SimulatorComponent extends JComponent {
 	
 	private Population population;
+	private int numGenerations;
+	private boolean hasFoundSolution;
 
 	public SimulatorComponent(int popSize) {
 		this.population = new Population(popSize);
+		this.numGenerations = 0;
+		this.hasFoundSolution = false;
 	}
 	
 	public void runEvolutionaryLoop() {
-		int numGenerations = 0;
-		while (this.population.getFittestIndividual().calculateSimpleFitness() < 100) {
-			this.population.truncationSelection();
-//			this.population.selectionByRouletteWheel("Simple");
-			this.population.replenishPopulation();
-			this.population.crossover();
-			this.population.mutate();
-			numGenerations++;
-			System.out.println(numGenerations + "th generation");
-			System.out.println("Best Individual: " + this.population.getFittestIndividual());
-		}
-		System.out.println("Found solution after " + numGenerations + " generations!");
-		System.out.println("Solution has fitness of " + this.population.getFittestIndividual());
+		this.population.truncationSelection();
+//		this.population.selectionByRouletteWheel("Simple");
+		this.population.crossover();
+		this.population.mutate();
+		this.population.createNewGeneration();
+		numGenerations++;
+		repaint();
+		System.out.println(numGenerations + "th generation");
+		System.out.println("Best Individual: " + this.population.getFittestIndividual());
+		if (this.population.getFittestIndividual().getFitness("Simple") > 90)
+			this.hasFoundSolution = true;
 	}
 
 	public void initializeRandomPop(int populationSize, int chromosomeLength) {
@@ -73,8 +75,8 @@ public class SimulatorComponent extends JComponent {
 		return this.population.getFirstChromosomeString();
 	}
 	
-	public Individual getFirstIndividual() {
-		return this.population.getFirstIndividual();
+	public boolean hasFoundSolution() {
+		return this.hasFoundSolution;
 	}
 
 }

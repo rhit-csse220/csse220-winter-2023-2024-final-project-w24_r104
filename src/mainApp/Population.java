@@ -56,21 +56,28 @@ public class Population {
 
 	public void setMutationRate(double rateOutOfN) {
 		this.mutationRate = rateOutOfN / individuals.get(0).getChromosome().length;
+		System.out.println(this.mutationRate);
 	}
 
 	public void truncationSelection() {
 		Collections.sort(this.individuals);
 		int originalPopSize = this.individuals.size();
 		while (this.individuals.size() > originalPopSize / 2) {
-			this.individuals.remove(originalPopSize / 2);
+			this.individuals.remove(this.individuals.size() - 1);
 		}
 	}
 	
-	public void replenishPopulation() {
-		int targetPopulationSize = this.individuals.size()*2;
-		for (int i = 0; i < targetPopulationSize / 2; i++) {
-			this.individuals.add(this.individuals.get(i).clone());
+	public void createNewGeneration() {
+//		int targetPopulationSize = this.individuals.size()*2;
+//		for (int i = 0; i < targetPopulationSize / 2; i++) {
+//			this.individuals.add(this.individuals.get(i).clone());
+//		}
+		ArrayList<Individual> newGen = new ArrayList<Individual>();
+		for (Individual individual : this.individuals) {
+			newGen.add(individual.clone());
+			newGen.add(individual.clone());
 		}
+		this.individuals = newGen;
 	}
 	
 	public void selectionByRouletteWheel(String fitnessMethodName) {
@@ -100,9 +107,6 @@ public class Population {
 	}
 
 	public void drawOn(Graphics2D g2) {
-//		for (int i = 0; i < individuals.size(); i++) {
-//			individuals.get(i).drawOn(g2);
-//		}
 		getFittestIndividual().drawOn(g2);
 	}
 
@@ -115,12 +119,25 @@ public class Population {
 	}
 
 	public Individual getFittestIndividual() {
-		Individual fittest = this.getFirstIndividual();
-		for (Individual individual : this.individuals) {
-			if (individual.calculateSimpleFitness() > fittest.calculateSimpleFitness())
-				fittest = individual;
-		}
-		return fittest;
+//		Individual fittest = this.getFirstIndividual();
+//		for (Individual individual : this.individuals) {
+//			if (individual.calculateSimpleFitness() > fittest.calculateSimpleFitness())
+//				fittest = individual;
+//		}
+//		return fittest;
+		Collections.sort(this.individuals);
+		System.out.println(this.individuals);
+		return this.individuals.get(0);
+	}
+	
+	public Individual getAverageIndividual() {
+		Collections.sort(this.individuals);
+		return this.individuals.get(this.individuals.size()/2);
+	}
+	
+	public Individual getLeastFitIndividual() {
+		Collections.sort(this.individuals);
+		return this.individuals.get(this.individuals.size() - 1);
 	}
 
 }

@@ -10,7 +10,7 @@ public class Individual implements Comparable<Individual> {
 	public static final int NUM_COLUMNS = 10;
 
 	private int[] chromosome;
-	private int alleleSideLength = 50;
+	private int alleleSideLength = 40;
 
 	public Individual(int[] chromosome) {
 		this.chromosome = chromosome;
@@ -73,14 +73,10 @@ public class Individual implements Comparable<Individual> {
 	}
 
 	public void mutate(double mutationRate) {
+		Random r = new Random();
 		for (int i = 0; i < chromosome.length; i++) {
-			Random r = new Random();
-			if (r.nextInt(chromosome.length) < chromosome.length * mutationRate) {
-				if (chromosome[i] == 0)
-					chromosome[i] = 1;
-				else
-					chromosome[i] = 0;
-			}
+			if (r.nextDouble() < mutationRate)
+				switchAlleleAtIndex(i);
 		}
 	}
 
@@ -88,12 +84,15 @@ public class Individual implements Comparable<Individual> {
 		int xCoord = x / this.alleleSideLength;
 		int yCoord = y / this.alleleSideLength;
 		int cellCoord = xCoord + yCoord * NUM_COLUMNS;
-		if (this.chromosome.length > cellCoord && xCoord <= NUM_COLUMNS - 1) {
-			if (chromosome[cellCoord] == 0)
-				chromosome[cellCoord] = 1;
-			else
-				chromosome[cellCoord] = 0;
-		}
+		if (this.chromosome.length > cellCoord && xCoord <= NUM_COLUMNS - 1)
+			switchAlleleAtIndex(cellCoord);
+	}
+	
+	public void switchAlleleAtIndex(int i) {
+		if (chromosome[i] == 0)
+			chromosome[i] = 1;
+		else
+			chromosome[i] = 0;
 	}
 
 	public void drawOn(Graphics2D g2) {

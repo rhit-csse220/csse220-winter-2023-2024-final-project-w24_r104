@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 /**
  * Class: MainApp
@@ -125,11 +126,50 @@ public class SimulatorViewer {
 
 		frame.add(chromosomeFileLabel, BorderLayout.NORTH);
 		frame.setTitle("Chromosome Viewer");
-		frame.setSize(600, 600);
+		frame.setSize(500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
-		simComp.runEvolutionaryLoop();
+		JFrame frame2 = new JFrame();
+		JPanel panel2 = new JPanel();
+		frame2.add(panel2, BorderLayout.SOUTH);
+		Timer t = new Timer(200, new ActionListener() {
+
+			private int numGenerations = 0;
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!simComp.hasFoundSolution()) {
+					simComp.runEvolutionaryLoop();
+					numGenerations++;
+				} else {
+					System.out.println("Found solution after " + numGenerations + " generations with fitness of " + -1);
+//					System.out.println("Solution has fitness of " + simComp.population.getFittestIndividual());
+				}
+			}
+			
+		});
+		
+		JButton startButton = new JButton("Start/Stop");
+		panel2.add(startButton);
+		startButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (!t.isRunning())
+					t.start();
+				else
+					t.stop();
+			}
+		});
+		
+		frame2.add(new DataVisualizationComponent());
+		frame2.setSize(800, 600);
+		frame2.setLocation(0, 0);
+		frame2.setLocationRelativeTo(null);
+		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame2.setVisible(true);
 
 		System.out.println("App terminated");
 
