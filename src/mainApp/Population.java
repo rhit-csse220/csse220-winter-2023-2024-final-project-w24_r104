@@ -79,8 +79,14 @@ public class Population {
 			totalPopulationFitness += curIndividual.getFitness(fitnessMethodName);
 		}
 		Random rand = new Random();
-		// sort individuals based on fitness		
-		Collections.sort(this.individuals, (i1, i2) -> i1.getFitness(fitnessMethodName) - i2.getFitness(fitnessMethodName));
+		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
+		for (int i = 0; i < this.individuals.size(); i++) {
+			double probabilityOfBeingChose = this.individuals.get(i).getFitness(fitnessMethodName);
+			boolean chooseThisIndividual = rand.nextDouble(probabilityOfBeingChose)==0;
+			if (chooseThisIndividual == true)
+				newIndividuals.add(this.individuals.get(i));
+		}
+		this.individuals = newIndividuals;
 	}
 
 	public void crossover() {
