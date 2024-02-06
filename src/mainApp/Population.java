@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -65,26 +66,45 @@ public class Population {
 			this.individuals.remove(originalPopSize / 2);
 		}
 	}
-	
+
 	public void replenishPopulation() {
-		int targetPopulationSize = this.individuals.size()*2;
+		int targetPopulationSize = this.individuals.size() * 2;
 		for (int i = 0; i < targetPopulationSize / 2; i++) {
 			this.individuals.add(this.individuals.get(i).clone());
 		}
 	}
-	
+
 	public void selectionByRouletteWheel(String fitnessMethodName) {
-		int totalPopulationFitness = 0;
+		double totalPopulationFitness = 0.0;
 		for (Individual curIndividual : individuals) {
 			totalPopulationFitness += curIndividual.getFitness(fitnessMethodName);
 		}
 		Random rand = new Random();
 		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
 		for (int i = 0; i < this.individuals.size(); i++) {
-			double probabilityOfBeingChose = this.individuals.get(i).getFitness(fitnessMethodName);
-			boolean chooseThisIndividual = rand.nextDouble(probabilityOfBeingChose)==0;
+			double probabilityOfBeingChose = this.individuals.get(i).getFitness(fitnessMethodName)
+					/ totalPopulationFitness;
+			boolean chooseThisIndividual = rand.nextDouble(1 - probabilityOfBeingChose) == 0;
 			if (chooseThisIndividual == true)
 				newIndividuals.add(this.individuals.get(i));
+		}
+		this.individuals = newIndividuals;
+	}
+
+	public void selectionByRank(String fitnessMethodName) {
+		Collections.sort(this.individuals,
+				(i1, i2) -> i2.getFitness(fitnessMethodName) - i1.getFitness(fitnessMethodName));
+		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
+		Random rand = new Random();
+		double sumOfAllRanks = 0.0;
+		for (int i = 0; i < this.individuals.size(); i++) {
+			sumOfAllRanks += i + 1;
+		}
+		for (int j = 0; j < this.individuals.size(); j++) {
+			double probabilityOfBeingChose = (j + 1.0) / sumOfAllRanks;
+			boolean chooseThisIndividual = rand.nextDouble(1 - probabilityOfBeingChose) == 0;
+			if (chooseThisIndividual == true)
+				newIndividuals.add(this.individuals.get(j));
 		}
 		this.individuals = newIndividuals;
 	}
