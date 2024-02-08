@@ -16,6 +16,9 @@ import javax.swing.SwingConstants;
 
 public class DataVisualizationViewer {
 	public static final int TEXTFIELD_SIZE = 3;
+	public static final int FRAME_WIDTH = 1100;
+	public static final int FRAME_HEIGHT = 500;
+	
 	public DataVisualizationViewer(Population population) {
 		JFrame frame = new JFrame();
 		JLabel label = new JLabel("Fitness Over Generations");
@@ -75,9 +78,9 @@ public class DataVisualizationViewer {
 		buttonPanel.add(promptElitism);
 		buttonPanel.add(startEvolutionButton);
 
-		frame.setSize(1100, 500);
+		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setTitle("Evolution Viewer");
-		frame.setLocation(500, 0);
+		frame.setLocation(0, 0);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
