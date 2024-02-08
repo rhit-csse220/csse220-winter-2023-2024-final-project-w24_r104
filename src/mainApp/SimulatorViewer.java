@@ -143,6 +143,7 @@ public class SimulatorViewer {
 					simComp.runEvolutionaryLoop();
 					numGenerations++;
 				} else {
+					((Timer)e.getSource()).stop();
 					System.out.println("Found solution after " + numGenerations + " generations with fitness of " + -1);
 //					System.out.println("Solution has fitness of " + simComp.population.getFittestIndividual());
 				}
