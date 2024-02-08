@@ -7,8 +7,8 @@ public class MainApp {
 	}
 
 	private void runApp() {
+//		this.population = new Population();
 		SimulatorViewer chromosomesViewer = new SimulatorViewer();
-		DataVisualizationViewer graphViewer = new DataVisualizationViewer();
 	}
 
 }

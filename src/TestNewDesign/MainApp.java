@@ -15,6 +15,6 @@ public class MainApp {
 		this.population = new Population();
 		
 		ChromosomesViewer chromosomesViewer = new ChromosomesViewer(this.population);
-		DataVisualizationViewer graphViewer = new DataVisualizationViewer();
+//		DataVisualizationViewer graphViewer = new DataVisualizationViewer();
 	}
 }

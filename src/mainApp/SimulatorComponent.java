@@ -78,4 +78,8 @@ public class SimulatorComponent extends JComponent {
 		return this.hasFoundSolution;
 	}
 
+	public Population getPopulation() {
+		return this.population;
+	}
+
 }
