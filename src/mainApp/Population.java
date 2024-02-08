@@ -1,6 +1,7 @@
 package mainApp;
 
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Population {
 	private ArrayList<Individual> individuals;
 	private double mutationRate;
 
-	public Population(int populationSize) {
+	public Population() {
 		this.individuals = new ArrayList<Individual>();
 	}
 
@@ -133,6 +134,7 @@ public class Population {
 	}
 
 	public void drawOn(Graphics2D g2) {
+//		GridLayout grid = new GridLayout(individuals.size()/10 + 1, 10, 3, 3);
 		getFittestIndividual().drawOn(g2);
 	}
 
@@ -164,6 +166,12 @@ public class Population {
 	public Individual getLeastFitIndividual() {
 		Collections.sort(this.individuals);
 		return this.individuals.get(this.individuals.size() - 1);
+	}
+	/*
+	 * ensures: return the number of individuals in population
+	 */
+	public int size() {
+		return this.individuals.size();
 	}
 
 }

@@ -14,7 +14,7 @@ public class SimulatorComponent extends JComponent {
 	private boolean hasFoundSolution;
 
 	public SimulatorComponent(int popSize) {
-		this.population = new Population(popSize);
+		this.population = new Population();
 		this.numGenerations = 0;
 		this.hasFoundSolution = false;
 	}
@@ -45,7 +45,6 @@ public class SimulatorComponent extends JComponent {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		population.drawOn(g2);

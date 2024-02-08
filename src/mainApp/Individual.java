@@ -8,7 +8,6 @@ import java.util.Random;
 public class Individual implements Comparable<Individual> {
 
 	public static final int NUM_COLUMNS = 10;
-
 	private int[] chromosome;
 	private int alleleSideLength = 40;
 
