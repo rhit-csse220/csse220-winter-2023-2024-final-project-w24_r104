@@ -21,7 +21,7 @@ import javax.swing.Timer;
 /**
  * Class: MainApp
  * 
- * @author W24_R104 <br> 
+ * @author W24_R104 <br>
  *         Purpose: Top level class for CSSE220 Project containing main method
  *         <br>
  *         Restrictions: None
@@ -29,14 +29,10 @@ import javax.swing.Timer;
 public class SimulatorViewer {
 
 	public SimulatorViewer() {
-
-	}
-
-	private void runApp() throws IOException {
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
 		JPanel buttonPanel = new JPanel();
-		SimulatorComponent simComp = new SimulatorComponent(10);
+		SimulatorComponent simComp = new SimulatorComponent(100);
 
 		JLabel chromosomeFileLabel = new JLabel();
 		JLabel mRate = new JLabel("M Rate: _/N");
@@ -55,30 +51,6 @@ public class SimulatorViewer {
 			}
 		});
 
-		Scanner s = new Scanner(System.in);
-		String filename;
-
-		// chromosome loaded from file
-//		while (true) {
-//			filename = JOptionPane.showInputDialog("Enter file name:");
-//			chromosomeFileLabel.setText(filename);
-//			try {
-//				simComp.initializePopFromFile(10, filename);
-//				break;
-//			} catch (InvalidChromosomeFormatException e) {
-//				JOptionPane.showMessageDialog(frame, "Invalid file content", "ERROR", JOptionPane.ERROR_MESSAGE);
-//				System.err.println("Invalid file content: 0s and 1s only");
-//			} catch (FileNotFoundException e) {
-//				JOptionPane.showMessageDialog(frame, "File not found", "ERROR", JOptionPane.ERROR_MESSAGE);
-//				System.err.println("File not found. Please try again.");
-//
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//			s.close();
-//		}
-		
-		// random chromosome generation
 		chromosomeFileLabel.setText("Randomly Generated Chromsome");
 		simComp.initializeRandomPop(100, 100);
 
@@ -130,61 +102,46 @@ public class SimulatorViewer {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
-		JFrame frame2 = new JFrame();
-		JPanel panel2 = new JPanel();
-		frame2.add(panel2, BorderLayout.SOUTH);
-		Timer t = new Timer(200, new ActionListener() {
+		DataVisualizationViewer dataViewer = new DataVisualizationViewer(simComp.getPopulation());
 
-			private int numGenerations = 0;
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (!simComp.hasFoundSolution()) {
-					simComp.runEvolutionaryLoop();
-					numGenerations++;
-				} else {
-					((Timer)e.getSource()).stop();
-					System.out.println("Found solution after " + numGenerations + " generations with fitness of " + -1);
-//					System.out.println("Solution has fitness of " + simComp.population.getFittestIndividual());
-				}
-			}
-			
-		});
-		
-		JButton startButton = new JButton("Start/Stop");
-		panel2.add(startButton);
-		startButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if (!t.isRunning())
-					t.start();
-				else
-					t.stop();
-			}
-		});
-		
-		frame2.add(new DataVisualizationComponent());
-		frame2.setSize(800, 600);
-		frame2.setLocation(0, 0);
-		frame2.setLocationRelativeTo(null);
-		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame2.setVisible(true);
-
+//		JFrame frame2 = new JFrame();
+//		JPanel panel2 = new JPanel();
+//		frame2.add(panel2, BorderLayout.SOUTH);
+//		Timer t = new Timer(200, new ActionListener() {
+//
+//			private int numGenerations = 0;
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (!simComp.hasFoundSolution()) {
+//					simComp.runEvolutionaryLoop();
+//					numGenerations++;
+//				} else {
+//					System.out.println("Found solution after " + numGenerations + " generations with fitness of " + -1);
+//				}
+//			}
+//		});
+//
+//		JButton startButton = new JButton("Start/Stop");
+//		panel2.add(startButton);
+//		startButton.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				if (!t.isRunning())
+//					t.start();
+//				else
+//					t.stop();
+//			}
+//		});
+//
+//		frame2.add(new DataVisualizationComponent(simComp.getPopulation()));
+//		frame2.setSize(800, 600);
+//		frame2.setLocation(0, 0);
+//		frame2.setLocationRelativeTo(null);
+//		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame2.setVisible(true);
 		System.out.println("App terminated");
 
-	} // runApp
-
-	/**
-	 * ensures: runs the application
-	 * 
-	 * @param args unused
-	 * @throws IOException
-	 */
-	public static void main(String[] args) throws IOException {
-		SimulatorViewer mainApp = new SimulatorViewer();
-		mainApp.runApp();
-	} // main
-
+	}
 }
