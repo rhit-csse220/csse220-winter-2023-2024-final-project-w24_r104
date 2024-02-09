@@ -9,7 +9,6 @@ public class Individual implements Comparable<Individual> {
 
 	public static final int NUM_COLUMNS = 10;
 	private int[] chromosome;
-	private int alleleSideLength = 40;
 
 	public Individual(int[] chromosome) {
 		this.chromosome = chromosome;
@@ -80,8 +79,8 @@ public class Individual implements Comparable<Individual> {
 	}
 
 	public void mutateOneCell(int x, int y) {
-		int xCoord = x / this.alleleSideLength;
-		int yCoord = y / this.alleleSideLength;
+		int xCoord = x / Population.ALLELE_SIDE_LENGTH;
+		int yCoord = y / Population.ALLELE_SIDE_LENGTH;
 		int cellCoord = xCoord + yCoord * NUM_COLUMNS;
 		if (this.chromosome.length > cellCoord && xCoord <= NUM_COLUMNS - 1)
 			switchAlleleAtIndex(cellCoord);
@@ -94,28 +93,28 @@ public class Individual implements Comparable<Individual> {
 			chromosome[i] = 0;
 	}
 
-	public void drawOn(Graphics2D g2) {
-		int x = 0;
-		int y = 0;
+	public void drawOn(Graphics2D g2, int x, int y) {
+		int thisX = x;
+		int thisY = y;
 		for (int i = 0; i < chromosome.length / NUM_COLUMNS; i++) { // iterates through rows
 			for (int j = 0; j < NUM_COLUMNS; j++) { // iterates through columns
 				if (this.chromosome[NUM_COLUMNS * i + j] == 0) {
 					g2.setColor(Color.BLACK);
-					Rectangle geneRect = new Rectangle(x, y, this.alleleSideLength, this.alleleSideLength);
+					Rectangle geneRect = new Rectangle(thisX, thisY, Population.ALLELE_SIDE_LENGTH, Population.ALLELE_SIDE_LENGTH);
 					g2.fill(geneRect);
 					g2.setColor(Color.WHITE);
-					g2.drawString("" + Integer.toString(NUM_COLUMNS * i + j), x, y + this.alleleSideLength);
+//					g2.drawString("" + Integer.toString(NUM_COLUMNS * i + j), thisX, thisY + Population.ALLELE_SIDE_LENGTH);
 				} else {
 					g2.setColor(Color.GREEN);
-					Rectangle geneRect = new Rectangle(x, y, this.alleleSideLength, this.alleleSideLength);
+					Rectangle geneRect = new Rectangle(thisX, thisY, Population.ALLELE_SIDE_LENGTH, Population.ALLELE_SIDE_LENGTH);
 					g2.fill(geneRect);
 					g2.setColor(Color.BLACK);
-					g2.drawString("" + Integer.toString(NUM_COLUMNS * i + j), x, y + this.alleleSideLength);
+//					g2.drawString("" + Integer.toString(NUM_COLUMNS * i + j), thisX, thisY + Population.ALLELE_SIDE_LENGTH);
 				}
-				x += this.alleleSideLength;
+				thisX += Population.ALLELE_SIDE_LENGTH;
 			}
-			x = 0;
-			y += this.alleleSideLength;
+			thisX = x;
+			thisY += Population.ALLELE_SIDE_LENGTH;
 		}
 	}
 

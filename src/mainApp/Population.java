@@ -17,10 +17,14 @@ public class Population {
 			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 			1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
+	public static final int ALLELE_SIDE_LENGTH = 5;
+
 	private ArrayList<Individual> individuals = new ArrayList<Individual>();
 	private double mutationRate;
 	private int numGenerations = 0;
 	private boolean hasFoundSolution = false;
+	
+	
 
 	public void initializeRandomly(int populationSize, int chromosomeLength, double mutationRate) {
 		this.individuals.clear();
@@ -57,8 +61,7 @@ public class Population {
 	
 	public void runEvolutionaryLoop() {
 		this.truncationSelection();
-//		this.population.selectionByRouletteWheel("Simple");
-//		this.crossover();
+
 		this.mutate();
 		this.createNewGeneration();
 		numGenerations++;
@@ -143,8 +146,9 @@ public class Population {
 	}
 
 	public void drawOn(Graphics2D g2) {
-//		GridLayout grid = new GridLayout(individuals.size()/10 + 1, 10, 3, 3);
-//		getFittestIndividual().drawOn(g2);
+//		for (int i = 0; i < individuals.size(); i++) {
+			individuals.get(0).drawOn(g2, 0, 0);
+//		}
 	}
 
 	public String getFirstChromosomeString() {
@@ -201,7 +205,6 @@ public class Population {
 	}
 
 	public void printIndividuals() {
-		// TODO Auto-generated method stub
 		System.out.println(this.individuals);
 	}
 

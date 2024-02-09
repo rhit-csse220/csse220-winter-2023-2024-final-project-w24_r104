@@ -6,12 +6,17 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
 public class DataVisualizationComponent extends JComponent {
 	private Population population;
 	private int generations;
+	private ArrayList<Line2D> lines;
+	public static final int ALLELE_SIDE_LENGTH = 20;
+	
 	public static final int GRAPH_OFFSET_FROM_BORDER = 40;
 	public static final int HORIZONTAL_UNIT_WIDTH = (DataVisualizationViewer.FRAME_WIDTH - 3 * GRAPH_OFFSET_FROM_BORDER)
 			/ 10;
@@ -58,10 +63,10 @@ public class DataVisualizationComponent extends JComponent {
 			g2.drawString("" + 10 * i, GRAPH_OFFSET_FROM_BORDER + i * HORIZONTAL_UNIT_WIDTH - 5,
 					GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10 + AXES_DIVISOR_LENGTH / 2 + 15);
 		}
-//
-//		Stroke originalStroke = g2.getStroke();
-//		BasicStroke stroke = new BasicStroke(10);
-//		g2.setStroke(stroke);
+
+		Stroke originalStroke = g2.getStroke();
+		BasicStroke stroke = new BasicStroke(LINE_WIDTH);
+		g2.setStroke(stroke);
 		this.population.printIndividuals();
 		g2.setColor(Color.GREEN);
 		Ellipse2D.Double bestLine = new Ellipse2D.Double(GRAPH_OFFSET_FROM_BORDER,
