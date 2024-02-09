@@ -20,7 +20,6 @@ public class DataVisualizationViewer {
 	public static final int FRAME_HEIGHT = 500;
 
 	private Population population;
-
 	private Timer t;
 	
 	public DataVisualizationViewer(Population population, Timer t) {
@@ -112,7 +111,7 @@ public class DataVisualizationViewer {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		Timer timer = new Timer(100, new ActionListener() {
+		t.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
