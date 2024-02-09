@@ -13,7 +13,7 @@ public class MainApp {
 
 	private void runApp() {
 		Population population = new Population();
-		Timer t = new Timer(400, new ActionListener() {
+		Timer t = new Timer(200, new ActionListener() {
 
 			private int numGenerations = 0;
 
