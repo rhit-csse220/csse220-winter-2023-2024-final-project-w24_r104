@@ -70,10 +70,6 @@ public class Population {
 	}
 	
 	public void createNewGeneration() {
-//		int targetPopulationSize = this.individuals.size()*2;
-//		for (int i = 0; i < targetPopulationSize / 2; i++) {
-//			this.individuals.add(this.individuals.get(i).clone());
-//		}
 		ArrayList<Individual> newGen = new ArrayList<Individual>();
 		for (Individual individual : this.individuals) {
 			newGen.add(individual.clone());
@@ -145,33 +141,47 @@ public class Population {
 	public Individual getFirstIndividual() {
 		return this.individuals.get(0);
 	}
-
-	public Individual getFittestIndividual() {
-//		Individual fittest = this.getFirstIndividual();
-//		for (Individual individual : this.individuals) {
-//			if (individual.calculateSimpleFitness() > fittest.calculateSimpleFitness())
-//				fittest = individual;
-//		}
-//		return fittest;
-		Collections.sort(this.individuals);
-		System.out.println(this.individuals);
-		return this.individuals.get(0);
-	}
 	
-	public Individual getAverageIndividual() {
-		Collections.sort(this.individuals);
-		return this.individuals.get(this.individuals.size()/2);
-	}
-	
-	public Individual getLeastFitIndividual() {
-		Collections.sort(this.individuals);
-		return this.individuals.get(this.individuals.size() - 1);
-	}
 	/*
 	 * ensures: return the number of individuals in population
 	 */
 	public int size() {
 		return this.individuals.size();
 	}
+	
+	public Individual getFittestIndividual() {
+		Collections.sort(this.individuals);
+		System.out.println(this.individuals);
+		return this.individuals.get(0);
+	}
+	
+	public int getBestFitness() {
+		int max = 0;
+		for (Individual i : individuals) {
+			if (i.getFitness("Simple") > max) {
+				max = i.getFitness("Simple");
+			}
+		} 
+		return max;
 
+	}
+	
+	public int getAverageFitness() {
+		int totalFitness = 0;
+		for (Individual i : individuals) {
+			totalFitness += i.getFitness("Simple");
+		}
+		return totalFitness / individuals.size();
+	}
+	
+	public int getLeastFitness() {
+		int min = 0;
+		for (Individual i : individuals) {
+			if (i.getFitness("Simple") < min) {
+				min = i.getFitness("Simple");
+			}
+		} 
+		return min;
+	}
+	
 }

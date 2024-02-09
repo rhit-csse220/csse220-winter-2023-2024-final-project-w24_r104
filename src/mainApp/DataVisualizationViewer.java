@@ -21,7 +21,7 @@ public class DataVisualizationViewer {
 	
 	public DataVisualizationViewer(Population population) {
 		JFrame frame = new JFrame();
-		JLabel label = new JLabel("Fitness Over Generations");
+		JLabel label = new JLabel("Fitness Over Generations", SwingConstants.CENTER);
 		DataVisualizationComponent dataComp = new DataVisualizationComponent(population);
 
 		JPanel buttonPanel = new JPanel();
