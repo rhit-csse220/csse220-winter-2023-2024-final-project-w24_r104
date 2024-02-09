@@ -34,7 +34,7 @@ public class Population {
 			}
 			this.individuals.add(new Individual(chromosome));
 		}
-		this.mutationRate = mutationRate;
+		this.mutationRate = mutationRate/this.size();
 	}
 
 	public void initializeFromFile(int populationSize, String filename)
@@ -205,6 +205,10 @@ public class Population {
 
 	public void printIndividuals() {
 		System.out.println(this.individuals);
+	}
+	
+	public int getNumGenerations() {
+		return this.numGenerations;
 	}
 
 }
