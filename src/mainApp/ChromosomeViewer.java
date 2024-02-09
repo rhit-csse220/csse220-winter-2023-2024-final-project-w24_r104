@@ -27,7 +27,6 @@ public class ChromosomeViewer {
 
 	public ChromosomeViewer(Population population, Timer t) {
 		JFrame frame = new JFrame();
-		JPanel panel = new JPanel();
 		JPanel buttonPanel = new JPanel();
 		ChromosomeComponent simComp = new ChromosomeComponent(100, population);
 
@@ -58,7 +57,7 @@ public class ChromosomeViewer {
 			public void actionPerformed(ActionEvent e) {
 				String s = System.getProperty("user.dir");
 				JFileChooser chooser = new JFileChooser(s);
-				int result = chooser.showOpenDialog(panel);
+				int result = chooser.showOpenDialog(frame);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = chooser.getSelectedFile();
 					String newFileName = selectedFile.getAbsolutePath();
@@ -83,7 +82,6 @@ public class ChromosomeViewer {
 		simComp.addMouseListener(new MutationClickListener(chromosomeFileLabel, simComp));
 
 		frame.add(simComp, BorderLayout.CENTER);
-		frame.add(panel, BorderLayout.EAST);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
 		buttonPanel.add(mutateButton, BorderLayout.NORTH);
