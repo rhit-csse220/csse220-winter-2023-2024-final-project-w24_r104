@@ -13,25 +13,25 @@ public class SimulatorComponent extends JComponent {
 	private int numGenerations;
 	private boolean hasFoundSolution;
 
-	public SimulatorComponent(int popSize) {
-		this.population = new Population();
+	public SimulatorComponent(int popSize, Population population) {
+		this.population = population;
 		this.numGenerations = 0;
 		this.hasFoundSolution = false;
 	}
 	
-	public void runEvolutionaryLoop() {
-		this.population.truncationSelection();
-//		this.population.selectionByRouletteWheel("Simple");
-		this.population.crossover();
-		this.population.mutate();
-		this.population.createNewGeneration();
-		numGenerations++;
-		repaint();
-		System.out.println(numGenerations + "th generation");
-		System.out.println("Best Individual: " + this.population.getFittestIndividual());
-		if (this.population.getFittestIndividual().getFitness("Simple") > 90)
-			this.hasFoundSolution = true;
-	}
+//	public void runEvolutionaryLoop() {
+//		this.population.truncationSelection();
+////		this.population.selectionByRouletteWheel("Simple");
+//		this.population.crossover();
+//		this.population.mutate();
+//		this.population.createNewGeneration();
+//		numGenerations++;
+//		repaint();
+//		System.out.println(numGenerations + "th generation");
+//		System.out.println("Best Individual: " + this.population.getFittestIndividual());
+//		if (this.population.getFittestIndividual().getFitness("Simple") > 90)
+//			this.hasFoundSolution = true;
+//	}
 
 	public void initializeRandomPop(int populationSize, int chromosomeLength) {
 		population.initializeRandomly(populationSize, chromosomeLength, 0.01);

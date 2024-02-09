@@ -9,9 +9,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -23,11 +20,13 @@ public class DataVisualizationViewer {
 	public static final int FRAME_HEIGHT = 500;
 	
 	private Population population;
+	private Timer t;
 	
-	public DataVisualizationViewer(Population population) {
+	public DataVisualizationViewer(Population population, Timer t) {
 		this.population = population;
+		this.t = t;
 		JFrame frame = new JFrame();
-		JLabel label = new JLabel("Fitness Over Generations");
+		JLabel label = new JLabel("Fitness Over Generations", SwingConstants.CENTER);
 		DataVisualizationComponent dataComp = new DataVisualizationComponent(population);
 
 		JPanel buttonPanel = new JPanel();
@@ -54,7 +53,7 @@ public class DataVisualizationViewer {
 		// Create a text field to get user input on number of generations
 		JLabel generationSizeText = new JLabel("Generations");
 		JTextField promptGenSize = new JTextField(TEXTFIELD_SIZE);
-		promptGenSize.setText("100");
+		promptGenSize.setText("200");
 
 		// Create a text field to get user input on length of genome
 		JLabel genomeLengthText = new JLabel("Genome Length");
@@ -68,20 +67,6 @@ public class DataVisualizationViewer {
 		
 		// Create a button to start evolution loop
 		JButton startEvolutionButton = new JButton("Start Evolution");
-		Timer t = new Timer(200, new ActionListener() {
-
-			private int numGenerations = 0;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-//				if (!population.hasFoundSolution()) {
-//					population.runEvolutionaryLoop();
-//					numGenerations++;
-//				} else {
-//					System.out.println("Found solution after " + numGenerations + " generations with fitness of " + -1);
-//				}
-			}
-		});
 		startEvolutionButton.addActionListener(new ActionListener() {
 
 			private boolean firstTimeClicked = true;

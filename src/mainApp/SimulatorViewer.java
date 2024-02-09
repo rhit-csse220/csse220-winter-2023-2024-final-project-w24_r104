@@ -28,11 +28,11 @@ import javax.swing.Timer;
  */
 public class SimulatorViewer {
 
-	public SimulatorViewer() {
+	public SimulatorViewer(Population population, Timer t) {
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
 		JPanel buttonPanel = new JPanel();
-		SimulatorComponent simComp = new SimulatorComponent(100);
+		SimulatorComponent simComp = new SimulatorComponent(100, population);
 
 		JLabel chromosomeFileLabel = new JLabel();
 		JLabel mRate = new JLabel("M Rate: _/N");
@@ -52,7 +52,6 @@ public class SimulatorViewer {
 		});
 
 		chromosomeFileLabel.setText("Randomly Generated Chromsome");
-		simComp.initializeRandomPop(100, 100);
 
 		JButton loadButton = new JButton("Load");
 		JButton saveButton = new JButton("Save");
@@ -101,8 +100,6 @@ public class SimulatorViewer {
 		frame.setSize(500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
-		DataVisualizationViewer dataViewer = new DataVisualizationViewer(simComp.getPopulation());
 
 //		JFrame frame2 = new JFrame();
 //		JPanel panel2 = new JPanel();
