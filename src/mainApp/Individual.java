@@ -74,7 +74,7 @@ public class Individual implements Comparable<Individual> {
 	public void mutate(double mutationRate) {
 		Random r = new Random();
 		for (int i = 0; i < chromosome.length; i++) {
-			if (r.nextDouble() < mutationRate)
+			if (r.nextDouble() <= mutationRate)
 				switchAlleleAtIndex(i);
 		}
 	}

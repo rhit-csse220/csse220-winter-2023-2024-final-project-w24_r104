@@ -18,8 +18,9 @@ public class DataVisualizationViewer {
 	public static final int TEXTFIELD_SIZE = 3;
 	public static final int FRAME_WIDTH = 1100;
 	public static final int FRAME_HEIGHT = 500;
-	
+
 	private Population population;
+
 	private Timer t;
 	
 	public DataVisualizationViewer(Population population, Timer t) {
@@ -27,7 +28,7 @@ public class DataVisualizationViewer {
 		this.t = t;
 		JFrame frame = new JFrame();
 		JLabel label = new JLabel("Fitness Over Generations", SwingConstants.CENTER);
-		DataVisualizationComponent dataComp = new DataVisualizationComponent(population);
+		DataVisualizationComponent dataComp = new DataVisualizationComponent(this.population);
 
 		JPanel buttonPanel = new JPanel();
 
@@ -64,33 +65,29 @@ public class DataVisualizationViewer {
 		JLabel elitismText = new JLabel("Elitism %");
 		JTextField promptElitism = new JTextField(TEXTFIELD_SIZE);
 		promptElitism.setText("0");
-		
+
 		// Create a button to start evolution loop
 		JButton startEvolutionButton = new JButton("Start Evolution");
 		startEvolutionButton.addActionListener(new ActionListener() {
 
 			private boolean firstTimeClicked = true;
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				if (firstTimeClicked) {
-					population.initializeRandomly(Integer.parseInt(promptPopSize.getText()), 
-												  Integer.parseInt(promptGenomeLength.getText()),
-												  Double.parseDouble(promptMRate.getText()));
+					population.initializeRandomly(Integer.parseInt(promptPopSize.getText()),
+							Integer.parseInt(promptGenomeLength.getText()), Double.parseDouble(promptMRate.getText())/population.size());
 					t.start();
 					firstTimeClicked = false;
-				} else if (!firstTimeClicked){
+				} else if (!firstTimeClicked) {
 					if (!t.isRunning())
 						t.start();
 					else
 						t.stop();
 				}
 			}
-			
 		});
-		
-
+		frame.setVisible(true);
 		frame.add(dataComp, BorderLayout.CENTER);
 		frame.add(label, BorderLayout.NORTH);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
@@ -113,8 +110,15 @@ public class DataVisualizationViewer {
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setTitle("Evolution Viewer");
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		Timer timer = new Timer(100, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dataComp.update();
+			}
+		});
 	}
-	
+
 }
