@@ -17,12 +17,10 @@ public class Population {
 			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 			1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
-	private ArrayList<Individual> individuals;
+	private ArrayList<Individual> individuals = new ArrayList<Individual>();
 	private double mutationRate;
-
-	public Population() {
-		this.individuals = new ArrayList<Individual>();
-	}
+	private int numGenerations = 0;
+	private boolean hasFoundSolution = false;
 
 	public void initializeRandomly(int populationSize, int chromosomeLength, double mutationRate) {
 		this.individuals.clear();
@@ -55,6 +53,20 @@ public class Population {
 			this.individuals.add(new Individual(chromosome));
 		}
 		scanner.close();
+	}
+	
+	public void runEvolutionaryLoop() {
+		this.truncationSelection();
+//		this.population.selectionByRouletteWheel("Simple");
+//		this.crossover();
+		this.mutate();
+		this.createNewGeneration();
+		numGenerations++;
+		System.out.println(numGenerations + "th generation");
+		System.out.println("All Individuals: " + this.individuals);
+		System.out.println("Best Individual: " + this.getFittestIndividual());
+		if (this.getFittestIndividual().getFitness("Simple") > 90)
+			this.hasFoundSolution = true;
 	}
 
 	public void setMutationRate(double rateOutOfN) {
@@ -132,7 +144,7 @@ public class Population {
 
 	public void drawOn(Graphics2D g2) {
 //		GridLayout grid = new GridLayout(individuals.size()/10 + 1, 10, 3, 3);
-		getFittestIndividual().drawOn(g2);
+//		getFittestIndividual().drawOn(g2);
 	}
 
 	public String getFirstChromosomeString() {
@@ -140,6 +152,12 @@ public class Population {
 	}
 
 	public Individual getFirstIndividual() {
+		return this.individuals.get(0);
+	}
+
+
+	public Individual getFittestIndividual() {
+		Collections.sort(this.individuals);
 		return this.individuals.get(0);
 	}
 	
@@ -150,19 +168,13 @@ public class Population {
 		return this.individuals.size();
 	}
 	
-	public Individual getFittestIndividual() {
-		Collections.sort(this.individuals);
-		System.out.println(this.individuals);
-		return this.individuals.get(0);
-	}
-	
 	public int getBestFitness() {
 		int max = 0;
 		for (Individual i : individuals) {
 			if (i.calculateSimpleFitness() > max) {
 				max = i.calculateSimpleFitness();
 			}
-		} 		System.out.println(this.individuals);
+		} 	
 		return max;
 	}
 	
@@ -175,7 +187,7 @@ public class Population {
 	}
 	
 	public int getLeastFitness() {
-		int min = 0;
+		int min = getBestFitness();
 		for (Individual i : individuals) {
 			if (i.calculateSimpleFitness() < min) {
 				min = i.calculateSimpleFitness();
@@ -184,4 +196,13 @@ public class Population {
 		return min;
 	}
 	
+	public boolean hasFoundSolution() {
+		return this.hasFoundSolution;
+	}
+
+	public void printIndividuals() {
+		// TODO Auto-generated method stub
+		System.out.println(this.individuals);
+	}
+
 }

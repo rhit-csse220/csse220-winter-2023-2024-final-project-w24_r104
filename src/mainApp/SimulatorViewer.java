@@ -5,10 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
-
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -28,11 +25,11 @@ import javax.swing.Timer;
  */
 public class SimulatorViewer {
 
-	public SimulatorViewer() {
+	public SimulatorViewer(Population population, Timer t) {
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
 		JPanel buttonPanel = new JPanel();
-		SimulatorComponent simComp = new SimulatorComponent(100);
+		SimulatorComponent simComp = new SimulatorComponent(100, population);
 
 		JLabel chromosomeFileLabel = new JLabel();
 		JLabel mRate = new JLabel("M Rate: _/N");
@@ -52,7 +49,6 @@ public class SimulatorViewer {
 		});
 
 		chromosomeFileLabel.setText("Randomly Generated Chromsome");
-		simComp.initializeRandomPop(100, 100);
 
 		JButton loadButton = new JButton("Load");
 		JButton saveButton = new JButton("Save");
@@ -101,8 +97,6 @@ public class SimulatorViewer {
 		frame.setSize(500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
-		DataVisualizationViewer dataViewer = new DataVisualizationViewer(simComp.getPopulation());
 
 		System.out.println("App terminated");
 

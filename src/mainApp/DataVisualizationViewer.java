@@ -21,8 +21,11 @@ public class DataVisualizationViewer {
 
 	private Population population;
 
-	public DataVisualizationViewer(Population population) {
+	private Timer t;
+	
+	public DataVisualizationViewer(Population population, Timer t) {
 		this.population = population;
+		this.t = t;
 		JFrame frame = new JFrame();
 		JLabel label = new JLabel("Fitness Over Generations", SwingConstants.CENTER);
 		DataVisualizationComponent dataComp = new DataVisualizationComponent(this.population);
@@ -51,7 +54,7 @@ public class DataVisualizationViewer {
 		// Create a text field to get user input on number of generations
 		JLabel generationSizeText = new JLabel("Generations");
 		JTextField promptGenSize = new JTextField(TEXTFIELD_SIZE);
-		promptGenSize.setText("100");
+		promptGenSize.setText("200");
 
 		// Create a text field to get user input on length of genome
 		JLabel genomeLengthText = new JLabel("Genome Length");
@@ -65,20 +68,6 @@ public class DataVisualizationViewer {
 
 		// Create a button to start evolution loop
 		JButton startEvolutionButton = new JButton("Start Evolution");
-		Timer t = new Timer(200, new ActionListener() {
-
-			private int numGenerations = 0;
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-//				if (!population.hasFoundSolution()) {
-//					population.runEvolutionaryLoop();
-//					numGenerations++;
-//				} else {
-//					System.out.println("Found solution after " + numGenerations + " generations with fitness of " + -1);
-//				}
-			}
-		});
 		startEvolutionButton.addActionListener(new ActionListener() {
 
 			private boolean firstTimeClicked = true;
@@ -98,7 +87,7 @@ public class DataVisualizationViewer {
 				}
 			}
 		});
-
+		frame.setVisible(true);
 		frame.add(dataComp, BorderLayout.CENTER);
 		frame.add(label, BorderLayout.NORTH);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
@@ -121,8 +110,15 @@ public class DataVisualizationViewer {
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.setTitle("Evolution Viewer");
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		Timer timer = new Timer(100, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dataComp.update();
+			}
+		});
 	}
 
 }

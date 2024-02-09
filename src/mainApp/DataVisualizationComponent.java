@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.geom.Ellipse2D;
 
 import javax.swing.JComponent;
 
@@ -60,24 +61,26 @@ public class DataVisualizationComponent extends JComponent {
 //
 //		Stroke originalStroke = g2.getStroke();
 //		BasicStroke stroke = new BasicStroke(10);
-//		
 //		g2.setStroke(stroke);
-		this.population.initializeRandomly(100, 100, 1);
+		this.population.printIndividuals();
 		g2.setColor(Color.GREEN);
-		g2.fillOval(GRAPH_OFFSET_FROM_BORDER,
+		Ellipse2D.Double bestLine = new Ellipse2D.Double(GRAPH_OFFSET_FROM_BORDER,
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-						- this.population.getBestFitness() / 100 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH,
+						- this.population.getBestFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH,
 				LINE_WIDTH, LINE_WIDTH);
-		g2.setColor(Color.YELLOW);
-		g2.fillOval(GRAPH_OFFSET_FROM_BORDER,
+		g2.fill(bestLine);
+		g2.setColor(Color.ORANGE);
+		Ellipse2D.Double avgLine = new Ellipse2D.Double(GRAPH_OFFSET_FROM_BORDER,
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-						- this.population.getAverageFitness() / 100 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH,
+						- this.population.getAverageFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH,
 				LINE_WIDTH, LINE_WIDTH);
+		g2.fill(avgLine);
 		g2.setColor(Color.RED);
-		g2.fillOval(GRAPH_OFFSET_FROM_BORDER,
+		Ellipse2D.Double leastLine = new Ellipse2D.Double(GRAPH_OFFSET_FROM_BORDER,
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-						- this.population.getLeastFitness() / 100 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH,
+						- this.population.getLeastFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH,
 				LINE_WIDTH, LINE_WIDTH);
+		g2.fill(leastLine);
 	}
 
 	public void setGeneration(int generations) {
@@ -93,6 +96,7 @@ public class DataVisualizationComponent extends JComponent {
 	}
 
 	public void update() {
+		repaint();
 	}
 
 }
