@@ -24,7 +24,7 @@ public class Population {
 		this.individuals = new ArrayList<Individual>();
 	}
 
-	public void initializeRandomly(int populationSize, int chromosomeLength) {
+	public void initializeRandomly(int populationSize, int chromosomeLength, double mutationRate) {
 		this.individuals.clear();
 		Random r = new Random();
 		for (int i = 0; i < populationSize; i++) {
@@ -34,6 +34,7 @@ public class Population {
 			}
 			this.individuals.add(new Individual(chromosome));
 		}
+		this.mutationRate = mutationRate;
 	}
 
 	public void initializeFromFile(int populationSize, String filename)

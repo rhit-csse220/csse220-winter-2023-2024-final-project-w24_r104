@@ -34,7 +34,7 @@ public class SimulatorComponent extends JComponent {
 	}
 
 	public void initializeRandomPop(int populationSize, int chromosomeLength) {
-		population.initializeRandomly(populationSize, chromosomeLength);
+		population.initializeRandomly(populationSize, chromosomeLength, 0.01);
 		repaint();
 	}
 	
