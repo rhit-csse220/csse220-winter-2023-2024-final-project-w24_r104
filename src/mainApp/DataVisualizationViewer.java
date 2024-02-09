@@ -9,9 +9,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -21,14 +18,14 @@ public class DataVisualizationViewer {
 	public static final int TEXTFIELD_SIZE = 3;
 	public static final int FRAME_WIDTH = 1100;
 	public static final int FRAME_HEIGHT = 500;
-	
+
 	private Population population;
-	
+
 	public DataVisualizationViewer(Population population) {
 		this.population = population;
 		JFrame frame = new JFrame();
 		JLabel label = new JLabel("Fitness Over Generations", SwingConstants.CENTER);
-		DataVisualizationComponent dataComp = new DataVisualizationComponent(population);
+		DataVisualizationComponent dataComp = new DataVisualizationComponent(this.population);
 
 		JPanel buttonPanel = new JPanel();
 
@@ -65,7 +62,7 @@ public class DataVisualizationViewer {
 		JLabel elitismText = new JLabel("Elitism %");
 		JTextField promptElitism = new JTextField(TEXTFIELD_SIZE);
 		promptElitism.setText("0");
-		
+
 		// Create a button to start evolution loop
 		JButton startEvolutionButton = new JButton("Start Evolution");
 		Timer t = new Timer(200, new ActionListener() {
@@ -85,26 +82,22 @@ public class DataVisualizationViewer {
 		startEvolutionButton.addActionListener(new ActionListener() {
 
 			private boolean firstTimeClicked = true;
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				if (firstTimeClicked) {
-					population.initializeRandomly(Integer.parseInt(promptPopSize.getText()), 
-												  Integer.parseInt(promptGenomeLength.getText()),
-												  Double.parseDouble(promptMRate.getText()));
+					population.initializeRandomly(Integer.parseInt(promptPopSize.getText()),
+							Integer.parseInt(promptGenomeLength.getText()), Double.parseDouble(promptMRate.getText()));
 					t.start();
 					firstTimeClicked = false;
-				} else if (!firstTimeClicked){
+				} else if (!firstTimeClicked) {
 					if (!t.isRunning())
 						t.start();
 					else
 						t.stop();
 				}
 			}
-			
 		});
-		
 
 		frame.add(dataComp, BorderLayout.CENTER);
 		frame.add(label, BorderLayout.NORTH);
@@ -131,5 +124,5 @@ public class DataVisualizationViewer {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 }

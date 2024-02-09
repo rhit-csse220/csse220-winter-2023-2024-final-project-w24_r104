@@ -159,18 +159,17 @@ public class Population {
 	public int getBestFitness() {
 		int max = 0;
 		for (Individual i : individuals) {
-			if (i.getFitness("Simple") > max) {
-				max = i.getFitness("Simple");
+			if (i.calculateSimpleFitness() > max) {
+				max = i.calculateSimpleFitness();
 			}
-		} 
+		} 		System.out.println(this.individuals);
 		return max;
-
 	}
 	
 	public int getAverageFitness() {
 		int totalFitness = 0;
 		for (Individual i : individuals) {
-			totalFitness += i.getFitness("Simple");
+			totalFitness += i.calculateSimpleFitness();
 		}
 		return totalFitness / individuals.size();
 	}
@@ -178,8 +177,8 @@ public class Population {
 	public int getLeastFitness() {
 		int min = 0;
 		for (Individual i : individuals) {
-			if (i.getFitness("Simple") < min) {
-				min = i.getFitness("Simple");
+			if (i.calculateSimpleFitness() < min) {
+				min = i.calculateSimpleFitness();
 			}
 		} 
 		return min;
