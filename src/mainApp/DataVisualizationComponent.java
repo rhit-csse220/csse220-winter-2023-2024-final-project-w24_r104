@@ -16,7 +16,7 @@ public class DataVisualizationComponent extends JComponent {
 	private Population population;
 	private int generations;
 	public static final int GRAPH_OFFSET_FROM_BORDER = 40;
-	public static final int HORIZONTAL_UNIT_WIDTH = (DataVisualizationViewer.FRAME_WIDTH - 3 * GRAPH_OFFSET_FROM_BORDER)
+	public static final int HORIZONTAL_UNIT_WIDTH = 2 + (DataVisualizationViewer.FRAME_WIDTH - 3 * GRAPH_OFFSET_FROM_BORDER) // add 2 to make it divide nicely
 			/ 10;
 	public static final int VERTICAL_UNIT_WIDTH = (DataVisualizationViewer.FRAME_HEIGHT - 4 * GRAPH_OFFSET_FROM_BORDER)
 			/ 10;
@@ -54,7 +54,7 @@ public class DataVisualizationComponent extends JComponent {
 					GRAPH_OFFSET_FROM_BORDER + AXES_DIVISOR_LENGTH / 2,
 					GRAPH_OFFSET_FROM_BORDER + i * VERTICAL_UNIT_WIDTH); // y-axis
 			// indexing
-			g2.drawString("" + 20 * (10 - i), GRAPH_OFFSET_FROM_BORDER - AXES_DIVISOR_LENGTH / 2 - 20,
+			g2.drawString("" + 10 * (10 - i), GRAPH_OFFSET_FROM_BORDER - AXES_DIVISOR_LENGTH / 2 - 20,
 					GRAPH_OFFSET_FROM_BORDER + i * VERTICAL_UNIT_WIDTH + 4);
 
 			g2.drawLine(GRAPH_OFFSET_FROM_BORDER + i * HORIZONTAL_UNIT_WIDTH,
@@ -105,11 +105,7 @@ public class DataVisualizationComponent extends JComponent {
 						(int)leastPoints.get(i + 1).x, (int)leastPoints.get(i + 1).y);
 		}
 	}
-
-	public void setGeneration(int generations) {
-		this.generations = generations;
-	}
-
+	
 	public void addEntry() {
 
 	}
@@ -119,14 +115,13 @@ public class DataVisualizationComponent extends JComponent {
 	}
 
 	public void update() {
-		System.out.println(GRAPH_OFFSET_FROM_BORDER * (bestPoints.size() + 1));
-		bestPoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER * (bestPoints.size() + 1),
+		bestPoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (bestPoints.size() + 1),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
 				- this.population.getBestFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
-		averagePoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER * (averagePoints.size() + 1),
+		averagePoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (averagePoints.size() + 1),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
 				- this.population.getAverageFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
-		leastPoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER * (leastPoints.size() + 1),
+		leastPoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (leastPoints.size() + 1),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
 				- this.population.getLeastFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
 		repaint();

@@ -75,7 +75,7 @@ public class DataVisualizationViewer {
 			public void actionPerformed(ActionEvent e) {
 				if (firstTimeClicked) {
 					population.initializeRandomly(Integer.parseInt(promptPopSize.getText()),
-							Integer.parseInt(promptGenomeLength.getText()), Double.parseDouble(promptMRate.getText())/population.size());
+							Integer.parseInt(promptGenomeLength.getText()), Double.parseDouble(promptMRate.getText()));
 					t.start();
 					firstTimeClicked = false;
 				} else if (!firstTimeClicked) {
@@ -115,7 +115,8 @@ public class DataVisualizationViewer {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dataComp.update();
+				if (population.getNumGenerations() < Integer.parseInt(promptGenSize.getText()))
+						dataComp.update();
 			}
 		});
 	}

@@ -13,8 +13,7 @@ public class MainApp {
 
 	private void runApp() {
 		Population population = new Population();
-		population.initializeRandomly(100, 100, 20);
-		Timer t = new Timer(400, new ActionListener() {
+		Timer t = new Timer(100, new ActionListener() {
 
 			private int numGenerations = 0;
 
