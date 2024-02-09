@@ -23,8 +23,6 @@ public class Population {
 	private double mutationRate;
 	private int numGenerations = 0;
 	private boolean hasFoundSolution = false;
-	
-	
 
 	public void initializeRandomly(int populationSize, int chromosomeLength, double mutationRate) {
 		this.individuals.clear();
@@ -58,7 +56,7 @@ public class Population {
 		}
 		scanner.close();
 	}
-	
+
 	public void runEvolutionaryLoop() {
 		this.truncationSelection();
 
@@ -84,7 +82,7 @@ public class Population {
 			this.individuals.remove(this.individuals.size() - 1);
 		}
 	}
-	
+
 	public void createNewGeneration() {
 		ArrayList<Individual> newGen = new ArrayList<Individual>();
 		for (Individual individual : this.individuals) {
@@ -146,9 +144,11 @@ public class Population {
 	}
 
 	public void drawOn(Graphics2D g2) {
-//		for (int i = 0; i < individuals.size(); i++) {
-			individuals.get(0).drawOn(g2, 0, 0);
-//		}
+		for (int i = 0; i < individuals.size() / 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				individuals.get(10 * i + j).drawOn(g2, 10 + j * ALLELE_SIDE_LENGTH * 11, i * ALLELE_SIDE_LENGTH * 11);
+			}
+		}
 	}
 
 	public String getFirstChromosomeString() {
@@ -159,29 +159,28 @@ public class Population {
 		return this.individuals.get(0);
 	}
 
-
 	public Individual getFittestIndividual() {
 		Collections.sort(this.individuals);
 		return this.individuals.get(0);
 	}
-	
+
 	/*
 	 * ensures: return the number of individuals in population
 	 */
 	public int size() {
 		return this.individuals.size();
 	}
-	
+
 	public int getBestFitness() {
 		int max = 0;
 		for (Individual i : individuals) {
 			if (i.calculateSimpleFitness() > max) {
 				max = i.calculateSimpleFitness();
 			}
-		} 	
+		}
 		return max;
 	}
-	
+
 	public int getAverageFitness() {
 		int totalFitness = 0;
 		for (Individual i : individuals) {
@@ -189,17 +188,17 @@ public class Population {
 		}
 		return totalFitness / individuals.size();
 	}
-	
+
 	public int getLeastFitness() {
 		int min = getBestFitness();
 		for (Individual i : individuals) {
 			if (i.calculateSimpleFitness() < min) {
 				min = i.calculateSimpleFitness();
 			}
-		} 
+		}
 		return min;
 	}
-	
+
 	public boolean hasFoundSolution() {
 		return this.hasFoundSolution;
 	}

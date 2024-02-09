@@ -23,13 +23,13 @@ import javax.swing.Timer;
  *         <br>
  *         Restrictions: None
  */
-public class SimulatorViewer {
+public class ChromosomeViewer {
 
-	public SimulatorViewer(Population population, Timer t) {
+	public ChromosomeViewer(Population population, Timer t) {
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
 		JPanel buttonPanel = new JPanel();
-		SimulatorComponent simComp = new SimulatorComponent(100, population);
+		ChromosomeComponent simComp = new ChromosomeComponent(100, population);
 
 		JLabel chromosomeFileLabel = new JLabel();
 		JLabel mRate = new JLabel("M Rate: _/N");
@@ -94,7 +94,7 @@ public class SimulatorViewer {
 
 		frame.add(chromosomeFileLabel, BorderLayout.NORTH);
 		frame.setTitle("Chromosome Viewer");
-		frame.setSize(500, 500);
+		frame.setSize(Population.ALLELE_SIDE_LENGTH * 120, Population.ALLELE_SIDE_LENGTH * 130);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 

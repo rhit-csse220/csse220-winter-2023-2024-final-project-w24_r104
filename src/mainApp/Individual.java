@@ -103,13 +103,11 @@ public class Individual implements Comparable<Individual> {
 					Rectangle geneRect = new Rectangle(thisX, thisY, Population.ALLELE_SIDE_LENGTH, Population.ALLELE_SIDE_LENGTH);
 					g2.fill(geneRect);
 					g2.setColor(Color.WHITE);
-//					g2.drawString("" + Integer.toString(NUM_COLUMNS * i + j), thisX, thisY + Population.ALLELE_SIDE_LENGTH);
 				} else {
 					g2.setColor(Color.GREEN);
 					Rectangle geneRect = new Rectangle(thisX, thisY, Population.ALLELE_SIDE_LENGTH, Population.ALLELE_SIDE_LENGTH);
 					g2.fill(geneRect);
 					g2.setColor(Color.BLACK);
-//					g2.drawString("" + Integer.toString(NUM_COLUMNS * i + j), thisX, thisY + Population.ALLELE_SIDE_LENGTH);
 				}
 				thisX += Population.ALLELE_SIDE_LENGTH;
 			}

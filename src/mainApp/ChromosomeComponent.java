@@ -7,13 +7,13 @@ import java.io.IOException;
 
 import javax.swing.JComponent;
 
-public class SimulatorComponent extends JComponent {
+public class ChromosomeComponent extends JComponent {
 	
 	private Population population;
 	private int numGenerations;
 	private boolean hasFoundSolution;
 
-	public SimulatorComponent(int popSize, Population population) {
+	public ChromosomeComponent(int popSize, Population population) {
 		this.population = population;
 		this.numGenerations = 0;
 		this.hasFoundSolution = false;

@@ -8,9 +8,9 @@ import javax.swing.JLabel;
 public class MutationClickListener implements MouseListener {
 
 	private JLabel chromosomeFileLabel;
-	private SimulatorComponent component;
+	private ChromosomeComponent component;
 	
-	public MutationClickListener(JLabel chromosomeFileLabel, SimulatorComponent component) {
+	public MutationClickListener(JLabel chromosomeFileLabel, ChromosomeComponent component) {
 		this.chromosomeFileLabel = chromosomeFileLabel;
 		this.component = component;
 	}

@@ -28,7 +28,7 @@ public class MainApp {
 				}
 			}
 		});
-		SimulatorViewer chromosomesViewer = new SimulatorViewer(population, t);
+		ChromosomeViewer chromosomesViewer = new ChromosomeViewer(population, t);
 		DataVisualizationViewer dataViewer = new DataVisualizationViewer(population, t);
 	}
 
