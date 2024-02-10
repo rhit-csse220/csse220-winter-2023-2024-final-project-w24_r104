@@ -14,8 +14,6 @@ import javax.swing.JComponent;
 
 public class DataVisualizationComponent extends JComponent {
 	private Population population;
-	private int generations;
-	private ArrayList<Line2D> lines;
 	public static final int ALLELE_SIDE_LENGTH = 20;
 
 	public static final int GRAPH_OFFSET_FROM_BORDER = 40;
@@ -25,7 +23,7 @@ public class DataVisualizationComponent extends JComponent {
 	public static final int VERTICAL_UNIT_WIDTH = (DataVisualizationViewer.FRAME_HEIGHT - 4 * GRAPH_OFFSET_FROM_BORDER)
 			/ 10;
 	public static final int AXES_DIVISOR_LENGTH = 10;
-	public static final int LINE_WIDTH = 4;
+	public static final int LINE_WIDTH = 3;
 
 	private ArrayList<Point2D.Double> bestPoints = new ArrayList<Point2D.Double>();
 	private ArrayList<Point2D.Double> averagePoints = new ArrayList<Point2D.Double>();
