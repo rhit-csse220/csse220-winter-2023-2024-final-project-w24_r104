@@ -47,7 +47,7 @@ public class ChromosomeViewer {
 			}
 		});
 
-		chromosomeFileLabel.setText("Randomly Generated Chromsome");
+		chromosomeFileLabel.setText("Randomly Generated Chromosome");
 
 		JButton loadButton = new JButton("Load");
 		JButton saveButton = new JButton("Save");
