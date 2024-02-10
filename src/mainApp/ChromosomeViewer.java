@@ -28,7 +28,7 @@ public class ChromosomeViewer {
 	public ChromosomeViewer(Population population, Timer t) {
 		JFrame frame = new JFrame();
 		JPanel buttonPanel = new JPanel();
-		ChromosomeComponent simComp = new ChromosomeComponent(100, population);
+		ChromosomeComponent chromosomeComp = new ChromosomeComponent(population);
 
 		JLabel chromosomeFileLabel = new JLabel();
 		JLabel mRate = new JLabel("M Rate: _/N");
@@ -40,7 +40,7 @@ public class ChromosomeViewer {
 			public void actionPerformed(ActionEvent e) {
 				if (!promptMRate.getText().equals("")) {
 					String userInput = promptMRate.getText();
-					simComp.setPopMutationRateAndMutate(Double.parseDouble(userInput));
+					chromosomeComp.setPopMutationRateAndMutate(Double.parseDouble(userInput));
 					if (!chromosomeFileLabel.getText().endsWith(" (mutated)"))
 						chromosomeFileLabel.setText(chromosomeFileLabel.getText() + " (mutated)");
 				}
@@ -63,7 +63,7 @@ public class ChromosomeViewer {
 					String newFileName = selectedFile.getAbsolutePath();
 					chromosomeFileLabel.setText(newFileName);
 					try {
-						simComp.initializePopFromFile(10, newFileName);
+						chromosomeComp.initializePopFromFile(10, newFileName);
 					} catch (InvalidChromosomeFormatException exception) {
 						JOptionPane.showMessageDialog(frame, "Invalid file content", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
@@ -79,9 +79,16 @@ public class ChromosomeViewer {
 			}
 		});
 
-		simComp.addMouseListener(new MutationClickListener(chromosomeFileLabel, simComp));
+		t.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				chromosomeComp.repaint();
+			}
+		});
 
-		frame.add(simComp, BorderLayout.CENTER);
+		chromosomeComp.addMouseListener(new MutationClickListener(chromosomeFileLabel, chromosomeComp));
+
+		frame.add(chromosomeComp, BorderLayout.CENTER);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
 		buttonPanel.add(mutateButton, BorderLayout.NORTH);

@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 
 import java.awt.geom.Point2D;
@@ -18,15 +17,16 @@ public class DataVisualizationComponent extends JComponent {
 	private int generations;
 	private ArrayList<Line2D> lines;
 	public static final int ALLELE_SIDE_LENGTH = 20;
-	
+
 	public static final int GRAPH_OFFSET_FROM_BORDER = 40;
-	public static final int HORIZONTAL_UNIT_WIDTH = 2 + (DataVisualizationViewer.FRAME_WIDTH - 3 * GRAPH_OFFSET_FROM_BORDER) // add 2 to make it divide nicely
-			/ 10;
+	public static final int HORIZONTAL_UNIT_WIDTH = 2
+			+ (DataVisualizationViewer.FRAME_WIDTH - 3 * GRAPH_OFFSET_FROM_BORDER) // add 2 to make it divide nicely
+					/ 10;
 	public static final int VERTICAL_UNIT_WIDTH = (DataVisualizationViewer.FRAME_HEIGHT - 4 * GRAPH_OFFSET_FROM_BORDER)
 			/ 10;
 	public static final int AXES_DIVISOR_LENGTH = 10;
-	public static final int LINE_WIDTH = 6;
-	
+	public static final int LINE_WIDTH = 4;
+
 	private ArrayList<Point2D.Double> bestPoints = new ArrayList<Point2D.Double>();
 	private ArrayList<Point2D.Double> averagePoints = new ArrayList<Point2D.Double>();
 	private ArrayList<Point2D.Double> leastPoints = new ArrayList<Point2D.Double>();
@@ -74,42 +74,24 @@ public class DataVisualizationComponent extends JComponent {
 		BasicStroke stroke = new BasicStroke(LINE_WIDTH);
 		g2.setStroke(stroke);
 		this.population.printIndividuals();
-//		g2.setColor(Color.GREEN);
-//		Ellipse2D.Double bestLine = new Ellipse2D.Double(GRAPH_OFFSET_FROM_BORDER,
-//				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-//						- this.population.getBestFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH,
-//				LINE_WIDTH, LINE_WIDTH);
-//		g2.fill(bestLine);
-//		g2.setColor(Color.ORANGE);
-//		Ellipse2D.Double avgLine = new Ellipse2D.Double(GRAPH_OFFSET_FROM_BORDER,
-//				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-//						- this.population.getAverageFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH,
-//				LINE_WIDTH, LINE_WIDTH);
-//		g2.fill(avgLine);
-//		g2.setColor(Color.RED);
-//		Ellipse2D.Double leastLine = new Ellipse2D.Double(GRAPH_OFFSET_FROM_BORDER,
-//				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-//						- this.population.getLeastFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH,
-//				LINE_WIDTH, LINE_WIDTH);
-//		g2.fill(leastLine);
-		
+
 		g2.setColor(Color.GREEN);
 		for (int i = 0; i < bestPoints.size() - 1; i++) {
-			g2.drawLine((int)bestPoints.get(i).x, (int)bestPoints.get(i).y, 
-						(int)bestPoints.get(i + 1).x, (int)bestPoints.get(i + 1).y);
+			g2.drawLine((int) bestPoints.get(i).x, (int) bestPoints.get(i).y, (int) bestPoints.get(i + 1).x,
+					(int) bestPoints.get(i + 1).y);
 		}
 		g2.setColor(Color.ORANGE);
 		for (int i = 0; i < averagePoints.size() - 1; i++) {
-			g2.drawLine((int)averagePoints.get(i).x, (int)averagePoints.get(i).y, 
-						(int)averagePoints.get(i + 1).x, (int)averagePoints.get(i + 1).y);
+			g2.drawLine((int) averagePoints.get(i).x, (int) averagePoints.get(i).y, (int) averagePoints.get(i + 1).x,
+					(int) averagePoints.get(i + 1).y);
 		}
 		g2.setColor(Color.RED);
 		for (int i = 0; i < leastPoints.size() - 1; i++) {
-			g2.drawLine((int)leastPoints.get(i).x, (int)leastPoints.get(i).y, 
-						(int)leastPoints.get(i + 1).x, (int)leastPoints.get(i + 1).y);
+			g2.drawLine((int) leastPoints.get(i).x, (int) leastPoints.get(i).y, (int) leastPoints.get(i + 1).x,
+					(int) leastPoints.get(i + 1).y);
 		}
 	}
-	
+
 	public void addEntry() {
 
 	}
@@ -121,13 +103,13 @@ public class DataVisualizationComponent extends JComponent {
 	public void update() {
 		bestPoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (bestPoints.size() + 1),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-				- this.population.getBestFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
+						- this.population.getBestFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
 		averagePoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (averagePoints.size() + 1),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-				- this.population.getAverageFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
+						- this.population.getAverageFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
 		leastPoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (leastPoints.size() + 1),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-				- this.population.getLeastFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
+						- this.population.getLeastFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
 		repaint();
 	}
 

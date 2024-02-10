@@ -23,7 +23,12 @@ public class Population {
 	private double mutationRate;
 	private int numGenerations = 0;
 	private boolean hasFoundSolution = false;
-
+	
+	public Population() {
+		this.mutationRate = 0;
+		this.individuals = new ArrayList<Individual>();
+		initializeRandomly(100, 100, 0);
+	}
 	public void initializeRandomly(int populationSize, int chromosomeLength, double mutationRate) {
 		this.individuals.clear();
 		Random r = new Random();
@@ -34,7 +39,7 @@ public class Population {
 			}
 			this.individuals.add(new Individual(chromosome));
 		}
-		this.mutationRate = mutationRate/this.size();
+		this.mutationRate = mutationRate / this.size();
 	}
 
 	public void initializeFromFile(int populationSize, String filename)
@@ -59,8 +64,6 @@ public class Population {
 
 	public void runEvolutionaryLoop() {
 		this.truncationSelection();
-
-		this.mutate();
 		this.createNewGeneration();
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
@@ -72,7 +75,6 @@ public class Population {
 
 	public void setMutationRate(double rateOutOfN) {
 		this.mutationRate = rateOutOfN / individuals.get(0).getChromosome().length;
-		System.out.println(this.mutationRate);
 	}
 
 	public void truncationSelection() {
@@ -86,8 +88,11 @@ public class Population {
 	public void createNewGeneration() {
 		ArrayList<Individual> newGen = new ArrayList<Individual>();
 		for (Individual individual : this.individuals) {
-			newGen.add(individual.clone());
-			newGen.add(individual.clone());
+			newGen.add(individual);
+		}
+		for (Individual individual : this.individuals) {
+			individual.mutate(mutationRate);
+			newGen.add(new Individual(individual.getChromosome()));	
 		}
 		this.individuals = newGen;
 	}
@@ -206,7 +211,7 @@ public class Population {
 	public void printIndividuals() {
 		System.out.println(this.individuals);
 	}
-	
+
 	public int getNumGenerations() {
 		return this.numGenerations;
 	}

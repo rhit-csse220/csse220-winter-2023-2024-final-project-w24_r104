@@ -19,10 +19,7 @@ public class DataVisualizationViewer {
 	public static final int FRAME_WIDTH = 1100;
 	public static final int FRAME_HEIGHT = 500;
 
-	private Timer t;
-	
 	public DataVisualizationViewer(Population population, Timer t) {
-		this.t = t;
 		JFrame frame = new JFrame();
 		JLabel label = new JLabel("Fitness Over Generations", SwingConstants.CENTER);
 		DataVisualizationComponent dataComp = new DataVisualizationComponent(population);
@@ -108,13 +105,12 @@ public class DataVisualizationViewer {
 		frame.setTitle("Evolution Viewer");
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		t.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (population.getNumGenerations() < Integer.parseInt(promptGenSize.getText()))
-						dataComp.update();
+					dataComp.update();
 			}
 		});
 	}

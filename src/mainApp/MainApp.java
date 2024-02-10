@@ -23,7 +23,8 @@ public class MainApp {
 					population.runEvolutionaryLoop();
 					numGenerations++;
 				} else {
-					System.out.println("Found solution after " + numGenerations + " generations: " + population.getFittestIndividual());
+					System.out.println("Found solution after " + numGenerations + " generations: "
+							+ population.getFittestIndividual());
 				}
 			}
 		});
