@@ -85,7 +85,7 @@ public class Individual implements Comparable<Individual> {
 		if (this.chromosome.length > cellCoord && xCoord <= NUM_COLUMNS - 1)
 			switchAlleleAtIndex(cellCoord);
 	}
-	
+
 	public void switchAlleleAtIndex(int i) {
 		if (chromosome[i] == 0)
 			chromosome[i] = 1;
@@ -100,12 +100,14 @@ public class Individual implements Comparable<Individual> {
 			for (int j = 0; j < NUM_COLUMNS; j++) { // iterates through columns
 				if (this.chromosome[NUM_COLUMNS * i + j] == 0) {
 					g2.setColor(Color.BLACK);
-					Rectangle geneRect = new Rectangle(thisX, thisY, Population.ALLELE_SIDE_LENGTH, Population.ALLELE_SIDE_LENGTH);
+					Rectangle geneRect = new Rectangle(thisX, thisY, Population.ALLELE_SIDE_LENGTH,
+							Population.ALLELE_SIDE_LENGTH);
 					g2.fill(geneRect);
 					g2.setColor(Color.WHITE);
 				} else {
 					g2.setColor(Color.GREEN);
-					Rectangle geneRect = new Rectangle(thisX, thisY, Population.ALLELE_SIDE_LENGTH, Population.ALLELE_SIDE_LENGTH);
+					Rectangle geneRect = new Rectangle(thisX, thisY, Population.ALLELE_SIDE_LENGTH,
+							Population.ALLELE_SIDE_LENGTH);
 					g2.fill(geneRect);
 					g2.setColor(Color.BLACK);
 				}
@@ -140,15 +142,15 @@ public class Individual implements Comparable<Individual> {
 
 	@Override
 	protected Individual clone() {
-		return new Individual(this.chromosome);
+		return new Individual(this.chromosome.clone());
 	}
-		
+
 	public int getFitness(String fitnessMethodName) {
 		if (fitnessMethodName.equals("Simple"))
 			return calculateSimpleFitness();
-		else if (fitnessMethodName.equals("Matching Smiley Face")) 
+		else if (fitnessMethodName.equals("Matching Smiley Face"))
 			return calculateMatchingSmileyFitness();
-		else 
+		else
 			return calculateMaxConsecutive1sFitness();
 	}
 

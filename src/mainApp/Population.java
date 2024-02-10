@@ -23,7 +23,11 @@ public class Population {
 	private double mutationRate;
 	private int numGenerations = 0;
 	private boolean hasFoundSolution = false;
-
+	
+	public Population() {
+		this.mutationRate = 0;
+		this.individuals = new ArrayList<Individual>();
+	}
 	public void initializeRandomly(int populationSize, int chromosomeLength, double mutationRate) {
 		this.individuals.clear();
 		Random r = new Random();
@@ -34,7 +38,7 @@ public class Population {
 			}
 			this.individuals.add(new Individual(chromosome));
 		}
-		this.mutationRate = mutationRate/this.size();
+		this.mutationRate = mutationRate / this.individuals.size();
 	}
 
 	public void initializeFromFile(int populationSize, String filename)
@@ -65,13 +69,12 @@ public class Population {
 		System.out.println(numGenerations + "th generation");
 		System.out.println("All Individuals: " + this.individuals);
 		System.out.println("Best Individual: " + this.getFittestIndividual());
-		if (this.getFittestIndividual().getFitness("Simple") > 90)
+		if (this.getFittestIndividual().getFitness("Simple") >= 100)
 			this.hasFoundSolution = true;
 	}
 
 	public void setMutationRate(double rateOutOfN) {
 		this.mutationRate = rateOutOfN / individuals.get(0).getChromosome().length;
-		System.out.println(this.mutationRate);
 	}
 
 	public void truncationSelection() {
@@ -84,6 +87,13 @@ public class Population {
 
 	public void createNewGeneration() {
 		ArrayList<Individual> newGen = new ArrayList<Individual>();
+//		for (Individual individual : this.individuals) {
+//			newGen.add(individual);
+//		}
+//		for (Individual individual : this.individuals) {
+//			individual.mutate(this.mutationRate);
+//			newGen.add(new Individual(individual.getChromosome()));	
+//		}
 		for (Individual individual : this.individuals) {
 			newGen.add(individual.clone());
 			newGen.add(individual.clone());
@@ -205,7 +215,7 @@ public class Population {
 	public void printIndividuals() {
 		System.out.println(this.individuals);
 	}
-	
+
 	public int getNumGenerations() {
 		return this.numGenerations;
 	}

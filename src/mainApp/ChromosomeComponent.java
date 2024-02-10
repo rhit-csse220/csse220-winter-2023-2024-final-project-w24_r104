@@ -8,37 +8,22 @@ import java.io.IOException;
 import javax.swing.JComponent;
 
 public class ChromosomeComponent extends JComponent {
-	
+
 	private Population population;
-	private int numGenerations;
 	private boolean hasFoundSolution;
 
-	public ChromosomeComponent(int popSize, Population population) {
+	public ChromosomeComponent(Population population) {
 		this.population = population;
-		this.numGenerations = 0;
 		this.hasFoundSolution = false;
 	}
-	
-//	public void runEvolutionaryLoop() {
-//		this.population.truncationSelection();
-////		this.population.selectionByRouletteWheel("Simple");
-//		this.population.crossover();
-//		this.population.mutate();
-//		this.population.createNewGeneration();
-//		numGenerations++;
-//		repaint();
-//		System.out.println(numGenerations + "th generation");
-//		System.out.println("Best Individual: " + this.population.getFittestIndividual());
-//		if (this.population.getFittestIndividual().getFitness("Simple") > 90)
-//			this.hasFoundSolution = true;
-//	}
 
 	public void initializeRandomPop(int populationSize, int chromosomeLength) {
 		population.initializeRandomly(populationSize, chromosomeLength, 0.01);
 		repaint();
 	}
-	
-	public void initializePopFromFile(int popSize, String filename) throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
+
+	public void initializePopFromFile(int popSize, String filename)
+			throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
 		population.initializeFromFile(popSize, filename);
 		repaint();
 	}
@@ -48,7 +33,7 @@ public class ChromosomeComponent extends JComponent {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		population.drawOn(g2);
-		
+
 	}
 
 	private void logDataInfo() {
@@ -65,7 +50,6 @@ public class ChromosomeComponent extends JComponent {
 		repaint();
 	}
 
-
 	public void mutateSquare(int x, int y) {
 		this.population.mutateOneCell(x, y);
 	}
@@ -73,7 +57,7 @@ public class ChromosomeComponent extends JComponent {
 	public String getFirstChromosomeString() {
 		return this.population.getFirstChromosomeString();
 	}
-	
+
 	public boolean hasFoundSolution() {
 		return this.hasFoundSolution;
 	}
