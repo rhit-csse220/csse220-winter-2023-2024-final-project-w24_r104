@@ -59,9 +59,8 @@ public class Population {
 
 	public void runEvolutionaryLoop() {
 		this.truncationSelection();
-
-		this.mutate();
 		this.createNewGeneration();
+		this.mutate();
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
 		System.out.println("All Individuals: " + this.individuals);
