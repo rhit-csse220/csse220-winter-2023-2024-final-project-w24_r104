@@ -37,7 +37,7 @@ public class DataVisualizationViewer {
 		final JComboBox<String> selectionMenu = new JComboBox<String>(selectionChoices);
 
 		// Ask if crossover is implemented
-		JCheckBox crossoverCheckBox = new JCheckBox("Crossover?");
+		JCheckBox crossoverCheckBox = new JCheckBox("Crossover?", true);
 		crossoverCheckBox.setHorizontalTextPosition(SwingConstants.LEFT);
 
 		// Create a text field to get user input on population size
@@ -58,7 +58,7 @@ public class DataVisualizationViewer {
 		// Create a text field to get user input on % of elitism
 		JLabel elitismText = new JLabel("Elitism %");
 		JTextField promptElitism = new JTextField(TEXTFIELD_SIZE);
-		promptElitism.setText("0");
+		promptElitism.setText("1");
 
 		// Create a button to start evolution loop
 		JButton startEvolutionButton = new JButton("Start Evolution");
@@ -70,7 +70,9 @@ public class DataVisualizationViewer {
 			public void actionPerformed(ActionEvent e) {
 				if (firstTimeClicked) {
 					population.initializeRandomly(Integer.parseInt(promptPopSize.getText()),
-							Integer.parseInt(promptGenomeLength.getText()), Double.parseDouble(promptMRate.getText()));
+							Integer.parseInt(promptGenomeLength.getText()), Double.parseDouble(promptMRate.getText()),
+							crossoverCheckBox.isSelected(), Double.parseDouble(promptElitism.getText()),
+							selectionMenu.getSelectedItem().toString());
 					t.start();
 					firstTimeClicked = false;
 				} else if (!firstTimeClicked) {

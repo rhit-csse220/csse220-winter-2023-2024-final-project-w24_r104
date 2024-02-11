@@ -17,10 +17,10 @@ public class ChromosomeComponent extends JComponent {
 		this.hasFoundSolution = false;
 	}
 
-	public void initializeRandomPop(int populationSize, int chromosomeLength) {
-		population.initializeRandomly(populationSize, chromosomeLength, 0.01);
-		repaint();
-	}
+//	public void initializeRandomPop(int populationSize, int chromosomeLength) {
+//		population.initializeRandomly(populationSize, chromosomeLength, 0.01);
+//		repaint();
+//	}
 
 	public void initializePopFromFile(int popSize, String filename)
 			throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
@@ -46,7 +46,7 @@ public class ChromosomeComponent extends JComponent {
 
 	public void setPopMutationRateAndMutate(double d) {
 		population.setMutationRate(d);
-		population.mutate();
+		population.mutateAll();
 		repaint();
 	}
 
