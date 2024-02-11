@@ -26,6 +26,7 @@ public class Population {
 	private String selectionMethod;
 	private int numGenerations = 0;
 	private boolean hasFoundSolution = false;
+	private boolean hasRunEvolutionaryLoop = false;
 
 	public Population() {
 		this.mutationRate = 0;
@@ -96,6 +97,7 @@ public class Population {
 //		this.selection();
 //		this.createNewGeneration();
 //		this.mutateAll();
+		this.hasRunEvolutionaryLoop = true;
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
 		System.out.println("All Individuals: " + this.individuals);
@@ -149,6 +151,31 @@ public class Population {
 			selectionByRank("Simple");
 	}
 	
+
+
+	public double calculateHammingDistance() {
+		// get num of pairs
+		int pairs = this.individuals.size() * (this.individuals.size() - 1) / 2;
+		int pairwiseDiffSum = 0;
+		int num0s = 0;
+		int num1s = 0;
+		for (int position = 0; position < getFittestIndividual().getChromosome().length; position++) {
+			for (Individual i : this.individuals) {
+				int[] chromosome = i.getChromosome();
+				if (chromosome[position] == 0) {
+					num0s++;
+				} else {
+					num1s++;
+				}
+			}
+			pairwiseDiffSum += num0s * num1s;
+			num0s = 0;
+			num1s = 0;
+		}
+		double hammingDistance = pairwiseDiffSum / pairs;
+		return hammingDistance;
+	}
+
 	public void truncationSelection() {
 		Collections.sort(this.individuals);
 		int originalPopSize = (int) (this.individuals.size() * (1 - this.elitismPercentage));
@@ -224,26 +251,18 @@ public class Population {
 		}
 	}
 
-	public void mutateOneCell(int x, int y) {
+	public void mutateOneCell(int x, int y, int sideLength) {
 		for (Individual i : this.individuals) {
-			i.mutateOneCell(x, y);
+			i.mutateOneCell(x, y, sideLength);
 		}
 	}
 
-	public void drawOn(Graphics2D g2) {
+	public void drawOn(Graphics2D g2, int sideLength) {
 		for (int i = 0; i < individuals.size() / 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				individuals.get(10 * i + j).drawOn(g2, 10 + j * ALLELE_SIDE_LENGTH * 11, i * ALLELE_SIDE_LENGTH * 11);
+				individuals.get(10 * i + j).drawOn(g2, 10 + j * sideLength * 11, i * sideLength * 11, sideLength);
 			}
 		}
-	}
-
-	public String getFirstChromosomeString() {
-		return this.individuals.get(0).chromosomeToString();
-	}
-
-	public Individual getFirstIndividual() {
-		return this.individuals.get(0);
 	}
 
 	public Individual getFittestIndividual() {
@@ -298,6 +317,10 @@ public class Population {
 
 	public int getNumGenerations() {
 		return this.numGenerations;
+	}
+
+	public boolean hasRunEvolutionaryLoop() {
+		return this.hasRunEvolutionaryLoop;
 	}
 
 }

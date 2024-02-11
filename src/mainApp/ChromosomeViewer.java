@@ -47,7 +47,7 @@ public class ChromosomeViewer {
 			}
 		});
 
-		chromosomeFileLabel.setText("Randomly Generated Chromsome");
+		chromosomeFileLabel.setText("Randomly Generated Chromosome");
 
 		JButton loadButton = new JButton("Load");
 		JButton saveButton = new JButton("Save");
@@ -86,7 +86,7 @@ public class ChromosomeViewer {
 			}
 		});
 
-		chromosomeComp.addMouseListener(new MutationClickListener(chromosomeFileLabel, chromosomeComp));
+//		chromosomeComp.addMouseListener(new MutationClickListener(chromosomeFileLabel, chromosomeComp));
 
 		frame.add(chromosomeComp, BorderLayout.CENTER);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
@@ -102,7 +102,28 @@ public class ChromosomeViewer {
 		frame.setSize(Population.ALLELE_SIDE_LENGTH * 120, Population.ALLELE_SIDE_LENGTH * 130);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-
+		
+		// Additional frame for visualizing the fittest 
+		// Best Fit Individual side length = 20
+		JFrame bestFitFrame = new JFrame("Best Fit Individual");
+		ChromosomeComponent bestFitComponent = new BestFitComponent(population, 20);
+		JLabel bestFitLabel = new JLabel("Fittest Individual");
+		bestFitComponent.addMouseListener(new MutationClickListener(bestFitLabel, bestFitComponent, 20));
+		
+		t.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				bestFitComponent.repaint();
+			}
+		});
+		
+		bestFitFrame.add(bestFitComponent, BorderLayout.CENTER);
+		bestFitFrame.add(bestFitLabel, BorderLayout.NORTH);
+		bestFitFrame.setSize(Population.ALLELE_SIDE_LENGTH * 50, Population.ALLELE_SIDE_LENGTH * 55);
+		bestFitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		bestFitFrame.setVisible(true);
+		
+		
 		System.out.println("App terminated");
 
 	}
