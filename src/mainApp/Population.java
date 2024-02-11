@@ -23,11 +23,13 @@ public class Population {
 	private double mutationRate;
 	private int numGenerations = 0;
 	private boolean hasFoundSolution = false;
-	
+	private boolean hasRunEvolutionaryLoop = false;
+
 	public Population() {
 		this.mutationRate = 0;
 		this.individuals = new ArrayList<Individual>();
 	}
+
 	public void initializeRandomly(int populationSize, int chromosomeLength, double mutationRate) {
 		this.individuals.clear();
 		Random r = new Random();
@@ -62,6 +64,7 @@ public class Population {
 	}
 
 	public void runEvolutionaryLoop() {
+		this.hasRunEvolutionaryLoop = true;
 		this.truncationSelection();
 		this.createNewGeneration();
 		this.mutate();
@@ -75,14 +78,6 @@ public class Population {
 
 	public void setMutationRate(double rateOutOfN) {
 		this.mutationRate = rateOutOfN / individuals.get(0).getChromosome().length;
-	}
-
-	public void truncationSelection() {
-		Collections.sort(this.individuals);
-		int originalPopSize = this.individuals.size();
-		while (this.individuals.size() > originalPopSize / 2) {
-			this.individuals.remove(this.individuals.size() - 1);
-		}
 	}
 
 	public void createNewGeneration() {
@@ -99,6 +94,37 @@ public class Population {
 			newGen.add(individual.clone());
 		}
 		this.individuals = newGen;
+	}
+
+	public double calculateHammingDistance() {
+		// get num of pairs
+		int pairs = this.individuals.size() * (this.individuals.size() - 1) / 2;
+		int pairwiseDiffSum = 0;
+		int num0s = 0;
+		int num1s = 0;
+		for (int position = 0; position < getFittestIndividual().getChromosome().length; position++) {
+			for (Individual i : this.individuals) {
+				int[] chromosome = i.getChromosome();
+				if (chromosome[position] == 0) {
+					num0s++;
+				} else {
+					num1s++;
+				}
+			}
+			pairwiseDiffSum += num0s * num1s;
+			num0s = 0;
+			num1s = 0;
+		}
+		double hammingDistance = pairwiseDiffSum / pairs;
+		return hammingDistance;
+	}
+
+	public void truncationSelection() {
+		Collections.sort(this.individuals);
+		int originalPopSize = this.individuals.size();
+		while (this.individuals.size() > originalPopSize / 2) {
+			this.individuals.remove(this.individuals.size() - 1);
+		}
 	}
 
 	public void selectionByRouletteWheel(String fitnessMethodName) {
@@ -146,26 +172,18 @@ public class Population {
 		}
 	}
 
-	public void mutateOneCell(int x, int y) {
+	public void mutateOneCell(int x, int y, int sideLength) {
 		for (Individual i : this.individuals) {
-			i.mutateOneCell(x, y);
+			i.mutateOneCell(x, y, sideLength);
 		}
 	}
 
-	public void drawOn(Graphics2D g2) {
+	public void drawOn(Graphics2D g2, int sideLength) {
 		for (int i = 0; i < individuals.size() / 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				individuals.get(10 * i + j).drawOn(g2, 10 + j * ALLELE_SIDE_LENGTH * 11, i * ALLELE_SIDE_LENGTH * 11);
+				individuals.get(10 * i + j).drawOn(g2, 10 + j * sideLength * 11, i * sideLength * 11, sideLength);
 			}
 		}
-	}
-
-	public String getFirstChromosomeString() {
-		return this.individuals.get(0).chromosomeToString();
-	}
-
-	public Individual getFirstIndividual() {
-		return this.individuals.get(0);
 	}
 
 	public Individual getFittestIndividual() {
@@ -218,6 +236,10 @@ public class Population {
 
 	public int getNumGenerations() {
 		return this.numGenerations;
+	}
+
+	public boolean hasRunEvolutionaryLoop() {
+		return this.hasRunEvolutionaryLoop;
 	}
 
 }

@@ -17,11 +17,6 @@ public class ChromosomeComponent extends JComponent {
 		this.hasFoundSolution = false;
 	}
 
-	public void initializeRandomPop(int populationSize, int chromosomeLength) {
-		population.initializeRandomly(populationSize, chromosomeLength, 0.01);
-		repaint();
-	}
-
 	public void initializePopFromFile(int popSize, String filename)
 			throws InvalidChromosomeFormatException, FileNotFoundException, IOException {
 		population.initializeFromFile(popSize, filename);
@@ -32,15 +27,9 @@ public class ChromosomeComponent extends JComponent {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		population.drawOn(g2);
-
-	}
-
-	private void logDataInfo() {
-
-	}
-
-	public void update() {
+		population.drawOn(g2, Population.ALLELE_SIDE_LENGTH);
+		if (population.hasRunEvolutionaryLoop())
+			g2.drawString("Average Hamming Distance: " + population.calculateHammingDistance(), 0, Population.ALLELE_SIDE_LENGTH * 112);
 
 	}
 
@@ -50,12 +39,9 @@ public class ChromosomeComponent extends JComponent {
 		repaint();
 	}
 
-	public void mutateSquare(int x, int y) {
-		this.population.mutateOneCell(x, y);
-	}
-
-	public String getFirstChromosomeString() {
-		return this.population.getFirstChromosomeString();
+	public void mutateSquare(int x, int y, int sideLength) {
+		this.population.mutateOneCell(x, y, sideLength);
+		repaint();
 	}
 
 	public boolean hasFoundSolution() {

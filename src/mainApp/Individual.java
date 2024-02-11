@@ -78,9 +78,9 @@ public class Individual implements Comparable<Individual> {
 		}
 	}
 
-	public void mutateOneCell(int x, int y) {
-		int xCoord = x / Population.ALLELE_SIDE_LENGTH;
-		int yCoord = y / Population.ALLELE_SIDE_LENGTH;
+	public void mutateOneCell(int x, int y, int sideLength) {
+		int xCoord = x / sideLength;
+		int yCoord = y / sideLength;
 		int cellCoord = xCoord + yCoord * NUM_COLUMNS;
 		if (this.chromosome.length > cellCoord && xCoord <= NUM_COLUMNS - 1)
 			switchAlleleAtIndex(cellCoord);
@@ -93,28 +93,27 @@ public class Individual implements Comparable<Individual> {
 			chromosome[i] = 0;
 	}
 
-	public void drawOn(Graphics2D g2, int x, int y) {
+	public void drawOn(Graphics2D g2, int x, int y, int sideLength) {
 		int thisX = x;
 		int thisY = y;
 		for (int i = 0; i < chromosome.length / NUM_COLUMNS; i++) { // iterates through rows
 			for (int j = 0; j < NUM_COLUMNS; j++) { // iterates through columns
 				if (this.chromosome[NUM_COLUMNS * i + j] == 0) {
 					g2.setColor(Color.BLACK);
-					Rectangle geneRect = new Rectangle(thisX, thisY, Population.ALLELE_SIDE_LENGTH,
-							Population.ALLELE_SIDE_LENGTH);
+					Rectangle geneRect = new Rectangle(thisX, thisY, sideLength,
+							sideLength);
 					g2.fill(geneRect);
-					g2.setColor(Color.WHITE);
 				} else {
 					g2.setColor(Color.GREEN);
-					Rectangle geneRect = new Rectangle(thisX, thisY, Population.ALLELE_SIDE_LENGTH,
-							Population.ALLELE_SIDE_LENGTH);
+					Rectangle geneRect = new Rectangle(thisX, thisY, sideLength,
+							sideLength);
 					g2.fill(geneRect);
 					g2.setColor(Color.BLACK);
 				}
-				thisX += Population.ALLELE_SIDE_LENGTH;
+				thisX += sideLength;
 			}
 			thisX = x;
-			thisY += Population.ALLELE_SIDE_LENGTH;
+			thisY += sideLength;
 		}
 	}
 

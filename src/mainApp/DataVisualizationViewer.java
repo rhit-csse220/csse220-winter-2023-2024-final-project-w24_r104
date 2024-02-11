@@ -73,10 +73,13 @@ public class DataVisualizationViewer {
 							Integer.parseInt(promptGenomeLength.getText()), Double.parseDouble(promptMRate.getText()));
 					t.start();
 					firstTimeClicked = false;
+//					startEvolutionButton.setText("Pause");
+
 				} else if (!firstTimeClicked) {
-					if (!t.isRunning())
+					if (!t.isRunning()) {
 						t.start();
-					else
+//						startEvolutionButton.setText("Continue Evolution");
+					} else
 						t.stop();
 				}
 			}

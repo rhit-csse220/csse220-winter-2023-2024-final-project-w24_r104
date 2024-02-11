@@ -28,6 +28,7 @@ public class DataVisualizationComponent extends JComponent {
 	private ArrayList<Point2D.Double> bestPoints = new ArrayList<Point2D.Double>();
 	private ArrayList<Point2D.Double> averagePoints = new ArrayList<Point2D.Double>();
 	private ArrayList<Point2D.Double> leastPoints = new ArrayList<Point2D.Double>();
+	private ArrayList<Point2D.Double> hammingDistancePoints = new ArrayList<Point2D.Double>();
 
 	public DataVisualizationComponent(Population population) {
 		this.population = population;
@@ -88,6 +89,11 @@ public class DataVisualizationComponent extends JComponent {
 			g2.drawLine((int) leastPoints.get(i).x, (int) leastPoints.get(i).y, (int) leastPoints.get(i + 1).x,
 					(int) leastPoints.get(i + 1).y);
 		}
+		g2.setColor(Color.BLUE);
+		for (int i = 0; i < hammingDistancePoints.size() - 1; i++) {
+			g2.drawLine((int) hammingDistancePoints.get(i).x, (int) hammingDistancePoints.get(i).y, (int) hammingDistancePoints.get(i + 1).x,
+					(int) hammingDistancePoints.get(i + 1).y);
+		}
 	}
 
 	public void addEntry() {
@@ -108,6 +114,9 @@ public class DataVisualizationComponent extends JComponent {
 		leastPoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (leastPoints.size() + 1),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
 						- this.population.getLeastFitness() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
+		hammingDistancePoints.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (hammingDistancePoints.size() + 1),
+				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
+						- this.population.calculateHammingDistance() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
 		repaint();
 	}
 
