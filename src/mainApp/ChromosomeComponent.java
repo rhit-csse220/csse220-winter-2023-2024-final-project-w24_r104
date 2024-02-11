@@ -37,7 +37,7 @@ public class ChromosomeComponent extends JComponent {
 
 	public void setPopMutationRateAndMutate(double d) {
 		population.setMutationRate(d);
-		population.mutate();
+		population.mutateAll();
 		repaint();
 	}
 

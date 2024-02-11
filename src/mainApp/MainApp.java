@@ -15,16 +15,12 @@ public class MainApp {
 		Population population = new Population();
 		Timer t = new Timer(100, new ActionListener() {
 
-			private int numGenerations = 0;
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!population.hasFoundSolution()) {
 					population.runEvolutionaryLoop();
-					numGenerations++;
 				} else {
-					System.out.println("Found solution after " + numGenerations + " generations: "
-							+ population.getFittestIndividual());
+					((Timer)e.getSource()).stop();
 				}
 			}
 		});
