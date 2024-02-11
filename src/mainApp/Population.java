@@ -99,7 +99,7 @@ public class Population {
 	public double calculateHammingDistance() {
 		// get num of pairs
 		int pairs = this.individuals.size() * (this.individuals.size() - 1) / 2;
-		int pairwiseDiffSum = 0;
+		double pairwiseDiffSum = 0.0;
 		int num0s = 0;
 		int num1s = 0;
 		for (int position = 0; position < getFittestIndividual().getChromosome().length; position++) {

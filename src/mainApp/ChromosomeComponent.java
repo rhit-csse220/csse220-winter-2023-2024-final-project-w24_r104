@@ -29,8 +29,10 @@ public class ChromosomeComponent extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		population.drawOn(g2, Population.ALLELE_SIDE_LENGTH);
 		if (population.hasRunEvolutionaryLoop())
-			g2.drawString("Average Hamming Distance: " + population.calculateHammingDistance(), 0, Population.ALLELE_SIDE_LENGTH * 112);
-
+			g2.drawString(
+					"Average Hamming Distance: " + String.format("%.20f", population.calculateHammingDistance()
+							/ population.getFittestIndividual().getChromosome().length),
+					0, Population.ALLELE_SIDE_LENGTH * 112);
 	}
 
 	public void setPopMutationRateAndMutate(double d) {
