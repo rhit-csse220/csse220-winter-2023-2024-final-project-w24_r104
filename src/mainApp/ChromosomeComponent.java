@@ -10,11 +10,9 @@ import javax.swing.JComponent;
 public class ChromosomeComponent extends JComponent {
 
 	private Population population;
-	private boolean hasFoundSolution;
 
 	public ChromosomeComponent(Population population) {
 		this.population = population;
-		this.hasFoundSolution = false;
 	}
 
 	public void initializePopFromFile(int popSize, String filename)
@@ -44,10 +42,6 @@ public class ChromosomeComponent extends JComponent {
 	public void mutateSquare(int x, int y, int sideLength) {
 		this.population.mutateOneCell(x, y, sideLength);
 		repaint();
-	}
-
-	public boolean hasFoundSolution() {
-		return this.hasFoundSolution;
 	}
 
 	public Population getPopulation() {

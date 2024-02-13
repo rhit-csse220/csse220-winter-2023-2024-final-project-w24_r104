@@ -1,5 +1,6 @@
 package mainApp;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,13 +11,9 @@ import java.util.Scanner;
 
 public class Population {
 
-//	public static final int[] SMILEY_CHROMOSOME = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-//			1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-//			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
-//			1, 1, 1, 1, 1, 1, 1, 1, 1 };
-
 	public static final int ALLELE_SIDE_LENGTH = 5;
-	public static final int DESIRED_SOLUTION_FITNESS = 90;
+	public static final int DESIRED_SOLUTION_FITNESS = 100;
+	public static final String FITNESS_CALCULATION_METHOD = "Matching";
 
 	private ArrayList<Individual> individuals = new ArrayList<Individual>();
 	private int populationSize;
@@ -72,8 +69,6 @@ public class Population {
 	}
 
 	public void runEvolutionaryLoop() {
-		System.out.println(this.individuals.size());
-		
 		ArrayList<Individual> nextGen = new ArrayList<Individual>();
 		Collections.sort(this.individuals);
 		
@@ -81,60 +76,19 @@ public class Population {
 		for (int i = 0; i < this.elitismPercentage * this.individuals.size(); i++) {
 			if (i >= this.individuals.size())
 				break;
-			nextGen.add(this.individuals.get(i));
+			nextGen.add(this.individuals.get(i).clone());
 		}
-
-		if (crossoverEnabled) {
-			while (nextGen.size() < this.populationSize) {
-				nextGen.add(crossover());
-			}
-			this.individuals = nextGen;
-		} else {
-//			selection();
-			
-		}
-//		this.truncationSelection();
-//		this.selection();
-//		this.createNewGeneration();
-//		this.mutateAll();
+		
+		selection();
+		replenishPopulation(nextGen);
+		
 		this.hasRunEvolutionaryLoop = true;
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
-		System.out.println("All Individuals: " + this.individuals);
 		System.out.println("Best Individual: " + this.getFittestIndividual());
+		System.out.println();
 		
-		System.out.println(this.individuals.size());
-		
-//		selection();
-//		if (crossoverEnabled)
-//			crossover();
-//		else
-//			createNewGeneration(newGen.size());
-//		
-//		mutateAll();
-//		this.individuals.addAll(newGen);
-//		numGenerations++;
-//		System.out.println(numGenerations + "th generation");
-//		System.out.println("All Individuals: " + this.individuals);
-//		System.out.println("Best Individual: " + this.getFittestIndividual());
-		
-//		if (!hasFoundSolution()) {
-//			this.truncationSelection();
-////			this.selection();
-//			if (crossoverEnabled)
-//				this.crossover();
-//			else
-//				this.createNewGeneration();
-//			this.mutate();
-//			numGenerations++;
-//			System.out.println(numGenerations + "th generation");
-//			System.out.println("All Individuals: " + this.individuals);
-//			System.out.println("Best Individual: " + this.getFittestIndividual());
-//		} else {
-//			System.out
-//					.println("Found solution after " + numGenerations + " generations: " + this.getFittestIndividual());
-//		}
-		if (this.getFittestIndividual().getFitness("Simple") >= DESIRED_SOLUTION_FITNESS) // end condition
+		if (this.getFittestIndividual().getFitness(FITNESS_CALCULATION_METHOD) >= DESIRED_SOLUTION_FITNESS) // end condition
 			this.hasFoundSolution = true;
 	}
 
@@ -178,8 +132,7 @@ public class Population {
 
 	public void truncationSelection() {
 		Collections.sort(this.individuals);
-		int originalPopSize = (int) (this.individuals.size() * (1 - this.elitismPercentage));
-		while (this.individuals.size() > originalPopSize / 2) {
+		while (this.individuals.size() > this.populationSize / 2) {
 			this.individuals.remove(this.individuals.size() - 1);
 		}
 	}
@@ -219,14 +172,18 @@ public class Population {
 		this.individuals = newIndividuals;
 	}
 	
-	public void createNewGeneration() {
-		ArrayList<Individual> newGen = new ArrayList<Individual>();
-		int index = 0;
-		while (this.individuals.size() < this.individuals.size() * (1 - this.elitismPercentage)) {
-			newGen.add(individuals.get(index).clone());
-			index++;
+	public void replenishPopulation(ArrayList<Individual> nextGen) {
+		while (nextGen.size() < this.populationSize) {
+			if (crossoverEnabled)
+				nextGen.add(crossover());
+			else {
+				Random r = new Random();
+				Individual newChild = this.individuals.get(r.nextInt(this.individuals.size())).clone();
+				newChild.mutate(this.mutationRate);
+				nextGen.add(newChild);
+			}
 		}
-		this.individuals = newGen;
+		this.individuals = nextGen;
 	}
 
 	public Individual crossover() {
@@ -242,7 +199,9 @@ public class Population {
 				childChromosome[i] = parent2.getChromosome()[i];
 		}
 		
-		return new Individual(childChromosome);
+		Individual child = new Individual(childChromosome);
+		child.mutate(this.mutationRate);
+		return child;
 	}
 
 	public void mutateAll() {
@@ -280,8 +239,8 @@ public class Population {
 	public int getBestFitness() {
 		int max = 0;
 		for (Individual i : individuals) {
-			if (i.calculateSimpleFitness() > max) {
-				max = i.calculateSimpleFitness();
+			if (i.getFitness(FITNESS_CALCULATION_METHOD) > max) {
+				max = i.getFitness(FITNESS_CALCULATION_METHOD);
 			}
 		}
 		return max;
@@ -290,7 +249,7 @@ public class Population {
 	public int getAverageFitness() {
 		int totalFitness = 0;
 		for (Individual i : individuals) {
-			totalFitness += i.calculateSimpleFitness();
+			totalFitness += i.getFitness(FITNESS_CALCULATION_METHOD);
 		}
 		return totalFitness / individuals.size();
 	}
@@ -298,8 +257,8 @@ public class Population {
 	public int getLeastFitness() {
 		int min = getBestFitness();
 		for (Individual i : individuals) {
-			if (i.calculateSimpleFitness() < min) {
-				min = i.calculateSimpleFitness();
+			if (i.getFitness(FITNESS_CALCULATION_METHOD) < min) {
+				min = i.getFitness(FITNESS_CALCULATION_METHOD);
 			}
 		}
 		return min;
@@ -307,12 +266,8 @@ public class Population {
 
 	public boolean hasFoundSolution() {
 		if (hasFoundSolution)
-			System.out.println("Found solution with " + getBestFitness() + " after " + numGenerations + " generations.");
+			System.out.println("Found solution with " + getBestFitness() + " fitness after " + numGenerations + " generations.");
 		return this.hasFoundSolution;
-	}
-
-	public void printIndividuals() {
-		System.out.println(this.individuals);
 	}
 
 	public int getNumGenerations() {

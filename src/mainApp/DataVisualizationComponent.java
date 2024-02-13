@@ -73,7 +73,6 @@ public class DataVisualizationComponent extends JComponent {
 		Stroke originalStroke = g2.getStroke();
 		BasicStroke stroke = new BasicStroke(LINE_WIDTH);
 		g2.setStroke(stroke);
-		this.population.printIndividuals();
 
 		g2.setColor(Color.GREEN);
 		for (int i = 0; i < bestPoints.size() - 1; i++) {

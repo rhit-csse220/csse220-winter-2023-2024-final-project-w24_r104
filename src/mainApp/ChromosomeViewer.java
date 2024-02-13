@@ -122,9 +122,5 @@ public class ChromosomeViewer {
 		bestFitFrame.setSize(Population.ALLELE_SIDE_LENGTH * 50, Population.ALLELE_SIDE_LENGTH * 55);
 		bestFitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		bestFitFrame.setVisible(true);
-		
-		
-		System.out.println("App terminated");
-
 	}
 }
