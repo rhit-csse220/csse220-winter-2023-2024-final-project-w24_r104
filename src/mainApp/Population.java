@@ -13,7 +13,7 @@ public class Population {
 
 	public static final int ALLELE_SIDE_LENGTH = 5;
 	public static final int DESIRED_SOLUTION_FITNESS = 100;
-	public static final String FITNESS_CALCULATION_METHOD = "Matching";
+	public static final String FITNESS_CALCULATION_METHOD = "Simple";
 
 	private ArrayList<Individual> individuals = new ArrayList<Individual>();
 	private int populationSize;
