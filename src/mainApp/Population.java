@@ -1,5 +1,6 @@
 package mainApp;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +12,8 @@ import java.util.Scanner;
 public class Population {
 
 	public static final int ALLELE_SIDE_LENGTH = 5;
-	public static final int DESIRED_SOLUTION_FITNESS = 90;
+	public static final int DESIRED_SOLUTION_FITNESS = 100;
+	public static final String FITNESS_CALCULATION_METHOD = "Matching";
 
 	private ArrayList<Individual> individuals = new ArrayList<Individual>();
 	private int populationSize;
@@ -67,8 +69,11 @@ public class Population {
 	}
 
 	public void runEvolutionaryLoop() {
+<<<<<<< HEAD
 		System.out.println(this.individuals.size());
 
+=======
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 		ArrayList<Individual> nextGen = new ArrayList<Individual>();
 		Collections.sort(this.individuals);
 
@@ -76,8 +81,9 @@ public class Population {
 		for (int i = 0; i < this.elitismPercentage * this.individuals.size(); i++) {
 			if (i >= this.individuals.size())
 				break;
-			nextGen.add(this.individuals.get(i));
+			nextGen.add(this.individuals.get(i).clone());
 		}
+<<<<<<< HEAD
 
 		if (crossoverEnabled) {
 			while (nextGen.size() < this.populationSize) {
@@ -92,11 +98,17 @@ public class Population {
 //		this.selection();
 //		this.createNewGeneration();
 //		this.mutateAll();
+=======
+		
+		selection();
+		replenishPopulation(nextGen);
+		
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 		this.hasRunEvolutionaryLoop = true;
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
-		System.out.println("All Individuals: " + this.individuals);
 		System.out.println("Best Individual: " + this.getFittestIndividual());
+<<<<<<< HEAD
 
 		System.out.println(this.individuals.size());
 
@@ -130,6 +142,11 @@ public class Population {
 //					.println("Found solution after " + numGenerations + " generations: " + this.getFittestIndividual());
 //		}
 		if (this.getFittestIndividual().getFitness("Simple") >= DESIRED_SOLUTION_FITNESS) // end condition
+=======
+		System.out.println();
+		
+		if (this.getFittestIndividual().getFitness(FITNESS_CALCULATION_METHOD) >= DESIRED_SOLUTION_FITNESS) // end condition
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 			this.hasFoundSolution = true;
 	}
 
@@ -171,8 +188,7 @@ public class Population {
 
 	public void truncationSelection() {
 		Collections.sort(this.individuals);
-		int originalPopSize = (int) (this.individuals.size() * (1 - this.elitismPercentage));
-		while (this.individuals.size() > originalPopSize / 2) {
+		while (this.individuals.size() > this.populationSize / 2) {
 			this.individuals.remove(this.individuals.size() - 1);
 		}
 	}
@@ -211,6 +227,7 @@ public class Population {
 		}
 		this.individuals = newIndividuals;
 	}
+<<<<<<< HEAD
 
 	public void createNewGeneration() {
 		ArrayList<Individual> newGen = new ArrayList<Individual>();
@@ -218,8 +235,21 @@ public class Population {
 		while (this.individuals.size() < this.individuals.size() * (1 - this.elitismPercentage)) {
 			newGen.add(individuals.get(index).clone());
 			index++;
+=======
+	
+	public void replenishPopulation(ArrayList<Individual> nextGen) {
+		while (nextGen.size() < this.populationSize) {
+			if (crossoverEnabled)
+				nextGen.add(crossover());
+			else {
+				Random r = new Random();
+				Individual newChild = this.individuals.get(r.nextInt(this.individuals.size())).clone();
+				newChild.mutate(this.mutationRate);
+				nextGen.add(newChild);
+			}
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 		}
-		this.individuals = newGen;
+		this.individuals = nextGen;
 	}
 
 	public Individual crossover() {
@@ -234,8 +264,15 @@ public class Population {
 			else
 				childChromosome[i] = parent2.getChromosome()[i];
 		}
+<<<<<<< HEAD
 
 		return new Individual(childChromosome);
+=======
+		
+		Individual child = new Individual(childChromosome);
+		child.mutate(this.mutationRate);
+		return child;
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 	}
 
 	public void mutateAll() {
@@ -273,8 +310,8 @@ public class Population {
 	public int getBestFitness() {
 		int max = 0;
 		for (Individual i : individuals) {
-			if (i.calculateSimpleFitness() > max) {
-				max = i.calculateSimpleFitness();
+			if (i.getFitness(FITNESS_CALCULATION_METHOD) > max) {
+				max = i.getFitness(FITNESS_CALCULATION_METHOD);
 			}
 		}
 		return max;
@@ -283,7 +320,7 @@ public class Population {
 	public int getAverageFitness() {
 		int totalFitness = 0;
 		for (Individual i : individuals) {
-			totalFitness += i.calculateSimpleFitness();
+			totalFitness += i.getFitness(FITNESS_CALCULATION_METHOD);
 		}
 		return totalFitness / individuals.size();
 	}
@@ -291,8 +328,8 @@ public class Population {
 	public int getLeastFitness() {
 		int min = getBestFitness();
 		for (Individual i : individuals) {
-			if (i.calculateSimpleFitness() < min) {
-				min = i.calculateSimpleFitness();
+			if (i.getFitness(FITNESS_CALCULATION_METHOD) < min) {
+				min = i.getFitness(FITNESS_CALCULATION_METHOD);
 			}
 		}
 		return min;
@@ -300,8 +337,12 @@ public class Population {
 
 	public boolean hasFoundSolution() {
 		if (hasFoundSolution)
+<<<<<<< HEAD
 			System.out
 					.println("Found solution with " + getBestFitness() + " after " + numGenerations + " generations.");
+=======
+			System.out.println("Found solution with " + getBestFitness() + " fitness after " + numGenerations + " generations.");
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 		return this.hasFoundSolution;
 	}
 

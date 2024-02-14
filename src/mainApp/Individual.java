@@ -3,10 +3,17 @@ package mainApp;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.net.SocketImpl;
 import java.util.Random;
 
 public class Individual implements Comparable<Individual> {
 
+	
+	public static final int[] SMILEY_CHROMOSOME = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1 };
+	
 	public static final int NUM_COLUMNS = 10;
 	private int[] chromosome;
 
@@ -31,28 +38,14 @@ public class Individual implements Comparable<Individual> {
 		return fitnessScore;
 	}
 
-	public int calculateMatchingSmileyFitness() {
-		int[] smileyChromosome = new int[100];
-		for (int i = 0; i < smileyChromosome.length; i++)
-			smileyChromosome[i] = 1;
-		smileyChromosome[22] = 0;
-		smileyChromosome[27] = 0;
-		smileyChromosome[71] = 0;
-		smileyChromosome[78] = 0;
-		for (int i = 81; i < 89; i++)
-			smileyChromosome[i] = 0;
-
-		if (smileyChromosome.length != this.chromosome.length) {
-			return 0;
-		} else {
-			int fitnessScore = 0;
-			for (int i = 0; i < smileyChromosome.length; i++) {
-				if (this.chromosome[i] == smileyChromosome[i]) {
-					fitnessScore++;
-				}
-			}
-			return fitnessScore;
+	public int calculateMatchingFitness(int[] chromosomeToMatch) {
+		int smallerChromosomeLength = Math.min(chromosomeToMatch.length, this.chromosome.length);
+		int fitness = 0;
+		for (int i = 0; i < smallerChromosomeLength; i++) {
+			if (chromosomeToMatch[i] == this.chromosome[i])
+				fitness++;
 		}
+		return fitness;
 	}
 
 	public int calculateMaxConsecutive1sFitness() {
@@ -129,12 +122,12 @@ public class Individual implements Comparable<Individual> {
 
 	@Override
 	public int compareTo(Individual other) {
-		return other.calculateSimpleFitness() - this.calculateSimpleFitness();
+		return other.getFitness(Population.FITNESS_CALCULATION_METHOD) - this.getFitness(Population.FITNESS_CALCULATION_METHOD);
 	}
 
 	@Override
 	public String toString() {
-		return "Individual with Fitness=" + calculateSimpleFitness();
+		return "Individual with Fitness=" + getFitness(Population.FITNESS_CALCULATION_METHOD);
 	}
 
 	@Override
@@ -145,8 +138,8 @@ public class Individual implements Comparable<Individual> {
 	public int getFitness(String fitnessMethodName) {
 		if (fitnessMethodName.equals("Simple"))
 			return calculateSimpleFitness();
-		else if (fitnessMethodName.equals("Matching Smiley Face"))
-			return calculateMatchingSmileyFitness();
+		else if (fitnessMethodName.equals("Matching"))
+			return calculateMatchingFitness(SMILEY_CHROMOSOME);
 		else
 			return calculateMaxConsecutive1sFitness();
 	}
