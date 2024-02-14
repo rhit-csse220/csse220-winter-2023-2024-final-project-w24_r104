@@ -10,11 +10,6 @@ import java.util.Scanner;
 
 public class Population {
 
-//	public static final int[] SMILEY_CHROMOSOME = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-//			1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-//			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
-//			1, 1, 1, 1, 1, 1, 1, 1, 1 };
-
 	public static final int ALLELE_SIDE_LENGTH = 5;
 	public static final int DESIRED_SOLUTION_FITNESS = 90;
 
@@ -47,7 +42,7 @@ public class Population {
 		}
 		this.mutationRate = mutationRate / this.individuals.size();
 		this.crossoverEnabled = crossoverEnabled;
-		this.elitismPercentage = elitismPercentage/100;
+		this.elitismPercentage = elitismPercentage / 100;
 		this.selectionMethod = selectionMethod;
 	}
 
@@ -73,10 +68,10 @@ public class Population {
 
 	public void runEvolutionaryLoop() {
 		System.out.println(this.individuals.size());
-		
+
 		ArrayList<Individual> nextGen = new ArrayList<Individual>();
 		Collections.sort(this.individuals);
-		
+
 		// elitism
 		for (int i = 0; i < this.elitismPercentage * this.individuals.size(); i++) {
 			if (i >= this.individuals.size())
@@ -91,7 +86,7 @@ public class Population {
 			this.individuals = nextGen;
 		} else {
 //			selection();
-			
+
 		}
 //		this.truncationSelection();
 //		this.selection();
@@ -102,9 +97,9 @@ public class Population {
 		System.out.println(numGenerations + "th generation");
 		System.out.println("All Individuals: " + this.individuals);
 		System.out.println("Best Individual: " + this.getFittestIndividual());
-		
+
 		System.out.println(this.individuals.size());
-		
+
 //		selection();
 //		if (crossoverEnabled)
 //			crossover();
@@ -117,7 +112,7 @@ public class Population {
 //		System.out.println(numGenerations + "th generation");
 //		System.out.println("All Individuals: " + this.individuals);
 //		System.out.println("Best Individual: " + this.getFittestIndividual());
-		
+
 //		if (!hasFoundSolution()) {
 //			this.truncationSelection();
 ////			this.selection();
@@ -150,8 +145,6 @@ public class Population {
 		else if (this.selectionMethod.equals("Rank"))
 			selectionByRank("Simple");
 	}
-	
-
 
 	public double calculateHammingDistance() {
 		// get num of pairs
@@ -218,7 +211,7 @@ public class Population {
 		}
 		this.individuals = newIndividuals;
 	}
-	
+
 	public void createNewGeneration() {
 		ArrayList<Individual> newGen = new ArrayList<Individual>();
 		int index = 0;
@@ -234,14 +227,14 @@ public class Population {
 		int crossoverPoint = r.nextInt(this.individuals.get(0).getChromosome().length);
 		Individual parent1 = this.individuals.get(r.nextInt(this.individuals.size()));
 		Individual parent2 = this.individuals.get(r.nextInt(this.individuals.size()));
-		int [] childChromosome = new int[parent1.getChromosome().length];
+		int[] childChromosome = new int[parent1.getChromosome().length];
 		for (int i = 0; i < parent1.getChromosome().length; i++) {
 			if (i <= crossoverPoint)
 				childChromosome[i] = parent1.getChromosome()[i];
 			else
 				childChromosome[i] = parent2.getChromosome()[i];
 		}
-		
+
 		return new Individual(childChromosome);
 	}
 
@@ -307,12 +300,9 @@ public class Population {
 
 	public boolean hasFoundSolution() {
 		if (hasFoundSolution)
-			System.out.println("Found solution with " + getBestFitness() + " after " + numGenerations + " generations.");
+			System.out
+					.println("Found solution with " + getBestFitness() + " after " + numGenerations + " generations.");
 		return this.hasFoundSolution;
-	}
-
-	public void printIndividuals() {
-		System.out.println(this.individuals);
 	}
 
 	public int getNumGenerations() {

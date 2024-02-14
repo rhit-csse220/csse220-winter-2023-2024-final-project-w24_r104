@@ -73,7 +73,6 @@ public class DataVisualizationComponent extends JComponent {
 		Stroke originalStroke = g2.getStroke();
 		BasicStroke stroke = new BasicStroke(LINE_WIDTH);
 		g2.setStroke(stroke);
-		this.population.printIndividuals();
 
 		g2.setColor(Color.GREEN);
 		for (int i = 0; i < bestPoints.size() - 1; i++) {
@@ -118,10 +117,6 @@ public class DataVisualizationComponent extends JComponent {
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 7 + 10);
 		g2.drawString("Hamming Dist", GRAPH_OFFSET_FROM_BORDER + 8 * HORIZONTAL_UNIT_WIDTH + 20,
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 8 + 10);
-	}
-
-	public void addEntry() {
-
 	}
 
 	public void reset() {

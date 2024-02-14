@@ -10,11 +10,9 @@ import javax.swing.JComponent;
 public class ChromosomeComponent extends JComponent {
 
 	private Population population;
-	private boolean hasFoundSolution;
 
 	public ChromosomeComponent(Population population) {
 		this.population = population;
-		this.hasFoundSolution = false;
 	}
 
 	public void initializePopFromFile(int popSize, String filename)
@@ -30,15 +28,10 @@ public class ChromosomeComponent extends JComponent {
 		population.drawOn(g2, Population.ALLELE_SIDE_LENGTH);
 		if (population.hasRunEvolutionaryLoop())
 			g2.drawString(
-					"Average Hamming Distance: " + String.format("%.20f", population.calculateHammingDistance()
-							/ population.getFittestIndividual().getChromosome().length),
+					"Average Hamming Distance: " + String.format("%.20f",
+							population.calculateHammingDistance()
+									/ population.getFittestIndividual().getChromosome().length),
 					0, Population.ALLELE_SIDE_LENGTH * 112);
-	}
-
-	public void setPopMutationRateAndMutate(double d) {
-		population.setMutationRate(d);
-		population.mutateAll();
-		repaint();
 	}
 
 	public void mutateSquare(int x, int y, int sideLength) {
@@ -46,12 +39,14 @@ public class ChromosomeComponent extends JComponent {
 		repaint();
 	}
 
-	public boolean hasFoundSolution() {
-		return this.hasFoundSolution;
-	}
-
 	public Population getPopulation() {
 		return this.population;
+	}
+
+	public String populationToString() {
+		String populationString = "";
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

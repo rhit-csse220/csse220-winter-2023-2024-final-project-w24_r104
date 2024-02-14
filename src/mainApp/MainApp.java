@@ -20,7 +20,7 @@ public class MainApp {
 				if (!population.hasFoundSolution()) {
 					population.runEvolutionaryLoop();
 				} else {
-					((Timer)e.getSource()).stop();
+					((Timer) e.getSource()).stop();
 				}
 			}
 		});
