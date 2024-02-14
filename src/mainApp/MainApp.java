@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class MainApp {
+	
 	public static void main(String[] args) {
 		MainApp app = new MainApp();
 		app.runApp();
@@ -17,10 +18,14 @@ public class MainApp {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!population.hasFoundSolution()) {
+				if (Individual.IS_COLORFUL) {
 					population.runEvolutionaryLoop();
 				} else {
-					((Timer) e.getSource()).stop();
+					if (!population.hasFoundSolution()) {
+						population.runEvolutionaryLoop();
+					} else {
+						((Timer) e.getSource()).stop();
+					}
 				}
 			}
 		});

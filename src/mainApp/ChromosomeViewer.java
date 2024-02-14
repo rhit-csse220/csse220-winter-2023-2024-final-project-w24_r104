@@ -1,6 +1,7 @@
 package mainApp;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.Timer;
 
 /**
@@ -25,7 +25,7 @@ import javax.swing.Timer;
  *         Restrictions: None
  */
 public class ChromosomeViewer {
-
+	
 	public ChromosomeViewer(Population population, Timer t) {
 		JFrame frame = new JFrame();
 		JPanel buttonPanel = new JPanel();
@@ -98,15 +98,40 @@ public class ChromosomeViewer {
 				chromosomeComp.repaint();
 			}
 		});
+		
+		JButton naturalEventButton = new JButton("Natural Event");
+		naturalEventButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		
+		});
+		
+		JButton godzillaButton = new JButton("???");
+		godzillaButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		
+		});
 
 		frame.add(chromosomeComp, BorderLayout.CENTER);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
-		buttonPanel.add(loadButton, BorderLayout.SOUTH);
-		buttonPanel.add(saveButton, BorderLayout.SOUTH);
+		buttonPanel.add(loadButton);
+		buttonPanel.add(saveButton);
+		buttonPanel.add(naturalEventButton);
+		buttonPanel.add(godzillaButton);
 
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.add(chromosomeFileLabel, BorderLayout.NORTH);
-		frame.setTitle("Chromosome Viewer");
+		frame.setTitle("Chromosome Viewer: Walking in a Winter Wonderland");
 		frame.setSize(Population.ALLELE_SIDE_LENGTH * 120, Population.ALLELE_SIDE_LENGTH * 130);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);

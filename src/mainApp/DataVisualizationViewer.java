@@ -53,7 +53,7 @@ public class DataVisualizationViewer {
 		// Create a text field to get user input on length of genome
 		JLabel genomeLengthText = new JLabel("Genome Length");
 		JTextField promptGenomeLength = new JTextField(TEXTFIELD_SIZE);
-		promptGenomeLength.setText("100");
+		promptGenomeLength.setText(Integer.toString(Population.DESIRED_SOLUTION_FITNESS));
 
 		// Create a text field to get user input on % of elitism
 		JLabel elitismText = new JLabel("Elitism %");
@@ -86,6 +86,7 @@ public class DataVisualizationViewer {
 				}
 			}
 		});
+		
 		frame.setVisible(true);
 		frame.add(dataComp, BorderLayout.CENTER);
 		frame.add(label, BorderLayout.NORTH);
