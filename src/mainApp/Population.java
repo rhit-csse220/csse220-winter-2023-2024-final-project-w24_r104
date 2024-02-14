@@ -1,6 +1,5 @@
 package mainApp;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -267,7 +266,6 @@ public class Population {
 
 	public boolean hasFoundSolution() {
 		if (hasFoundSolution)
-
 			System.out.println(
 					"Found solution with " + getBestFitness() + " fitness after " + numGenerations + " generations.");
 		return this.hasFoundSolution;
