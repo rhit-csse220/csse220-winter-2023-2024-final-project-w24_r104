@@ -44,7 +44,7 @@ public class Population {
 		}
 		this.mutationRate = mutationRate / this.individuals.size();
 		this.crossoverEnabled = crossoverEnabled;
-		this.elitismPercentage = elitismPercentage/100;
+		this.elitismPercentage = elitismPercentage / 100;
 		this.selectionMethod = selectionMethod;
 	}
 
@@ -69,26 +69,84 @@ public class Population {
 	}
 
 	public void runEvolutionaryLoop() {
+<<<<<<< HEAD
+		System.out.println(this.individuals.size());
+
+=======
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 		ArrayList<Individual> nextGen = new ArrayList<Individual>();
 		Collections.sort(this.individuals);
-		
+
 		// elitism
 		for (int i = 0; i < this.elitismPercentage * this.individuals.size(); i++) {
 			if (i >= this.individuals.size())
 				break;
 			nextGen.add(this.individuals.get(i).clone());
 		}
+<<<<<<< HEAD
+
+		if (crossoverEnabled) {
+			while (nextGen.size() < this.populationSize) {
+				nextGen.add(crossover());
+			}
+			this.individuals = nextGen;
+		} else {
+//			selection();
+
+		}
+//		this.truncationSelection();
+//		this.selection();
+//		this.createNewGeneration();
+//		this.mutateAll();
+=======
 		
 		selection();
 		replenishPopulation(nextGen);
 		
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 		this.hasRunEvolutionaryLoop = true;
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
 		System.out.println("Best Individual: " + this.getFittestIndividual());
+<<<<<<< HEAD
+
+		System.out.println(this.individuals.size());
+
+//		selection();
+//		if (crossoverEnabled)
+//			crossover();
+//		else
+//			createNewGeneration(newGen.size());
+//		
+//		mutateAll();
+//		this.individuals.addAll(newGen);
+//		numGenerations++;
+//		System.out.println(numGenerations + "th generation");
+//		System.out.println("All Individuals: " + this.individuals);
+//		System.out.println("Best Individual: " + this.getFittestIndividual());
+
+//		if (!hasFoundSolution()) {
+//			this.truncationSelection();
+////			this.selection();
+//			if (crossoverEnabled)
+//				this.crossover();
+//			else
+//				this.createNewGeneration();
+//			this.mutate();
+//			numGenerations++;
+//			System.out.println(numGenerations + "th generation");
+//			System.out.println("All Individuals: " + this.individuals);
+//			System.out.println("Best Individual: " + this.getFittestIndividual());
+//		} else {
+//			System.out
+//					.println("Found solution after " + numGenerations + " generations: " + this.getFittestIndividual());
+//		}
+		if (this.getFittestIndividual().getFitness("Simple") >= DESIRED_SOLUTION_FITNESS) // end condition
+=======
 		System.out.println();
 		
 		if (this.getFittestIndividual().getFitness(FITNESS_CALCULATION_METHOD) >= DESIRED_SOLUTION_FITNESS) // end condition
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 			this.hasFoundSolution = true;
 	}
 
@@ -104,8 +162,6 @@ public class Population {
 		else if (this.selectionMethod.equals("Rank"))
 			selectionByRank("Simple");
 	}
-	
-
 
 	public double calculateHammingDistance() {
 		// get num of pairs
@@ -171,6 +227,15 @@ public class Population {
 		}
 		this.individuals = newIndividuals;
 	}
+<<<<<<< HEAD
+
+	public void createNewGeneration() {
+		ArrayList<Individual> newGen = new ArrayList<Individual>();
+		int index = 0;
+		while (this.individuals.size() < this.individuals.size() * (1 - this.elitismPercentage)) {
+			newGen.add(individuals.get(index).clone());
+			index++;
+=======
 	
 	public void replenishPopulation(ArrayList<Individual> nextGen) {
 		while (nextGen.size() < this.populationSize) {
@@ -182,6 +247,7 @@ public class Population {
 				newChild.mutate(this.mutationRate);
 				nextGen.add(newChild);
 			}
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 		}
 		this.individuals = nextGen;
 	}
@@ -191,17 +257,22 @@ public class Population {
 		int crossoverPoint = r.nextInt(this.individuals.get(0).getChromosome().length);
 		Individual parent1 = this.individuals.get(r.nextInt(this.individuals.size()));
 		Individual parent2 = this.individuals.get(r.nextInt(this.individuals.size()));
-		int [] childChromosome = new int[parent1.getChromosome().length];
+		int[] childChromosome = new int[parent1.getChromosome().length];
 		for (int i = 0; i < parent1.getChromosome().length; i++) {
 			if (i <= crossoverPoint)
 				childChromosome[i] = parent1.getChromosome()[i];
 			else
 				childChromosome[i] = parent2.getChromosome()[i];
 		}
+<<<<<<< HEAD
+
+		return new Individual(childChromosome);
+=======
 		
 		Individual child = new Individual(childChromosome);
 		child.mutate(this.mutationRate);
 		return child;
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 	}
 
 	public void mutateAll() {
@@ -266,7 +337,12 @@ public class Population {
 
 	public boolean hasFoundSolution() {
 		if (hasFoundSolution)
+<<<<<<< HEAD
+			System.out
+					.println("Found solution with " + getBestFitness() + " after " + numGenerations + " generations.");
+=======
 			System.out.println("Found solution with " + getBestFitness() + " fitness after " + numGenerations + " generations.");
+>>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
 		return this.hasFoundSolution;
 	}
 

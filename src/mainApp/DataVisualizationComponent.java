@@ -119,10 +119,6 @@ public class DataVisualizationComponent extends JComponent {
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 8 + 10);
 	}
 
-	public void addEntry() {
-
-	}
-
 	public void reset() {
 
 	}
