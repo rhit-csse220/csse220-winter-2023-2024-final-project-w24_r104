@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Random;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -25,6 +28,16 @@ import javax.swing.Timer;
  *         Restrictions: None
  */
 public class ChromosomeViewer {
+	
+	public static final String[] BACKGROUND_COLORS = {"A volcano erupted, covering the landscape in ash", "It's wintertime!",
+			"The forest has become overgrown", "A great flood has submerged the ecosystem", "Darude Sandstorm"};
+	public static final Map<String, Color> NATURAL_EVENTS = Map.of(
+			"A volcano erupted, covering the landscape in ash", new Color(54, 69, 79),
+			"It's wintertime!", Color.WHITE,
+			"The forest has become overgrown", new Color(34, 139, 34),
+			"A great flood has submerged the ecosystem", new Color(15, 82, 186),
+			"Darude Sandstorm", new Color(238, 220, 130)
+	);
 	
 	public ChromosomeViewer(Population population, Timer t) {
 		JFrame frame = new JFrame();
@@ -101,11 +114,19 @@ public class ChromosomeViewer {
 		
 		JButton naturalEventButton = new JButton("Natural Event");
 		naturalEventButton.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				Random r = new Random();
+				int randomIndex = r.nextInt(BACKGROUND_COLORS.length);
+				// ensure a new background color?
+//				while (NATURAL_EVENTS.get(BACKGROUND_COLORS[randomIndex]).equals(frame.getBackground())) {
+//					randomIndex = r.nextInt(BACKGROUND_COLORS.length);
+//				}
+				Color newBackgroundColor = NATURAL_EVENTS.get(BACKGROUND_COLORS[randomIndex]);
+				frame.getContentPane().setBackground(newBackgroundColor);
+				frame.setTitle(BACKGROUND_COLORS[randomIndex]);
+				Individual.setIdealChromosome(convertColorToChromosome(newBackgroundColor));
 			}
 		
 		});
@@ -126,16 +147,21 @@ public class ChromosomeViewer {
 
 		buttonPanel.add(loadButton);
 		buttonPanel.add(saveButton);
-		buttonPanel.add(naturalEventButton);
-		buttonPanel.add(godzillaButton);
-
-		frame.getContentPane().setBackground(Color.WHITE);
+		
 		frame.add(chromosomeFileLabel, BorderLayout.NORTH);
-		frame.setTitle("Chromosome Viewer: Walking in a Winter Wonderland");
+		frame.setTitle("Chromosome Viewer");
 		frame.setSize(Population.ALLELE_SIDE_LENGTH * 120, Population.ALLELE_SIDE_LENGTH * 130);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
+		if (Individual.IS_COLORFUL) {
+			buttonPanel.add(naturalEventButton);
+			buttonPanel.add(godzillaButton);
+			frame.setTitle("It's wintertime!");
+			frame.getContentPane().setBackground(Color.WHITE);
+		}
 
+		
 		// Additional frame for visualizing the fittest
 		// Best Fit Individual side length = 20
 		JFrame bestFitFrame = new JFrame("Best Fit Individual");
@@ -156,4 +182,27 @@ public class ChromosomeViewer {
 		bestFitFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		bestFitFrame.setVisible(true);
 	}
+	
+	public int[] convertColorToChromosome(Color color) {
+		String redString = Integer.toBinaryString(color.getRed());
+		while (redString.length() < 8) {
+			redString = "0".concat(redString);
+		}
+		String greenString = Integer.toBinaryString(color.getGreen());
+		while (greenString.length() < 8) {
+			greenString = "0".concat(greenString);
+		}
+		String blueString = Integer.toBinaryString(color.getBlue());
+		while (blueString.length() < 8) {
+			blueString = "0".concat(blueString);
+		}
+		
+		String chromosomeString = redString.concat(greenString.concat(blueString));
+		int[] chromosome = new int[24];
+		for (int i = 0; i < 24; i++) {
+			chromosome[i] = (int) (chromosomeString.charAt(i) - 48);
+		}
+		return chromosome;
+	}
+	
 }

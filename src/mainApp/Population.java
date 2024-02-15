@@ -103,9 +103,9 @@ public class Population {
 		if (this.selectionMethod.equals("Truncation"))
 			truncationSelection();
 		else if (this.selectionMethod.equals("Roulette Wheel"))
-			selectionByRouletteWheel("Simple");
+			selectionByRouletteWheel();
 		else if (this.selectionMethod.equals("Rank"))
-			selectionByRank("Simple");
+			selectionByRank();
 	}
 
 	public double calculateHammingDistance() {
@@ -138,16 +138,16 @@ public class Population {
 		}
 	}
 
-	public void selectionByRouletteWheel(String fitnessMethodName) {
+	public void selectionByRouletteWheel() {
 		int totalPopulationFitness = 0;
 		for (Individual curIndividual : individuals) {
-			totalPopulationFitness += curIndividual.getFitness(fitnessMethodName);
+			totalPopulationFitness += curIndividual.getFitness(FITNESS_CALCULATION_METHOD);
 		}
 		Random rand = new Random();
 		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
 		while (newIndividuals.size() < this.individuals.size()) {
 			for (int i = 0; i < this.individuals.size(); i++) {
-				int probabilityOfBeingChose = this.individuals.get(i).getFitness(fitnessMethodName);
+				int probabilityOfBeingChose = this.individuals.get(i).getFitness(FITNESS_CALCULATION_METHOD);
 				boolean chooseThisIndividual = rand.nextInt(totalPopulationFitness - probabilityOfBeingChose) == 0;
 				if (chooseThisIndividual == true)
 					newIndividuals.add(this.individuals.get(i));
@@ -156,7 +156,7 @@ public class Population {
 		this.individuals = newIndividuals;
 	}
 
-	public void selectionByRank(String fitnessMethodName) {
+	public void selectionByRank() {
 		Collections.sort(this.individuals);
 		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
 		Random rand = new Random();
