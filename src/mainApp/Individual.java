@@ -13,7 +13,7 @@ public class Individual implements Comparable<Individual> {
 			1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 			1, 1, 1, 1, 1, 1, 1, 1, 1 };
-	public static final boolean IS_COLORFUL = false;
+	public static final boolean IS_COLORFUL = true;
 	
 	public static final int NUM_COLUMNS = 10;
 	private int[] chromosome;
