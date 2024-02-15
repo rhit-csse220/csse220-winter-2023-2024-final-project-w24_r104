@@ -198,7 +198,6 @@ public class ChromosomeViewer {
 		}
 		
 		String chromosomeString = redString.concat(greenString.concat(blueString));
-		System.out.println(chromosomeString);
 		int[] chromosome = new int[24];
 		for (int i = 0; i < 24; i++) {
 			chromosome[i] = (int) (chromosomeString.charAt(i) - 48);
