@@ -75,12 +75,9 @@ public class DataVisualizationViewer {
 							selectionMenu.getSelectedItem().toString());
 					t.start();
 					firstTimeClicked = false;
-//					startEvolutionButton.setText("Pause");
-
 				} else if (!firstTimeClicked) {
 					if (!t.isRunning()) {
 						t.start();
-//						startEvolutionButton.setText("Continue Evolution");
 					} else
 						t.stop();
 				}

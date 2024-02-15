@@ -1,6 +1,5 @@
 package mainApp;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,8 +11,9 @@ import java.util.Scanner;
 public class Population {
 
 	public static final int ALLELE_SIDE_LENGTH = 5;
-	public static final int DESIRED_SOLUTION_FITNESS = 24;
-	public static final String FITNESS_CALCULATION_METHOD = "Matching";
+
+	public static final int DESIRED_SOLUTION_FITNESS = 100;
+	public static final String FITNESS_CALCULATION_METHOD = "Simple";
 
 	private ArrayList<Individual> individuals = new ArrayList<Individual>();
 	private int populationSize;
@@ -69,6 +69,7 @@ public class Population {
 	}
 
 	public void runEvolutionaryLoop() {
+
 		ArrayList<Individual> nextGen = new ArrayList<Individual>();
 		Collections.sort(this.individuals);
 
@@ -78,17 +79,19 @@ public class Population {
 				break;
 			nextGen.add(this.individuals.get(i).clone());
 		}
-		
+
 		selection();
 		replenishPopulation(nextGen);
-		
+
 		this.hasRunEvolutionaryLoop = true;
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
 		System.out.println("Best Individual: " + this.getFittestIndividual());
+
 		System.out.println();
-		
-		if (this.getFittestIndividual().getFitness(FITNESS_CALCULATION_METHOD) >= DESIRED_SOLUTION_FITNESS) // end condition
+
+		if (this.getFittestIndividual().getFitness(FITNESS_CALCULATION_METHOD) >= DESIRED_SOLUTION_FITNESS) // end
+																											// condition
 			this.hasFoundSolution = true;
 	}
 
@@ -136,18 +139,19 @@ public class Population {
 	}
 
 	public void selectionByRouletteWheel() {
-		double totalPopulationFitness = 0.0;
+		int totalPopulationFitness = 0;
 		for (Individual curIndividual : individuals) {
 			totalPopulationFitness += curIndividual.getFitness(FITNESS_CALCULATION_METHOD);
 		}
 		Random rand = new Random();
 		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
-		for (int i = 0; i < this.individuals.size(); i++) {
-			double probabilityOfBeingChose = this.individuals.get(i).getFitness(FITNESS_CALCULATION_METHOD)
-					/ totalPopulationFitness;
-			boolean chooseThisIndividual = rand.nextDouble(1 - probabilityOfBeingChose) == 0;
-			if (chooseThisIndividual == true)
-				newIndividuals.add(this.individuals.get(i));
+		while (newIndividuals.size() < this.individuals.size()) {
+			for (int i = 0; i < this.individuals.size(); i++) {
+				int probabilityOfBeingChose = this.individuals.get(i).getFitness(FITNESS_CALCULATION_METHOD);
+				boolean chooseThisIndividual = rand.nextInt(totalPopulationFitness - probabilityOfBeingChose) == 0;
+				if (chooseThisIndividual == true)
+					newIndividuals.add(this.individuals.get(i));
+			}
 		}
 		this.individuals = newIndividuals;
 	}
@@ -156,19 +160,21 @@ public class Population {
 		Collections.sort(this.individuals);
 		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
 		Random rand = new Random();
-		double sumOfAllRanks = 0.0;
+		int sumOfAllRanks = 0;
 		for (int i = 0; i < this.individuals.size(); i++) {
 			sumOfAllRanks += i + 1;
 		}
-		for (int j = 0; j < this.individuals.size(); j++) {
-			double probabilityOfBeingChose = (j + 1.0) / sumOfAllRanks;
-			boolean chooseThisIndividual = rand.nextDouble(1 - probabilityOfBeingChose) == 0;
-			if (chooseThisIndividual == true)
-				newIndividuals.add(this.individuals.get(j));
+		while (newIndividuals.size() < this.individuals.size()) {
+			for (int j = 0; j < this.individuals.size(); j++) {
+				int probabilityOfBeingChose = j + 1;
+				boolean chooseThisIndividual = rand.nextInt(probabilityOfBeingChose) == 0;
+				if (chooseThisIndividual == true)
+					newIndividuals.add(this.individuals.get(j));
+			}
 		}
 		this.individuals = newIndividuals;
 	}
-	
+
 	public void replenishPopulation(ArrayList<Individual> nextGen) {
 		while (nextGen.size() < this.populationSize) {
 			if (crossoverEnabled)
@@ -263,6 +269,7 @@ public class Population {
 
 	public boolean hasFoundSolution() {
 		if (hasFoundSolution)
+
 			System.out.println("Found solution after " + numGenerations + " generations.");
 		return this.hasFoundSolution;
 	}
