@@ -17,6 +17,7 @@ public class Individual implements Comparable<Individual> {
 	
 	public static final int NUM_COLUMNS = 10;
 	private int[] chromosome;
+	private static int[] idealChromosome = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
 	public Individual(int[] chromosome) {
 		this.chromosome = chromosome;
@@ -161,9 +162,13 @@ public class Individual implements Comparable<Individual> {
 		if (fitnessMethodName.equals("Simple"))
 			return calculateSimpleFitness();
 		else if (fitnessMethodName.equals("Matching"))
-			return calculateMatchingFitness(SMILEY_CHROMOSOME);
+			return calculateMatchingFitness(idealChromosome);
 		else
 			return calculateMaxConsecutive1sFitness();
+	}
+	
+	public static void setIdealChromosome(int[] idealChromosome) {
+		Individual.idealChromosome = idealChromosome;
 	}
 
 }
