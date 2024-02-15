@@ -13,6 +13,7 @@ public class Individual implements Comparable<Individual> {
 			1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 			1, 1, 1, 1, 1, 1, 1, 1, 1 };
+	public static final boolean IS_COLORFUL = false;
 	
 	public static final int NUM_COLUMNS = 10;
 	private int[] chromosome;
@@ -87,25 +88,46 @@ public class Individual implements Comparable<Individual> {
 	}
 
 	public void drawOn(Graphics2D g2, int x, int y, int sideLength) {
-		int thisX = x;
-		int thisY = y;
-		for (int i = 0; i < chromosome.length / NUM_COLUMNS; i++) { // iterates through rows
-			for (int j = 0; j < NUM_COLUMNS; j++) { // iterates through columns
-				if (this.chromosome[NUM_COLUMNS * i + j] == 0) {
-					g2.setColor(Color.BLACK);
-					Rectangle geneRect = new Rectangle(thisX, thisY, sideLength, sideLength);
-					g2.fill(geneRect);
-				} else {
-					g2.setColor(Color.GREEN);
-					Rectangle geneRect = new Rectangle(thisX, thisY, sideLength, sideLength);
-					g2.fill(geneRect);
-					g2.setColor(Color.BLACK);
-				}
-				thisX += sideLength;
+		if (IS_COLORFUL) {
+			g2.setColor(getColor());
+			g2.fillOval(x, y, 10*sideLength, 10*sideLength);
+			
+			g2.setColor(Color.BLACK);
+			if (this.getFitness(Population.FITNESS_CALCULATION_METHOD) < Population.DESIRED_SOLUTION_FITNESS) {
+				g2.fillOval(x + 3*sideLength, y + 3*sideLength, sideLength, sideLength);
+				g2.fillOval(x + 6*sideLength, y + 3*sideLength, sideLength, sideLength);
+			} else {
+				g2.drawArc(x + 3*sideLength, y + 3*sideLength, sideLength, sideLength, 0, 180);
+				g2.drawArc(x + 6*sideLength, y + 3*sideLength, sideLength, sideLength, 0, 180);
 			}
-			thisX = x;
-			thisY += sideLength;
+		} else {
+			int thisX = x;
+			int thisY = y;
+			for (int i = 0; i < chromosome.length / NUM_COLUMNS; i++) { // iterates through rows
+				for (int j = 0; j < NUM_COLUMNS; j++) { // iterates through columns
+					if (this.chromosome[NUM_COLUMNS * i + j] == 0) {
+						g2.setColor(Color.BLACK);
+						Rectangle geneRect = new Rectangle(thisX, thisY, sideLength, sideLength);
+						g2.fill(geneRect);
+					} else {
+						g2.setColor(Color.GREEN);
+						Rectangle geneRect = new Rectangle(thisX, thisY, sideLength, sideLength);
+						g2.fill(geneRect);
+						g2.setColor(Color.BLACK);
+					}
+					thisX += sideLength;
+				}
+				thisX = x;
+				thisY += sideLength;
+			}
 		}
+	}
+	
+	public Color getColor() {
+		int r = Integer.parseInt(this.chromosomeToString().substring(0, 8), 2);
+		int g = Integer.parseInt(this.chromosomeToString().substring(8, 16), 2);
+		int b = Integer.parseInt(this.chromosomeToString().substring(16, 24), 2);
+		return new Color(r, g, b);
 	}
 
 	public int[] getChromosome() {

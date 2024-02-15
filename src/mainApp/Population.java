@@ -11,8 +11,9 @@ import java.util.Scanner;
 public class Population {
 
 	public static final int ALLELE_SIDE_LENGTH = 5;
+
 	public static final int DESIRED_SOLUTION_FITNESS = 100;
-	public static final String FITNESS_CALCULATION_METHOD = "Matching";
+	public static final String FITNESS_CALCULATION_METHOD = "Simple";
 
 	private ArrayList<Individual> individuals = new ArrayList<Individual>();
 	private int populationSize;
@@ -138,36 +139,38 @@ public class Population {
 	}
 
 	public void selectionByRouletteWheel(String fitnessMethodName) {
-		double totalPopulationFitness = 0.0;
+		int totalPopulationFitness = 0;
 		for (Individual curIndividual : individuals) {
 			totalPopulationFitness += curIndividual.getFitness(fitnessMethodName);
 		}
 		Random rand = new Random();
 		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
-		for (int i = 0; i < this.individuals.size(); i++) {
-			double probabilityOfBeingChose = this.individuals.get(i).getFitness(fitnessMethodName)
-					/ totalPopulationFitness;
-			boolean chooseThisIndividual = rand.nextDouble(1 - probabilityOfBeingChose) == 0;
-			if (chooseThisIndividual == true)
-				newIndividuals.add(this.individuals.get(i));
+		while (newIndividuals.size() < this.individuals.size()) {
+			for (int i = 0; i < this.individuals.size(); i++) {
+				int probabilityOfBeingChose = this.individuals.get(i).getFitness(fitnessMethodName);
+				boolean chooseThisIndividual = rand.nextInt(totalPopulationFitness - probabilityOfBeingChose) == 0;
+				if (chooseThisIndividual == true)
+					newIndividuals.add(this.individuals.get(i));
+			}
 		}
 		this.individuals = newIndividuals;
 	}
 
 	public void selectionByRank(String fitnessMethodName) {
-		Collections.sort(this.individuals,
-				(i1, i2) -> i2.getFitness(fitnessMethodName) - i1.getFitness(fitnessMethodName));
+		Collections.sort(this.individuals);
 		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
 		Random rand = new Random();
-		double sumOfAllRanks = 0.0;
+		int sumOfAllRanks = 0;
 		for (int i = 0; i < this.individuals.size(); i++) {
 			sumOfAllRanks += i + 1;
 		}
-		for (int j = 0; j < this.individuals.size(); j++) {
-			double probabilityOfBeingChose = (j + 1.0) / sumOfAllRanks;
-			boolean chooseThisIndividual = rand.nextDouble(1 - probabilityOfBeingChose) == 0;
-			if (chooseThisIndividual == true)
-				newIndividuals.add(this.individuals.get(j));
+		while (newIndividuals.size() < this.individuals.size()) {
+			for (int j = 0; j < this.individuals.size(); j++) {
+				int probabilityOfBeingChose = j + 1;
+				boolean chooseThisIndividual = rand.nextInt(probabilityOfBeingChose) == 0;
+				if (chooseThisIndividual == true)
+					newIndividuals.add(this.individuals.get(j));
+			}
 		}
 		this.individuals = newIndividuals;
 	}
@@ -266,8 +269,8 @@ public class Population {
 
 	public boolean hasFoundSolution() {
 		if (hasFoundSolution)
-			System.out.println(
-					"Found solution with " + getBestFitness() + " fitness after " + numGenerations + " generations.");
+
+			System.out.println("Found solution after " + numGenerations + " generations.");
 		return this.hasFoundSolution;
 	}
 
