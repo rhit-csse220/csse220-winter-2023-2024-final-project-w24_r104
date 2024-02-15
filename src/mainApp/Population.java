@@ -166,8 +166,8 @@ public class Population {
 		}
 		while (newIndividuals.size() < this.individuals.size()) {
 			for (int j = 0; j < this.individuals.size(); j++) {
-				int probabilityOfBeingChose = j + 1;
-				boolean chooseThisIndividual = rand.nextInt(probabilityOfBeingChose) == 0;
+				int probabilityOfBeingChose = this.individuals.size() - j;
+				boolean chooseThisIndividual = rand.nextInt(sumOfAllRanks - probabilityOfBeingChose) == 0;
 				if (chooseThisIndividual == true)
 					newIndividuals.add(this.individuals.get(j));
 			}
