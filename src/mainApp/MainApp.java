@@ -5,6 +5,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+/**
+ * Class: MainApp
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: Top level class for CSSE220 Project containing main method
+ *         <br>
+ *         Restrictions: None
+ */
 public class MainApp {
 	
 	public static void main(String[] args) {

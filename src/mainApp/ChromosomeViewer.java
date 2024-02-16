@@ -31,6 +31,7 @@ import javax.swing.Timer;
  *    	   ChromosomeViewer chromosomeViewer = new ChromosomeViewer(Population new Population(), timer);
  * 		   </pre>
  */
+
 public class ChromosomeViewer {
 	
 	public static final String[] BACKGROUND_COLORS = {"A volcano erupted, covering the landscape in ash", "It's wintertime!",
@@ -135,17 +136,6 @@ public class ChromosomeViewer {
 		
 		});
 		
-		JButton godzillaButton = new JButton("???");
-		godzillaButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		
-		});
-
 		frame.add(chromosomeComp, BorderLayout.CENTER);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -160,7 +150,6 @@ public class ChromosomeViewer {
 		
 		if (Individual.IS_COLORFUL) {
 			buttonPanel.add(naturalEventButton);
-			buttonPanel.add(godzillaButton);
 			frame.setTitle("It's wintertime!");
 			frame.getContentPane().setBackground(Color.WHITE);
 		}

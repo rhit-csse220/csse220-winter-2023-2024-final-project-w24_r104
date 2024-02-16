@@ -13,6 +13,14 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
+/**
+ * Class: DataVisualizationComponent
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: Stores fitness data over generations and draws the corresponding fitness lines.
+ *         <br>
+ *         Restrictions: None
+ */
 public class DataVisualizationComponent extends JComponent {
 	private Population population;
 	public static final int ALLELE_SIDE_LENGTH = 20;

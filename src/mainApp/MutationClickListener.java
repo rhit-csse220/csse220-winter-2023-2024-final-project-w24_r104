@@ -5,6 +5,14 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 
+/**
+ * Class: MutationClickListener
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: Mutates individuals (flips bits) when their graph squares are clicked.
+ *         <br>
+ *         Restrictions: None
+ */
 public class MutationClickListener implements MouseListener {
 
 	private JLabel chromosomeFileLabel;
