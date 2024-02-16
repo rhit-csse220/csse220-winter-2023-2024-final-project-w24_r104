@@ -20,12 +20,16 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
- * Class: MainApp
+ * Class: ChromosomeViewer
  * 
  * @author W24_R104 <br>
- *         Purpose: Top level class for CSSE220 Project containing main method
+ *         Purpose: Creates a frame to display individuals within the given population 
+ *         with buttons to adjust settings.
  *         <br>
- *         Restrictions: None
+ *         <br>For example: 
+ * 		   <pre>
+ *    	   ChromosomeViewer chromosomeViewer = new ChromosomeViewer(Population new Population(), timer);
+ * 		   </pre>
  */
 public class ChromosomeViewer {
 	

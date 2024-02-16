@@ -4,7 +4,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
-
+/**
+ * Class: BestFitComponent
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: Inherits the ChromosomeComponent class to display only the individual with the highest fitness
+ *         <br>
+ *         Restrictions: None
+ *         <br>For example: 
+ * 		   <pre>
+ *    	   BestFitComponent bestFitComponent = new BestFitComponent(Population new Population(), 5);
+ * 		   </pre>
+ */
 public class BestFitComponent extends ChromosomeComponent {
 	private Population population;
 	private int sideLength;

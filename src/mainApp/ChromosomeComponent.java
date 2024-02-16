@@ -1,6 +1,4 @@
 package mainApp;
-
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.FileNotFoundException;
@@ -8,6 +6,19 @@ import java.io.IOException;
 
 import javax.swing.JComponent;
 
+/**
+ * Class: ChromosomeComponent
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: Displays each individual in the given population and their chromosome as 
+ *         a collection of squares with the given side length
+ *         <br>
+ *         Restrictions: None
+ *         <br>For example: 
+ * 		   <pre>
+ *    	   ChromosomeComponent chromosomeComponent = new ChromosomeComponent(Population new Population(), 5);
+ * 		   </pre>
+ */
 public class ChromosomeComponent extends JComponent {
 
 	private Population population;
@@ -46,7 +57,6 @@ public class ChromosomeComponent extends JComponent {
 
 	public String populationToString() {
 		String populationString = "";
-		// TODO Auto-generated method stub
 		return null;
 	}
 

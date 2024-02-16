@@ -1,5 +1,4 @@
 package mainApp;
-
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +6,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
+
+/**
+ * Class: Population
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: This class represents an population of organisms. It can perform mutation, selection,
+ *         etc. similar to one in natural settings.
+ *         <br>
+ *         Restrictions: None
+ *         <br>For example: 
+ * 		   <pre>
+ *    	   Population population = new Population();
+ * 		   </pre>
+ */
 
 public class Population {
 
@@ -147,9 +160,8 @@ public class Population {
 		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
 		while (newIndividuals.size() < this.individuals.size()) {
 			for (int i = 0; i < this.individuals.size(); i++) {
-				int probabilityOfBeingChose = this.individuals.get(i).getFitness(FITNESS_CALCULATION_METHOD);
-				boolean chooseThisIndividual = rand.nextInt(totalPopulationFitness - probabilityOfBeingChose) == 0;
-				if (chooseThisIndividual == true)
+				double individualFitness = this.individuals.get(i).getFitness(FITNESS_CALCULATION_METHOD);
+				if (rand.nextDouble() <= individualFitness / totalPopulationFitness)
 					newIndividuals.add(this.individuals.get(i));
 			}
 		}
@@ -158,17 +170,16 @@ public class Population {
 
 	public void selectionByRank() {
 		Collections.sort(this.individuals);
-		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
-		Random rand = new Random();
-		int sumOfAllRanks = 0;
+		double sumOfAllRanks = 0.0;
 		for (int i = 0; i < this.individuals.size(); i++) {
 			sumOfAllRanks += i + 1;
-		}
+		}		
+		Random rand = new Random();
+		ArrayList<Individual> newIndividuals = new ArrayList<Individual>();
 		while (newIndividuals.size() < this.individuals.size()) {
 			for (int j = 0; j < this.individuals.size(); j++) {
-				int probabilityOfBeingChose = this.individuals.size() - j;
-				boolean chooseThisIndividual = rand.nextInt(sumOfAllRanks - probabilityOfBeingChose) == 0;
-				if (chooseThisIndividual == true)
+				double individualRank = this.individuals.size() - j;
+				if (rand.nextDouble() <= individualRank/sumOfAllRanks)
 					newIndividuals.add(this.individuals.get(j));
 			}
 		}
