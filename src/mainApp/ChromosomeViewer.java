@@ -19,14 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-/**
- * Class: MainApp
- * 
- * @author W24_R104 <br>
- *         Purpose: Top level class for CSSE220 Project containing main method
- *         <br>
- *         Restrictions: None
- */
 public class ChromosomeViewer {
 	
 	public static final String[] BACKGROUND_COLORS = {"A volcano erupted, covering the landscape in ash", "It's wintertime!",
@@ -131,17 +123,6 @@ public class ChromosomeViewer {
 		
 		});
 		
-		JButton godzillaButton = new JButton("???");
-		godzillaButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		
-		});
-
 		frame.add(chromosomeComp, BorderLayout.CENTER);
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -156,7 +137,6 @@ public class ChromosomeViewer {
 		
 		if (Individual.IS_COLORFUL) {
 			buttonPanel.add(naturalEventButton);
-			buttonPanel.add(godzillaButton);
 			frame.setTitle("It's wintertime!");
 			frame.getContentPane().setBackground(Color.WHITE);
 		}

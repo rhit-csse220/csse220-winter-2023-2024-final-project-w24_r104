@@ -12,8 +12,8 @@ public class Population {
 
 	public static final int ALLELE_SIDE_LENGTH = 5;
 
-	public static final int DESIRED_SOLUTION_FITNESS = 100;
-	public static final String FITNESS_CALCULATION_METHOD = "Simple";
+	public static final int DESIRED_SOLUTION_FITNESS = 24;
+	public static final String FITNESS_CALCULATION_METHOD = "Matching";
 
 	private ArrayList<Individual> individuals = new ArrayList<Individual>();
 	private int populationSize;
@@ -87,7 +87,6 @@ public class Population {
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
 		System.out.println("Best Individual: " + this.getFittestIndividual());
-
 		System.out.println();
 
 		if (this.getFittestIndividual().getFitness(FITNESS_CALCULATION_METHOD) >= DESIRED_SOLUTION_FITNESS) // end

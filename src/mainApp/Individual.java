@@ -6,6 +6,14 @@ import java.awt.Rectangle;
 import java.net.SocketImpl;
 import java.util.Random;
 
+/**
+ * Class: Individual
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: Stores the chromosome data of an organism and the methods used to evaluate, modify, and draw it.
+ *         <br>
+ *         Restrictions: None
+ */
 public class Individual implements Comparable<Individual> {
 
 	

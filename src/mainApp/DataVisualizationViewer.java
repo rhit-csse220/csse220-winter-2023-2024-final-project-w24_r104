@@ -14,6 +14,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+/**
+ * Class: DataVisualizationViewer
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: Displays the frame that shows the fitness tracking graph
+ *         			and allows user to change evolution parameters at runtime.
+ *         <br>
+ *         Restrictions: None
+ */
 public class DataVisualizationViewer {
 	public static final int TEXTFIELD_SIZE = 3;
 	public static final int FRAME_WIDTH = 1100;
