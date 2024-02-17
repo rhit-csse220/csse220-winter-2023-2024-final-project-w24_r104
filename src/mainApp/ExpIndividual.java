@@ -3,17 +3,14 @@ package mainApp;
 import java.util.Arrays;
 import java.util.Random;
 
-public class ExpIndividual extends Individual {
+public class ExpIndividual {
 	private int[] genotype;
 	private int[] phenotype;
 	private int numLearningTrialsLeft = 1000;
 	
-	public static void main(String[] args) {
-//		new ExperimentIndividual().liveLife();
-		for (int i = 0; i < 20; i++) {
-//			sy
-			(new Random()).nextInt(2);
-		}
+	public ExpIndividual(int[] genotype) {
+		this.genotype = genotype;
+		this.phenotype = genotype.clone();
 	}
 	
 	public ExpIndividual() {
@@ -27,20 +24,20 @@ public class ExpIndividual extends Individual {
 				chromosome[i] = randomAllele;
 		}
 		this.genotype = chromosome;
-		this.phenotype = this.genotype;
+		this.phenotype = chromosome.clone();
 	}
 	
 	public void liveLife() {
-		System.out.println(Arrays.toString(this.genotype));
+		Random r = new Random();
 		while (this.numLearningTrialsLeft > 0) {
 			for (int i = 0; i < 20; i++) {
-				if (this.genotype[i] == 2)
-					this.phenotype[i] = (new Random()).nextInt(2);
+				if (this.genotype[i] == 2) {
+					this.phenotype[i] = r.nextInt(2);
+				}
 			}
 			if (this.phenotypeAllOnes())
 				break;
 			this.numLearningTrialsLeft--;
-			System.out.println(Arrays.toString(this.phenotype));
 		}
 	}
 
@@ -54,6 +51,10 @@ public class ExpIndividual extends Individual {
 	
 	public double calculateFitness() {
 		return 1 + (19 * this.numLearningTrialsLeft / 1000);
+	}
+
+	public int[] getGenotype() {
+		return this.genotype;
 	}
 	
 }
