@@ -9,11 +9,7 @@ public class ExperimentIndividual extends Individual {
 	private int numLearningTrialsLeft = 1000;
 	
 	public static void main(String[] args) {
-//		new ExperimentIndividual().liveLife();
-		for (int i = 0; i < 20; i++) {
-//			sy
-			(new Random()).nextInt(2);
-		}
+		new ExperimentIndividual().liveLife();
 	}
 	
 	public ExperimentIndividual() {
@@ -27,20 +23,20 @@ public class ExperimentIndividual extends Individual {
 				chromosome[i] = randomAllele;
 		}
 		this.genotype = chromosome;
-		this.phenotype = this.genotype;
+		this.phenotype = chromosome.clone();
 	}
 	
 	public void liveLife() {
-		System.out.println(Arrays.toString(this.genotype));
+		Random r = new Random();
 		while (this.numLearningTrialsLeft > 0) {
 			for (int i = 0; i < 20; i++) {
-				if (this.genotype[i] == 2)
-					this.phenotype[i] = (new Random()).nextInt(2);
+				if (this.genotype[i] == 2) {
+					this.phenotype[i] = r.nextInt(2);
+				}
 			}
 			if (this.phenotypeAllOnes())
 				break;
 			this.numLearningTrialsLeft--;
-			System.out.println(Arrays.toString(this.phenotype));
 		}
 	}
 

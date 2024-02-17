@@ -5,6 +5,7 @@ import java.util.Collections;
 
 public class ExperimentPopulation extends Population {
 
+	private ArrayList<ExperimentIndividual> individuals = new ArrayList<ExperimentIndividual>();
 //	Collections.sort(this.individuals);
 //
 //	replenishPopulation();
