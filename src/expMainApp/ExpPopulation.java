@@ -78,7 +78,7 @@ public class ExpPopulation {
 	}
 
 	public double getZeroAllelesFrequencies() {
-		int count0s = 0;
+		double count0s = 0;
 		for (ExpIndividual individual : this.individuals) {
 			int[] allelesCount = individual.getAllelesCount();
 			count0s += allelesCount[0];
@@ -87,7 +87,7 @@ public class ExpPopulation {
 	}
 
 	public double getOneAllelesFrequencies() {
-		int count1s = 0;
+		double count1s = 0;
 		for (ExpIndividual individual : this.individuals) {
 			int[] allelesCount = individual.getAllelesCount();
 			count1s += allelesCount[1];
@@ -96,7 +96,7 @@ public class ExpPopulation {
 	}
 	
 	public double getUnknownAllelesFrequencies() {
-		int countUnknowns = 0;
+		double countUnknowns = 0;
 		for (ExpIndividual individual : this.individuals) {
 			int[] allelesCount = individual.getAllelesCount();
 			countUnknowns += allelesCount[2];

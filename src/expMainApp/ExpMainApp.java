@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class ExpMainApp {
+	public static final int NUM_GENERATIONS = 50;
+
 
 	public static void main(String[] args) {
 		ExpMainApp app = new ExpMainApp();
@@ -18,11 +20,8 @@ public class ExpMainApp {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!population.hasFoundSolution()) {
+				while (population.getNumGenerations() <= NUM_GENERATIONS)
 					population.runEvolutionaryLoop();
-				} else {
-					((Timer) e.getSource()).stop();
-				}
 			}
 		});
 		ExpAllelesViewer expAllelesViewer = new ExpAllelesViewer(population, t);

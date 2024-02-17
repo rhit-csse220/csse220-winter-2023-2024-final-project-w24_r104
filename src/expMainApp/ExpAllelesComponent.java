@@ -104,6 +104,9 @@ public class ExpAllelesComponent extends JComponent {
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 6 + 10);
 		g2.drawString("?", GRAPH_OFFSET_FROM_BORDER + 8 * HORIZONTAL_UNIT_WIDTH + 20,
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 7 + 10);
+		System.out.println(zeroAlleles);
+		System.out.println(oneAlleles);
+		System.out.println(unknownAlleles);
 
 	}
 
