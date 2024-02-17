@@ -3,10 +3,8 @@ package expMainApp;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.Arrays;
-import java.util.Random;
 
-import mainApp.Population;
+import java.util.Random;
 
 public class ExpIndividual implements Comparable<ExpIndividual>{
 	
@@ -15,6 +13,7 @@ public class ExpIndividual implements Comparable<ExpIndividual>{
 	private int[] genotype;
 	private int[] phenotype;
 	private int numLearningTrialsLeft = 1000;
+	public static final int GENOME_LENGTH = 20;
 	
 	public ExpIndividual(int[] genotype) {
 		this.genotype = genotype;
@@ -23,7 +22,7 @@ public class ExpIndividual implements Comparable<ExpIndividual>{
 	
 	public ExpIndividual() {
 		Random r = new Random();
-		int[] chromosome = new int[20];
+		int[] chromosome = new int[GENOME_LENGTH];
 		for (int i = 0; i < 20; i++) {
 			int randomAllele = r.nextInt(4);
 			if (randomAllele > 1)
@@ -60,7 +59,7 @@ public class ExpIndividual implements Comparable<ExpIndividual>{
 	public double calculateFitness() {
 		return 1 + (19 * this.numLearningTrialsLeft / 1000);
 	}
-
+	
 	public int[] getGenotype() {
 		return this.genotype;
 	}
@@ -93,6 +92,22 @@ public class ExpIndividual implements Comparable<ExpIndividual>{
 	public String toString() {
 		return "Individual with Fitness=" + calculateFitness();
 	}
-	
+
+	public int[] getAllelesCount() {
+		int count0s = 0;
+		int count1s = 0;
+		int countUnknowns = 0;
+		for (int i : this.genotype) {
+			if (i == 0)
+				count0s++;
+			else if (i == 1)
+				count1s++;
+			else
+				countUnknowns++;
+		}
+		int[] allelesCount = {count0s, count1s, countUnknowns};
+		return allelesCount;
+	}
+
 }
 
