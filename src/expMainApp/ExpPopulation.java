@@ -7,12 +7,14 @@ import java.util.Random;
 
 public class ExpPopulation {
 
+	public static final int NUM_INDIVIDUALS = 100;
+	
 	private ArrayList<ExpIndividual> individuals = new ArrayList<ExpIndividual>();
 	private int totalPopulationFitness;
 	private int numGenerations = 0;
 
 	public ExpPopulation() {
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < NUM_INDIVIDUALS; i++) {
 			this.individuals.add(new ExpIndividual());
 		}
 	}
@@ -25,7 +27,8 @@ public class ExpPopulation {
 
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
-		System.out.println("Best Individual: " + this.getFittestIndividual());
+		double[] alleleFrequencies = getAlleleFrequencies();
+		System.out.println("Allele Frequencies: " + alleleFrequencies[0] + ", " + alleleFrequencies[1] + ", " + alleleFrequencies[2]);
 		System.out.println();
 	}
 
@@ -87,32 +90,20 @@ public class ExpPopulation {
 			}
 		}
 	}
-
-	public double getZeroAllelesFrequencies() {
-		double count0s = 0;
-		for (ExpIndividual individual : this.individuals) {
-			int[] allelesCount = individual.getAllelesCount();
-			count0s += allelesCount[0];
-		}
-		return count0s / (this.individuals.size() * ExpIndividual.GENOME_LENGTH);
-	}
-
-	public double getOneAllelesFrequencies() {
-		double count1s = 0;
-		for (ExpIndividual individual : this.individuals) {
-			int[] allelesCount = individual.getAllelesCount();
-			count1s += allelesCount[1];
-		}
-		return count1s / (this.individuals.size() * ExpIndividual.GENOME_LENGTH);
-	}
 	
-	public double getUnknownAllelesFrequencies() {
+	public double[] getAlleleFrequencies() {
+		double count0s = 0;
+		double count1s = 0;
 		double countUnknowns = 0;
 		for (ExpIndividual individual : this.individuals) {
 			int[] allelesCount = individual.getAllelesCount();
+			count0s += allelesCount[0];
+			count1s += allelesCount[1];
 			countUnknowns += allelesCount[2];
 		}
-		return countUnknowns / (this.individuals.size() * ExpIndividual.GENOME_LENGTH);
+		int totalNumAlleles = NUM_INDIVIDUALS * ExpIndividual.GENOME_LENGTH;
+		double[] alleleFrequencies = {count0s/totalNumAlleles, count1s/totalNumAlleles, countUnknowns/totalNumAlleles};
+		return alleleFrequencies;
 	}
 
 }

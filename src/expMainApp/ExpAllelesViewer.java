@@ -31,7 +31,8 @@ public class ExpAllelesViewer {
 		t.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				component.update();
+				if (pop.getNumGenerations() < ExpMainApp.NUM_GENERATIONS)
+					component.update();
 			}
 		});
 		
@@ -40,8 +41,9 @@ public class ExpAllelesViewer {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				t.start();
-				if (pop.getNumGenerations() == ExpMainApp.NUM_GENERATIONS)
+				if (!t.isRunning())
+					t.start();
+				else
 					t.stop();
 			}
 		});

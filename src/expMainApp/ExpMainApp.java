@@ -20,13 +20,11 @@ public class ExpMainApp {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
-				while (population.getNumGenerations() <= NUM_GENERATIONS)
-=======
-				if (population.getNumGenerations() < 20) {
->>>>>>> branch 'master' of https://github.com/rhit-csse220/csse220-winter-2023-2024-final-project-w24_r104.git
+				if (population.getNumGenerations() < NUM_GENERATIONS) {
 					population.runEvolutionaryLoop();
+				}
 			}
+				
 		});
 		ExpAllelesViewer expAllelesViewer = new ExpAllelesViewer(population, t);
 	}

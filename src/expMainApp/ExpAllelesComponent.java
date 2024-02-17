@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
@@ -104,22 +105,19 @@ public class ExpAllelesComponent extends JComponent {
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 6 + 10);
 		g2.drawString("?", GRAPH_OFFSET_FROM_BORDER + 8 * HORIZONTAL_UNIT_WIDTH + 20,
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 7 + 10);
-		System.out.println(zeroAlleles);
-		System.out.println(oneAlleles);
-		System.out.println(unknownAlleles);
-
 	}
 
 	public void update() {
-		zeroAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (zeroAlleles.size() + 1),
+		double[] alleleFrequencies = this.population.getAlleleFrequencies();
+		zeroAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 8 * (zeroAlleles.size() + 1),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-						- this.population.getZeroAllelesFrequencies() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
-		oneAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (oneAlleles.size() + 1),
+						- alleleFrequencies[0] * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
+		oneAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 8 * (oneAlleles.size() + 1),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-						- this.population.getOneAllelesFrequencies() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
-		unknownAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (unknownAlleles.size() + 1),
+						- alleleFrequencies[1] * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
+		unknownAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 8 * (unknownAlleles.size() + 1),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-						- this.population.getUnknownAllelesFrequencies() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
+						- alleleFrequencies[2] * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
 		repaint();
 	}
 }
