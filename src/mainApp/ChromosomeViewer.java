@@ -124,10 +124,6 @@ public class ChromosomeViewer {
 			public void actionPerformed(ActionEvent e) {
 				Random r = new Random();
 				int randomIndex = r.nextInt(BACKGROUND_COLORS.length);
-				// ensure a new background color?
-//				while (NATURAL_EVENTS.get(BACKGROUND_COLORS[randomIndex]).equals(frame.getBackground())) {
-//					randomIndex = r.nextInt(BACKGROUND_COLORS.length);
-//				}
 				Color newBackgroundColor = NATURAL_EVENTS.get(BACKGROUND_COLORS[randomIndex]);
 				frame.getContentPane().setBackground(newBackgroundColor);
 				frame.setTitle(BACKGROUND_COLORS[randomIndex]);

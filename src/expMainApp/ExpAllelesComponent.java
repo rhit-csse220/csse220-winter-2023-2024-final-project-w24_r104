@@ -75,7 +75,6 @@ public class ExpAllelesComponent extends JComponent {
 			g2.drawString("" + 5 * i, GRAPH_OFFSET_FROM_BORDER + i * HORIZONTAL_UNIT_WIDTH - 5,
 					GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10 + AXES_DIVISOR_LENGTH / 2 + 15);
 		}
-//		Stroke originalStroke = g2.getStroke();
 		BasicStroke stroke = new BasicStroke(LINE_WIDTH);
 		g2.setStroke(stroke);
 
