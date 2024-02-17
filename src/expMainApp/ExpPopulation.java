@@ -25,8 +25,13 @@ public class ExpPopulation {
 		
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
-//		System.out.println("Best Individual: " + this.getFittestIndividual());
+		System.out.println("Best Individual: " + this.getFittestIndividual());
 		System.out.println();
+	}
+
+	private ExpIndividual getFittestIndividual() {
+		Collections.sort(this.individuals);
+		return this.individuals.get(0);
 	}
 
 	public void createNewGeneration() {

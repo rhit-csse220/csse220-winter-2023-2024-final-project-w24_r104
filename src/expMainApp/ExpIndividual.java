@@ -8,7 +8,7 @@ import java.util.Random;
 
 import mainApp.Population;
 
-public class ExpIndividual {
+public class ExpIndividual implements Comparable<ExpIndividual>{
 	
 	public static final int NUM_COLUMNS = 10;
 	
@@ -83,6 +83,16 @@ public class ExpIndividual {
 				thisY += sideLength;
 			}
 		}
+
+	@Override
+	public int compareTo(ExpIndividual o) {
+		return (int) (o.calculateFitness() - this.calculateFitness());
+	}
+	
+	@Override
+	public String toString() {
+		return "Individual with Fitness=" + calculateFitness();
+	}
 	
 }
 
