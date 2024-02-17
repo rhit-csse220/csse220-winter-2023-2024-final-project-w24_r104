@@ -1,5 +1,6 @@
 package mainApp;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -31,6 +32,7 @@ public class BestFitComponent extends ChromosomeComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		if (this.population.hasRunEvolutionaryLoop() == true) {
 			this.population.getFittestIndividual().drawOn(g2, 0, 0, this.sideLength);
+			g2.setColor(Color.BLACK);
 			g2.drawString("Fitness: " + this.population.getBestFitness(), 0, this.sideLength * 11);
 		}
 	}

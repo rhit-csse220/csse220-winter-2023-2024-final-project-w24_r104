@@ -21,10 +21,11 @@ public class Individual implements Comparable<Individual> {
 			1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
 			1, 1, 1, 1, 1, 1, 1, 1, 1 };
-	public static final boolean IS_COLORFUL = true;
+	public static final boolean IS_COLORFUL = false;
 	
 	public static final int NUM_COLUMNS = 10;
 	private int[] chromosome;
+	// all individuals evolve to match the same ideal chromosome, hence the static variable
 	private static int[] idealChromosome = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
 	public Individual(int[] chromosome) {
@@ -35,7 +36,7 @@ public class Individual implements Comparable<Individual> {
 		Random r = new Random();
 		int[] chromosome = new int[100];
 		for (int i = 0; i < 100; i++) {
-			chromosome[i] = r.nextInt(1);
+			chromosome[i] = r.nextInt(2);
 		}
 		this.chromosome = chromosome;
 	}
@@ -114,16 +115,14 @@ public class Individual implements Comparable<Individual> {
 			int thisY = y;
 			for (int i = 0; i < chromosome.length / NUM_COLUMNS; i++) { // iterates through rows
 				for (int j = 0; j < NUM_COLUMNS; j++) { // iterates through columns
-					if (this.chromosome[NUM_COLUMNS * i + j] == 0) {
+					if (this.chromosome[NUM_COLUMNS * i + j] == 0)
 						g2.setColor(Color.BLACK);
-						Rectangle geneRect = new Rectangle(thisX, thisY, sideLength, sideLength);
-						g2.fill(geneRect);
-					} else {
+					else if (this.chromosome[NUM_COLUMNS * i + j] == 1)
 						g2.setColor(Color.GREEN);
-						Rectangle geneRect = new Rectangle(thisX, thisY, sideLength, sideLength);
-						g2.fill(geneRect);
-						g2.setColor(Color.BLACK);
-					}
+					else
+						g2.setColor(Color.YELLOW);
+					Rectangle geneRect = new Rectangle(thisX, thisY, sideLength, sideLength);
+					g2.fill(geneRect);
 					thisX += sideLength;
 				}
 				thisX = x;

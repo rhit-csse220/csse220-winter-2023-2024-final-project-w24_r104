@@ -1,4 +1,5 @@
 package mainApp;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.FileNotFoundException;
@@ -38,12 +39,14 @@ public class ChromosomeComponent extends JComponent {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		population.drawOn(g2, Population.ALLELE_SIDE_LENGTH);
-		if (population.hasRunEvolutionaryLoop())
+		if (population.hasRunEvolutionaryLoop()) {
+			g2.setColor(Color.BLACK);
 			g2.drawString(
 					"Average Hamming Distance: " + String.format("%.20f",
 							population.calculateHammingDistance()
 									/ population.getFittestIndividual().getChromosome().length),
 					0, Population.ALLELE_SIDE_LENGTH * 112);
+		}
 	}
 
 	public void mutateSquare(int x, int y, int sideLength) {
