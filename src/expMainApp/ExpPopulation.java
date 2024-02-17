@@ -24,8 +24,8 @@ public class ExpPopulation {
 			individual.liveLife();
 		}
 		createNewGeneration();
-
 		numGenerations++;
+		
 		System.out.println(numGenerations + "th generation");
 		double[] alleleFrequencies = getAlleleFrequencies();
 		System.out.println("Allele Frequencies: " + alleleFrequencies[0] + ", " + alleleFrequencies[1] + ", " + alleleFrequencies[2]);
@@ -43,6 +43,7 @@ public class ExpPopulation {
 		while (newGen.size() < this.individuals.size()) {
 			newGen.add(crossover());
 		}
+		this.individuals = newGen;
 	}
 
 	public ExpIndividual crossover() {

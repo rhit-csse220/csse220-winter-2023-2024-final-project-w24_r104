@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class ExpMainApp {
-	public static final int NUM_GENERATIONS = 20;
+	public static final int NUM_GENERATIONS = 50;
 
 	public static void main(String[] args) {
 		ExpMainApp app = new ExpMainApp();
