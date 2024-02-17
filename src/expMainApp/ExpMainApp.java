@@ -18,7 +18,7 @@ public class ExpMainApp {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!population.hasFoundSolution()) {
+				if (population.getNumGenerations() < 20) {
 					population.runEvolutionaryLoop();
 				} else {
 					((Timer) e.getSource()).stop();

@@ -117,10 +117,8 @@ public class Individual implements Comparable<Individual> {
 				for (int j = 0; j < NUM_COLUMNS; j++) { // iterates through columns
 					if (this.chromosome[NUM_COLUMNS * i + j] == 0)
 						g2.setColor(Color.BLACK);
-					else if (this.chromosome[NUM_COLUMNS * i + j] == 1)
-						g2.setColor(Color.GREEN);
 					else
-						g2.setColor(Color.YELLOW);
+						g2.setColor(Color.GREEN);
 					Rectangle geneRect = new Rectangle(thisX, thisY, sideLength, sideLength);
 					g2.fill(geneRect);
 					thisX += sideLength;
