@@ -1,4 +1,4 @@
-package mainApp;
+package expMainApp;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +25,7 @@ public class ExpMainApp {
 				}
 			}
 		});
+		ExpAllelesViewer expAllelesViewer = new ExpAllelesViewer(population, t);
 	}
 	
 }

@@ -1,4 +1,4 @@
-package mainApp;
+package expMainApp;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

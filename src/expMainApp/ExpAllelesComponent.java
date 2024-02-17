@@ -1,4 +1,4 @@
-package mainApp;
+package expMainApp;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -9,6 +9,8 @@ import java.awt.Shape;
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
+
+import mainApp.DataVisualizationViewer;
 
 public class ExpAllelesComponent extends JComponent {
 	private ExpPopulation population;

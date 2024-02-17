@@ -1,4 +1,4 @@
-package mainApp;
+package expMainApp;
 
 import java.util.Arrays;
 import java.util.Random;
