@@ -118,6 +118,7 @@ public class ExpAllelesComponent extends JComponent {
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
 						- alleleFrequencies[1] * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
 		unknownAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 8 * (unknownAlleles.size() + 1),
+				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
 						- alleleFrequencies[2] * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
 		repaint();
 	}
