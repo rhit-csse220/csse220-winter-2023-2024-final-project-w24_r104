@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class ExpAllelesComponent extends JComponent {
 	public static final int VERTICAL_UNIT_WIDTH = (ExpAllelesViewer.FRAME_HEIGHT - 4 * GRAPH_OFFSET_FROM_BORDER) / 10;
 	public static final int AXES_DIVISOR_LENGTH = 10;
 	public static final int LINE_WIDTH = 3;
-	
+
 	private ArrayList<Point2D.Double> zeroAlleles = new ArrayList<Point2D.Double>();
 	private ArrayList<Point2D.Double> oneAlleles = new ArrayList<Point2D.Double>();
 	private ArrayList<Point2D.Double> unknownAlleles = new ArrayList<Point2D.Double>();
@@ -67,7 +68,10 @@ public class ExpAllelesComponent extends JComponent {
 			g2.drawString("" + 5 * i, GRAPH_OFFSET_FROM_BORDER + i * HORIZONTAL_UNIT_WIDTH - 5,
 					GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10 + AXES_DIVISOR_LENGTH / 2 + 15);
 		}
-		
+//		Stroke originalStroke = g2.getStroke();
+		BasicStroke stroke = new BasicStroke(LINE_WIDTH);
+		g2.setStroke(stroke);
+
 		g2.setColor(Color.GREEN);
 		for (int i = 0; i < zeroAlleles.size() - 1; i++) {
 			g2.drawLine((int) zeroAlleles.get(i).x, (int) zeroAlleles.get(i).y, (int) zeroAlleles.get(i + 1).x,
@@ -83,13 +87,11 @@ public class ExpAllelesComponent extends JComponent {
 			g2.drawLine((int) unknownAlleles.get(i).x, (int) unknownAlleles.get(i).y, (int) unknownAlleles.get(i + 1).x,
 					(int) unknownAlleles.get(i + 1).y);
 		}
-		
-//		BasicStroke dashed = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] { 9 }, 0);
-//		g2.setStroke(dashed);
-		int startingX = GRAPH_OFFSET_FROM_BORDER + 8 * HORIZONTAL_UNIT_WIDTH;
-		int startingY = GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 5;
-		
-		g2.drawLine(startingX, startingY, startingX + 10, startingY);
+
+
+		g2.setColor(Color.GREEN);
+		g2.fill(new Rectangle.Double(GRAPH_OFFSET_FROM_BORDER + 8 * HORIZONTAL_UNIT_WIDTH,
+				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 5, 15, 15));
 		g2.setColor(Color.ORANGE);
 		g2.fill(new Rectangle.Double(GRAPH_OFFSET_FROM_BORDER + 8 * HORIZONTAL_UNIT_WIDTH,
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 6, 15, 15));
@@ -104,22 +106,22 @@ public class ExpAllelesComponent extends JComponent {
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 6 + 10);
 		g2.drawString("?", GRAPH_OFFSET_FROM_BORDER + 8 * HORIZONTAL_UNIT_WIDTH + 20,
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 7 + 10);
-		System.out.println(zeroAlleles);
-		System.out.println(oneAlleles);
-		System.out.println(unknownAlleles);
+		System.out.println("ZERO: " + zeroAlleles);
+		System.out.println("ONE: " + oneAlleles);
+		System.out.println("? :" + unknownAlleles);
 
 	}
 
 	public void update() {
-		zeroAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (zeroAlleles.size() + 1),
+		zeroAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 8 * (zeroAlleles.size()),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-						- this.population.getZeroAllelesFrequencies() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
-		oneAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (oneAlleles.size() + 1),
+						- this.population.getZeroAllelesFrequencies() * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH + 3));
+		oneAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 8 * (oneAlleles.size()),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-						- this.population.getOneAllelesFrequencies() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
-		unknownAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 5 * (unknownAlleles.size() + 1),
+						- this.population.getOneAllelesFrequencies() * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH + 3));
+		unknownAlleles.add(new Point2D.Double(GRAPH_OFFSET_FROM_BORDER + 8 * (unknownAlleles.size()),
 				GRAPH_OFFSET_FROM_BORDER + VERTICAL_UNIT_WIDTH * 10
-						- this.population.getUnknownAllelesFrequencies() / 100.0 * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH));
+						- this.population.getUnknownAllelesFrequencies() * VERTICAL_UNIT_WIDTH * 10 - LINE_WIDTH + 3));
 		repaint();
 	}
 }
