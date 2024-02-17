@@ -1,5 +1,6 @@
 package expMainApp;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -8,8 +9,6 @@ public class ExpPopulation {
 
 	private ArrayList<ExpIndividual> individuals = new ArrayList<ExpIndividual>();
 	private int totalPopulationFitness;
-	private boolean hasFoundSolution = false;
-	
 	private int numGenerations = 0;
 
 	public ExpPopulation() {
@@ -26,7 +25,13 @@ public class ExpPopulation {
 
 		numGenerations++;
 		System.out.println(numGenerations + "th generation");
+		System.out.println("Best Individual: " + this.getFittestIndividual());
 		System.out.println();
+	}
+
+	private ExpIndividual getFittestIndividual() {
+		Collections.sort(this.individuals);
+		return this.individuals.get(0);
 	}
 
 	public void createNewGeneration() {
@@ -70,11 +75,17 @@ public class ExpPopulation {
 			this.totalPopulationFitness += individual.calculateFitness();
 		}
 	}
-
-	public boolean hasFoundSolution() {
-		if (hasFoundSolution)
-			System.out.println("Found solution after " + numGenerations + " generations.");
-		return this.hasFoundSolution;
+	
+	public int getNumGenerations() {
+		return this.numGenerations;
+	}
+	
+	public void drawOn(Graphics2D g2, int sideLength) {
+		for (int i = 0; i < individuals.size() / 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				individuals.get(10 * i + j).drawOn(g2, 10 + j * sideLength * 11, i * sideLength * 11, sideLength);
+			}
+		}
 	}
 
 	public double getZeroAllelesFrequencies() {
@@ -103,10 +114,5 @@ public class ExpPopulation {
 		}
 		return countUnknowns / (this.individuals.size() * ExpIndividual.GENOME_LENGTH);
 	}
-	
-	public int getNumGenerations() {
-		return numGenerations;
-	}
-
 
 }

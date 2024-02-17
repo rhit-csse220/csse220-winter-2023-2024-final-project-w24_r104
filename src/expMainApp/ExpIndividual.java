@@ -1,8 +1,15 @@
 package expMainApp;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+
 import java.util.Random;
 
-public class ExpIndividual {
+public class ExpIndividual implements Comparable<ExpIndividual>{
+	
+	public static final int NUM_COLUMNS = 10;
+	
 	private int[] genotype;
 	private int[] phenotype;
 	private int numLearningTrialsLeft = 1000;
@@ -56,6 +63,35 @@ public class ExpIndividual {
 	public int[] getGenotype() {
 		return this.genotype;
 	}
+	
+	public void drawOn(Graphics2D g2, int x, int y, int sideLength) {
+		int thisX = x;
+		int thisY = y;
+		for (int i = 0; i < this.genotype.length / NUM_COLUMNS; i++) { // iterates through rows
+			for (int j = 0; j < NUM_COLUMNS; j++) { // iterates through columns
+				if (this.genotype[NUM_COLUMNS * i + j] == 0)
+					g2.setColor(Color.BLACK);
+				else if (this.genotype[NUM_COLUMNS * i + j] == 1)
+					g2.setColor(Color.GREEN);
+				else						g2.setColor(Color.YELLOW);
+					Rectangle geneRect = new Rectangle(thisX, thisY, sideLength, sideLength);
+					g2.fill(geneRect);
+					thisX += sideLength;
+				}
+				thisX = x;
+				thisY += sideLength;
+			}
+		}
+
+	@Override
+	public int compareTo(ExpIndividual o) {
+		return (int) (o.calculateFitness() - this.calculateFitness());
+	}
+	
+	@Override
+	public String toString() {
+		return "Individual with Fitness=" + calculateFitness();
+	}
 
 	public int[] getAllelesCount() {
 		int count0s = 0;
@@ -74,3 +110,4 @@ public class ExpIndividual {
 	}
 
 }
+
