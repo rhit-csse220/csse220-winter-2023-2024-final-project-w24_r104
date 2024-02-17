@@ -3,7 +3,7 @@ package mainApp;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ExperimentPopulation extends Population {
+public class ExpPopulation extends Population {
 
 //	Collections.sort(this.individuals);
 //

@@ -3,7 +3,7 @@ package mainApp;
 import java.util.Arrays;
 import java.util.Random;
 
-public class ExperimentIndividual extends Individual {
+public class ExpIndividual extends Individual {
 	private int[] genotype;
 	private int[] phenotype;
 	private int numLearningTrialsLeft = 1000;
@@ -16,7 +16,7 @@ public class ExperimentIndividual extends Individual {
 		}
 	}
 	
-	public ExperimentIndividual() {
+	public ExpIndividual() {
 		Random r = new Random();
 		int[] chromosome = new int[20];
 		for (int i = 0; i < 20; i++) {
