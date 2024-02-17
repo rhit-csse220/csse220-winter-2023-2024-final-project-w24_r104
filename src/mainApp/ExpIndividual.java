@@ -3,16 +3,17 @@ package mainApp;
 import java.util.Arrays;
 import java.util.Random;
 
-public class ExperimentIndividual extends Individual {
+public class ExpIndividual {
 	private int[] genotype;
 	private int[] phenotype;
 	private int numLearningTrialsLeft = 1000;
 	
-	public static void main(String[] args) {
-		new ExperimentIndividual().liveLife();
+	public ExpIndividual(int[] genotype) {
+		this.genotype = genotype;
+		this.phenotype = genotype.clone();
 	}
 	
-	public ExperimentIndividual() {
+	public ExpIndividual() {
 		Random r = new Random();
 		int[] chromosome = new int[20];
 		for (int i = 0; i < 20; i++) {
@@ -50,6 +51,10 @@ public class ExperimentIndividual extends Individual {
 	
 	public double calculateFitness() {
 		return 1 + (19 * this.numLearningTrialsLeft / 1000);
+	}
+
+	public int[] getGenotype() {
+		return this.genotype;
 	}
 	
 }
