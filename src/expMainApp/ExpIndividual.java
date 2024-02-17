@@ -5,7 +5,15 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import java.util.Random;
-
+/**
+ * Class: ExpIndividual
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: Stores the chromosome data of an organism, which can be 0, 1, or ?
+ *         and the methods used to evaluate and modify it.
+ *         <br>
+ *         Restrictions: None
+ */
 public class ExpIndividual implements Comparable<ExpIndividual>{
 	
 	public static final int NUM_COLUMNS = 10;

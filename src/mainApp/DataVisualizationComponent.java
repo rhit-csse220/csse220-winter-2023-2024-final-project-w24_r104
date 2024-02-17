@@ -17,7 +17,8 @@ import javax.swing.JComponent;
  * Class: DataVisualizationComponent
  * 
  * @author W24_R104 <br>
- *         Purpose: Stores fitness data over generations and draws the corresponding fitness lines.
+ *         Purpose: Stores fitness data over generations of a population and draws the corresponding
+ *         fitness lines.
  *         <br>
  *         Restrictions: None
  */

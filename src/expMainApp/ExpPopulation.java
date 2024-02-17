@@ -4,6 +4,15 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+/**
+ * Class: Population
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: This class represents an population of organisms. It can perform evolution with 
+ *         crossover and selection.
+ *         <br>
+ *         Restrictions: None
+ */
 
 public class ExpPopulation {
 

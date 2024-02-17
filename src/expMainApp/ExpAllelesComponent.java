@@ -15,10 +15,16 @@ import javax.swing.JComponent;
 import javax.swing.Timer;
 
 import mainApp.DataVisualizationViewer;
-
+/**
+ * Class: ExpAllelesCompoent
+ * 
+ * @author W24_R104 <br>
+ *         Purpose: Stores alleles data over generations and draws the corresponding lines.
+ *         <br>
+ *         Restrictions: None
+ */
 public class ExpAllelesComponent extends JComponent {
 	private ExpPopulation population;
-	private Timer t;
 
 	public static final int GRAPH_OFFSET_FROM_BORDER = 40;
 	public static final int HORIZONTAL_UNIT_WIDTH = 2 + (ExpAllelesViewer.FRAME_WIDTH - 3 * GRAPH_OFFSET_FROM_BORDER) / 10;

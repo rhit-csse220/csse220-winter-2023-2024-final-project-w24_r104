@@ -22,7 +22,7 @@ public class MainApp {
 
 	private void runApp() {
 		Population population = new Population();
-		Timer t = new Timer(100, new ActionListener() {
+		Timer t = new Timer(1, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
